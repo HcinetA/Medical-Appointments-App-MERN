@@ -1,0 +1,19 @@
+{
+  "name": "medgest",
+  "version": "1.0.0",
+  "description": "medical gest app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HcinetA/medgest.git"
+  },
+  "author": "Trillium Agency",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HcinetA/medgest/issues"
+  },
+  "homepage": "https://github.com/HcinetA/medgest#readme"
+}
