@@ -24,6 +24,7 @@ const Aconsultation = () => {
 		date: '',
 		time: '',
 		reste: '',
+		note_assistante: '',
 	});
 	const {
 		name,
@@ -38,6 +39,7 @@ const Aconsultation = () => {
 		date,
 		time,
 		reste,
+		note_assistante,
 	} = formData;
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -83,10 +85,10 @@ const Aconsultation = () => {
 									<Form.Field
 										id='form-textarea-control-opinion'
 										control={TextArea}
-										label='Notes'
-										name='notes'
+										label='Notes Assistante'
+										name='note_assistante'
 										placeholder='Notes'
-										value={notes}
+										value={note_assistante}
 										onChange={(e) => onChange(e)}
 									/>
 									<Segment>
@@ -98,7 +100,6 @@ const Aconsultation = () => {
 												type='date'
 												name='date'
 												value={date}
-												required
 												onChange={(e) => onChange(e)}
 											/>
 
@@ -107,7 +108,6 @@ const Aconsultation = () => {
 												type='time'
 												name='time'
 												value={time}
-												required
 												onChange={(e) => onChange(e)}
 											/>
 										</Form.Group>
@@ -152,7 +152,7 @@ const Aconsultation = () => {
 										value={acte}
 									/>
 
-									<Header as='h5'>Notes </Header>
+									<Header as='h5'>Notes Docteur </Header>
 
 									<Form.Field
 										id='form-textarea-control-opinion'

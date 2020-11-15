@@ -24,9 +24,9 @@ const Newrdv = () => {
 			<p className='lead'>
 				<i className='fas fa-user'></i> Create an appointment
 			</p>
-
-			<Button positive icon='plus' content='New Patient' />
-
+			<Segment basic textAlign='right'>
+				<Button positive icon='plus' content='New Patient' />
+			</Segment>
 			<Segment raised>
 				<Form onSubmit={(e) => onSubmit(e)}>
 					<Form.Group widths='equal'>

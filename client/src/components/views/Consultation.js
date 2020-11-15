@@ -8,6 +8,7 @@ import {
 	Header,
 	Button,
 	Comment,
+	Icon,
 } from 'semantic-ui-react';
 
 const Consultation = () => {
@@ -41,6 +42,10 @@ const Consultation = () => {
 
 	return (
 		<Fragment>
+			<Button icon labelPosition='left'>
+				<Icon name='left arrow' />
+				Back to Appointment list
+			</Button>
 			<h1 className='large text-primary'>New rdv</h1>
 			<p className='lead'>
 				<i className='fas fa-user'></i> Create an appointment

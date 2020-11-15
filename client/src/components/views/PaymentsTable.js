@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
-import { Table, Button, Menu, Icon, Segment, Input } from 'semantic-ui-react';
+import { Table, Button, Menu, Icon, Input, Segment } from 'semantic-ui-react';
 
-const AppointmentTable = () => {
+const PaymentsTable = () => {
 	return (
 		<Fragment>
 			<h1 className='large text-primary'>Perscriptions</h1>
@@ -9,8 +9,6 @@ const AppointmentTable = () => {
 				<i className='fas fa-user'></i> Liste
 			</p>
 			<Segment basic textAlign='right'>
-				<Button positive icon='filter' content='My Appointments' />
-
 				<Input
 					action={{ color: 'blue', content: 'Search' }}
 					icon='search'
@@ -22,9 +20,10 @@ const AppointmentTable = () => {
 				<Table.Header>
 					<Table.Row>
 						<Table.HeaderCell>#</Table.HeaderCell>
-						<Table.HeaderCell>Name</Table.HeaderCell>
-						<Table.HeaderCell>Date </Table.HeaderCell>
-						<Table.HeaderCell>Doctor</Table.HeaderCell>
+						<Table.HeaderCell>Code</Table.HeaderCell>
+						<Table.HeaderCell>Patient </Table.HeaderCell>
+						<Table.HeaderCell>Amount</Table.HeaderCell>
+						<Table.HeaderCell>Date</Table.HeaderCell>
 						<Table.HeaderCell>Status</Table.HeaderCell>
 						<Table.HeaderCell>Options</Table.HeaderCell>
 					</Table.Row>
@@ -33,11 +32,12 @@ const AppointmentTable = () => {
 				<Table.Body>
 					<Table.Row>
 						<Table.Cell>1</Table.Cell>
-						<Table.Cell>Amin Hcinet</Table.Cell>
-						<Table.Cell>15/10/2020</Table.Cell>
+						<Table.Cell>1X58DFS</Table.Cell>
 						<Table.Cell>John Doe</Table.Cell>
+						<Table.Cell>120 DT</Table.Cell>
+						<Table.Cell>15/10/2020</Table.Cell>
+
 						<Table.Cell>
-							{' '}
 							<Button circular icon='x' disabled />
 						</Table.Cell>
 						<Table.Cell>
@@ -46,89 +46,96 @@ const AppointmentTable = () => {
 					</Table.Row>
 					<Table.Row>
 						<Table.Cell>1</Table.Cell>
-						<Table.Cell>Amin Hcinet</Table.Cell>
-						<Table.Cell>15/10/2020</Table.Cell>
+						<Table.Cell>1X58DFS</Table.Cell>
 						<Table.Cell>John Doe</Table.Cell>
+						<Table.Cell>120 DT</Table.Cell>
+						<Table.Cell>15/10/2020</Table.Cell>
+
 						<Table.Cell>
-							{' '}
 							<Button circular icon='x' disabled />
 						</Table.Cell>
 						<Table.Cell>
 							<Button primary>manage</Button>
 						</Table.Cell>
-					</Table.Row>{' '}
+					</Table.Row>
 					<Table.Row>
 						<Table.Cell>1</Table.Cell>
-						<Table.Cell>Amin Hcinet</Table.Cell>
-						<Table.Cell>15/10/2020</Table.Cell>
+						<Table.Cell>1X58DFS</Table.Cell>
 						<Table.Cell>John Doe</Table.Cell>
-						<Table.Cell>
-							{' '}
-							<Button circular icon='check' disabled />
-						</Table.Cell>
-						<Table.Cell>
-							<Button primary>manage</Button>
-						</Table.Cell>
-					</Table.Row>{' '}
-					<Table.Row>
-						<Table.Cell>1</Table.Cell>
-						<Table.Cell>Amin Hcinet</Table.Cell>
+						<Table.Cell>120 DT</Table.Cell>
 						<Table.Cell>15/10/2020</Table.Cell>
-						<Table.Cell>John Doe</Table.Cell>
+
 						<Table.Cell>
-							{' '}
 							<Button circular icon='x' disabled />
 						</Table.Cell>
 						<Table.Cell>
 							<Button primary>manage</Button>
 						</Table.Cell>
-					</Table.Row>{' '}
+					</Table.Row>
 					<Table.Row>
 						<Table.Cell>1</Table.Cell>
-						<Table.Cell>Amin Hcinet</Table.Cell>
-						<Table.Cell>15/10/2020</Table.Cell>
+						<Table.Cell>1X58DFS</Table.Cell>
 						<Table.Cell>John Doe</Table.Cell>
+						<Table.Cell>120 DT</Table.Cell>
+						<Table.Cell>15/10/2020</Table.Cell>
+
 						<Table.Cell>
-							{' '}
 							<Button circular icon='check' disabled />
 						</Table.Cell>
 						<Table.Cell>
 							<Button primary>manage</Button>
 						</Table.Cell>
-					</Table.Row>{' '}
+					</Table.Row>
 					<Table.Row>
 						<Table.Cell>1</Table.Cell>
-						<Table.Cell>Amin Hcinet</Table.Cell>
-						<Table.Cell>15/10/2020</Table.Cell>
+						<Table.Cell>1X58DFS</Table.Cell>
 						<Table.Cell>John Doe</Table.Cell>
+						<Table.Cell>120 DT</Table.Cell>
+						<Table.Cell>15/10/2020</Table.Cell>
+
 						<Table.Cell>
-							{' '}
+							<Button circular icon='x' disabled />
+						</Table.Cell>
+						<Table.Cell>
+							<Button primary>manage</Button>
+						</Table.Cell>
+					</Table.Row>
+					<Table.Row>
+						<Table.Cell>1</Table.Cell>
+						<Table.Cell>1X58DFS</Table.Cell>
+						<Table.Cell>John Doe</Table.Cell>
+						<Table.Cell>120 DT</Table.Cell>
+						<Table.Cell>15/10/2020</Table.Cell>
+
+						<Table.Cell>
+							<Button circular icon='x' disabled />
+						</Table.Cell>
+						<Table.Cell>
+							<Button primary>manage</Button>
+						</Table.Cell>
+					</Table.Row>
+					<Table.Row>
+						<Table.Cell>1</Table.Cell>
+						<Table.Cell>1X58DFS</Table.Cell>
+						<Table.Cell>John Doe</Table.Cell>
+						<Table.Cell>120 DT</Table.Cell>
+						<Table.Cell>15/10/2020</Table.Cell>
+
+						<Table.Cell>
 							<Button circular icon='check' disabled />
 						</Table.Cell>
 						<Table.Cell>
 							<Button primary>manage</Button>
 						</Table.Cell>
-					</Table.Row>{' '}
+					</Table.Row>
 					<Table.Row>
 						<Table.Cell>1</Table.Cell>
-						<Table.Cell>Amin Hcinet</Table.Cell>
-						<Table.Cell>15/10/2020</Table.Cell>
+						<Table.Cell>1X58DFS</Table.Cell>
 						<Table.Cell>John Doe</Table.Cell>
-						<Table.Cell>
-							{' '}
-							<Button circular icon='check' disabled />
-						</Table.Cell>
-						<Table.Cell>
-							<Button primary>manage</Button>
-						</Table.Cell>
-					</Table.Row>{' '}
-					<Table.Row>
-						<Table.Cell>1</Table.Cell>
-						<Table.Cell>Amin Hcinet</Table.Cell>
+						<Table.Cell>120 DT</Table.Cell>
 						<Table.Cell>15/10/2020</Table.Cell>
-						<Table.Cell>John Doe</Table.Cell>
+
 						<Table.Cell>
-							{' '}
 							<Button circular icon='check' disabled />
 						</Table.Cell>
 						<Table.Cell>
@@ -138,7 +145,7 @@ const AppointmentTable = () => {
 				</Table.Body>
 				<Table.Footer>
 					<Table.Row>
-						<Table.HeaderCell colSpan='6'>
+						<Table.HeaderCell colSpan='12'>
 							<Menu floated='right' pagination>
 								<Menu.Item as='a' icon>
 									<Icon name='chevron left' />
@@ -159,4 +166,4 @@ const AppointmentTable = () => {
 	);
 };
 
-export default AppointmentTable;
+export default PaymentsTable;
