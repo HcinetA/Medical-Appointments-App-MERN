@@ -11,7 +11,9 @@ import AppointmentTable from './components/views/AppointmentTable';
 import PatientAffectation from './components/views/PatientAffectation';
 import Consultation from './components/views/Consultation';
 import Aconsultation from './components/views/Aconsultation';
-
+import PaymentsTable from './components/views/PaymentsTable';
+import Patients from './components/views/Patients';
+import PatientProfile from './components/views/PatientProfile';
 import './App.css';
 
 const App = () => (
@@ -30,6 +32,9 @@ const App = () => (
 					<Route exact path='/consultation' component={Consultation} />
 
 					<Route exact path='/aconsultation' component={Aconsultation} />
+					<Route exact path='/payments' component={PaymentsTable} />
+					<Route exact path='/patients' component={Patients} />
+					<Route exact path='/patient_profile' component={PatientProfile} />
 
 					<Route exact path='/form' component={Formi} />
 				</Switch>
