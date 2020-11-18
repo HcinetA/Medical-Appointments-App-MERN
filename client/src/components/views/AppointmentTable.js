@@ -34,7 +34,7 @@ const AppointmentTable = () => {
 					<Table.Row>
 						<Table.Cell>1</Table.Cell>
 						<Table.Cell>Amin Hcinet</Table.Cell>
-						<Table.Cell>15/10/2020</Table.Cell>
+						<Table.Cell>15/10/2020 | 12:30</Table.Cell>
 						<Table.Cell>John Doe</Table.Cell>
 						<Table.Cell>
 							{' '}
@@ -47,7 +47,7 @@ const AppointmentTable = () => {
 					<Table.Row>
 						<Table.Cell>1</Table.Cell>
 						<Table.Cell>Amin Hcinet</Table.Cell>
-						<Table.Cell>15/10/2020</Table.Cell>
+						<Table.Cell>15/10/2020 | 12:30</Table.Cell>
 						<Table.Cell>John Doe</Table.Cell>
 						<Table.Cell>
 							{' '}
@@ -60,7 +60,7 @@ const AppointmentTable = () => {
 					<Table.Row>
 						<Table.Cell>1</Table.Cell>
 						<Table.Cell>Amin Hcinet</Table.Cell>
-						<Table.Cell>15/10/2020</Table.Cell>
+						<Table.Cell>15/10/2020 | 12:30</Table.Cell>
 						<Table.Cell>John Doe</Table.Cell>
 						<Table.Cell>
 							{' '}
@@ -73,7 +73,7 @@ const AppointmentTable = () => {
 					<Table.Row>
 						<Table.Cell>1</Table.Cell>
 						<Table.Cell>Amin Hcinet</Table.Cell>
-						<Table.Cell>15/10/2020</Table.Cell>
+						<Table.Cell>15/10/2020 | 12:30</Table.Cell>
 						<Table.Cell>John Doe</Table.Cell>
 						<Table.Cell>
 							{' '}
@@ -86,7 +86,7 @@ const AppointmentTable = () => {
 					<Table.Row>
 						<Table.Cell>1</Table.Cell>
 						<Table.Cell>Amin Hcinet</Table.Cell>
-						<Table.Cell>15/10/2020</Table.Cell>
+						<Table.Cell>15/10/2020 | 12:30</Table.Cell>
 						<Table.Cell>John Doe</Table.Cell>
 						<Table.Cell>
 							{' '}
@@ -99,7 +99,7 @@ const AppointmentTable = () => {
 					<Table.Row>
 						<Table.Cell>1</Table.Cell>
 						<Table.Cell>Amin Hcinet</Table.Cell>
-						<Table.Cell>15/10/2020</Table.Cell>
+						<Table.Cell>15/10/2020 | 12:30</Table.Cell>
 						<Table.Cell>John Doe</Table.Cell>
 						<Table.Cell>
 							{' '}
@@ -112,7 +112,7 @@ const AppointmentTable = () => {
 					<Table.Row>
 						<Table.Cell>1</Table.Cell>
 						<Table.Cell>Amin Hcinet</Table.Cell>
-						<Table.Cell>15/10/2020</Table.Cell>
+						<Table.Cell>15/10/2020 | 12:30</Table.Cell>
 						<Table.Cell>John Doe</Table.Cell>
 						<Table.Cell>
 							{' '}
@@ -125,7 +125,7 @@ const AppointmentTable = () => {
 					<Table.Row>
 						<Table.Cell>1</Table.Cell>
 						<Table.Cell>Amin Hcinet</Table.Cell>
-						<Table.Cell>15/10/2020</Table.Cell>
+						<Table.Cell>15/10/2020 | 12:30</Table.Cell>
 						<Table.Cell>John Doe</Table.Cell>
 						<Table.Cell>
 							{' '}

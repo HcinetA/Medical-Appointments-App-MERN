@@ -23,6 +23,7 @@ const PaymentsTable = () => {
 						<Table.HeaderCell>Code</Table.HeaderCell>
 						<Table.HeaderCell>Patient </Table.HeaderCell>
 						<Table.HeaderCell>Amount</Table.HeaderCell>
+						<Table.HeaderCell>Reste</Table.HeaderCell>
 						<Table.HeaderCell>Date</Table.HeaderCell>
 						<Table.HeaderCell>Status</Table.HeaderCell>
 						<Table.HeaderCell>Options</Table.HeaderCell>
@@ -35,19 +36,6 @@ const PaymentsTable = () => {
 						<Table.Cell>1X58DFS</Table.Cell>
 						<Table.Cell>John Doe</Table.Cell>
 						<Table.Cell>120 DT</Table.Cell>
-						<Table.Cell>15/10/2020</Table.Cell>
-
-						<Table.Cell>
-							<Button circular icon='x' disabled />
-						</Table.Cell>
-						<Table.Cell>
-							<Button primary>manage</Button>
-						</Table.Cell>
-					</Table.Row>
-					<Table.Row>
-						<Table.Cell>1</Table.Cell>
-						<Table.Cell>1X58DFS</Table.Cell>
-						<Table.Cell>John Doe</Table.Cell>
 						<Table.Cell>120 DT</Table.Cell>
 						<Table.Cell>15/10/2020</Table.Cell>
 
@@ -63,6 +51,7 @@ const PaymentsTable = () => {
 						<Table.Cell>1X58DFS</Table.Cell>
 						<Table.Cell>John Doe</Table.Cell>
 						<Table.Cell>120 DT</Table.Cell>
+						<Table.Cell>120 DT</Table.Cell>
 						<Table.Cell>15/10/2020</Table.Cell>
 
 						<Table.Cell>
@@ -76,6 +65,22 @@ const PaymentsTable = () => {
 						<Table.Cell>1</Table.Cell>
 						<Table.Cell>1X58DFS</Table.Cell>
 						<Table.Cell>John Doe</Table.Cell>
+						<Table.Cell>120 DT</Table.Cell>
+						<Table.Cell>120 DT</Table.Cell>
+						<Table.Cell>15/10/2020</Table.Cell>
+
+						<Table.Cell>
+							<Button circular icon='x' disabled />
+						</Table.Cell>
+						<Table.Cell>
+							<Button primary>manage</Button>
+						</Table.Cell>
+					</Table.Row>
+					<Table.Row>
+						<Table.Cell>1</Table.Cell>
+						<Table.Cell>1X58DFS</Table.Cell>
+						<Table.Cell>John Doe</Table.Cell>
+						<Table.Cell>120 DT</Table.Cell>
 						<Table.Cell>120 DT</Table.Cell>
 						<Table.Cell>15/10/2020</Table.Cell>
 
@@ -91,19 +96,6 @@ const PaymentsTable = () => {
 						<Table.Cell>1X58DFS</Table.Cell>
 						<Table.Cell>John Doe</Table.Cell>
 						<Table.Cell>120 DT</Table.Cell>
-						<Table.Cell>15/10/2020</Table.Cell>
-
-						<Table.Cell>
-							<Button circular icon='x' disabled />
-						</Table.Cell>
-						<Table.Cell>
-							<Button primary>manage</Button>
-						</Table.Cell>
-					</Table.Row>
-					<Table.Row>
-						<Table.Cell>1</Table.Cell>
-						<Table.Cell>1X58DFS</Table.Cell>
-						<Table.Cell>John Doe</Table.Cell>
 						<Table.Cell>120 DT</Table.Cell>
 						<Table.Cell>15/10/2020</Table.Cell>
 
@@ -118,6 +110,22 @@ const PaymentsTable = () => {
 						<Table.Cell>1</Table.Cell>
 						<Table.Cell>1X58DFS</Table.Cell>
 						<Table.Cell>John Doe</Table.Cell>
+						<Table.Cell>120 DT</Table.Cell>
+						<Table.Cell>120 DT</Table.Cell>
+						<Table.Cell>15/10/2020</Table.Cell>
+
+						<Table.Cell>
+							<Button circular icon='x' disabled />
+						</Table.Cell>
+						<Table.Cell>
+							<Button primary>manage</Button>
+						</Table.Cell>
+					</Table.Row>
+					<Table.Row>
+						<Table.Cell>1</Table.Cell>
+						<Table.Cell>1X58DFS</Table.Cell>
+						<Table.Cell>John Doe</Table.Cell>
+						<Table.Cell>120 DT</Table.Cell>
 						<Table.Cell>120 DT</Table.Cell>
 						<Table.Cell>15/10/2020</Table.Cell>
 
@@ -132,6 +140,7 @@ const PaymentsTable = () => {
 						<Table.Cell>1</Table.Cell>
 						<Table.Cell>1X58DFS</Table.Cell>
 						<Table.Cell>John Doe</Table.Cell>
+						<Table.Cell>120 DT</Table.Cell>
 						<Table.Cell>120 DT</Table.Cell>
 						<Table.Cell>15/10/2020</Table.Cell>
 

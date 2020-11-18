@@ -90,8 +90,8 @@ const Consultation = () => {
 									/>
 									<Form.Field
 										control={Input}
-										label='Cout'
-										placeholder='Cout'
+										label='Honoraire'
+										placeholder='Honoraire'
 										name='cout'
 										required
 										value={cout}
