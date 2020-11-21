@@ -5,7 +5,7 @@ const Maladie = require('./maladie.model').schema;
 const PrescriptionSchema = new mongoose.Schema({
     diagnosis: { type: String },
     cost: { type: Number },
-    maladies: [Maladie]
+    maladies: [{ Maladie }]
 }, {
     timestamps: true,
     discriminatorKey: 'kind'

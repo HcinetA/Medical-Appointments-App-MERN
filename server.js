@@ -5,7 +5,7 @@ var cors = require('cors');
 var bodyParser = require('body-parser');
 
 const app = express();
-
+const auth = require('./api/middleware/auth');
 require('dotenv').config({
     path: './config/index.env'
 });
@@ -33,16 +33,16 @@ app.use(cors());
 //     res.render('public/apidoc/index.html');
 // });
 
-// app.get('/', (req, res) => res.send('API Running'));
-app.use('/api/patient', require('./api/routes/patient.route'));
-app.use(require('./api/routes/appointment.route'));
-app.use(require('./api/routes/prescription.route'));
-app.use(require('./api/routes/maladie.route'));
+app.get('/', (req, res) => res.send('API Running'));
+app.use('/api/patient', auth, require('./api/routes/patient.route'));
+app.use('/api/appointment', auth, require('./api/routes/appointment.route'));
+app.use('/api/prescription', auth, require('./api/routes/prescription.route'));
+app.use('/api/maladie', auth, require('./api/routes/maladie.route'));
 
 app.use('/forgot', require('./api/routes/forgot.route'));
 app.use('/api/user', require('./api/routes/auth.route'));
 app.use(require('./api/routes/role.route'));
-app.use('/api/user/getUserByToken', require('./api/routes/user.route'));
+
 app.use((req, res) => {
     res.redirect('/');
 })
