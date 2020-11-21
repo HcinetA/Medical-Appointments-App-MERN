@@ -14,6 +14,8 @@ import Aconsultation from './components/views/Aconsultation';
 import PaymentsTable from './components/views/PaymentsTable';
 import Patients from './components/views/Patients';
 import PatientProfile from './components/views/PatientProfile';
+//redux
+
 import './App.css';
 
 const App = () => (

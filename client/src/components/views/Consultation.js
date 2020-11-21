@@ -54,7 +54,7 @@ const Consultation = () => {
 				<Grid columns='equal' stackable>
 					<Grid.Row>
 						<Grid.Column>
-							<Segment>
+							<Segment color='red'>
 								{' '}
 								<Header as='h3'>Consultation</Header>
 								<Form onSubmit={(e) => onSubmit(e)}>
@@ -104,53 +104,139 @@ const Consultation = () => {
 						</Grid.Column>
 
 						<Grid.Column>
-							<Segment>
+							<Segment color='yellow'>
 								<Header as='h3'>General data</Header>
 								<Form>
-									<Form.Field
-										control={Input}
-										label='Patient Name'
-										placeholder='Name'
-										name='name'
-										required
-										readOnly
-										value={name}
-										onChange={(e) => onChange(e)}
-									/>
+									<Segment color='teal'>
+										<Form.Group widths='equal'>
+											<Form.Field
+												control={Input}
+												label='Patient Name'
+												placeholder='Name'
+												name='name'
+												required
+												readOnly
+												value={name}
+												onChange={(e) => onChange(e)}
+											/>
+										</Form.Group>
+										<Form.Group widths='equal'>
+											<Form.Field
+												control={Input}
+												label='Travaille'
+												placeholder='Travaille'
+												name='travaille'
+												required
+												readOnly
+											/>
+											<Form.Field
+												label='Select City'
+												control='select'
+												name='city'
+												required
+												readOnly
+											>
+												<option value='Monastir'>Monastir</option>
+												<option value='Sousse'>Sousse</option>
+											</Form.Field>
+										</Form.Group>
+									</Segment>
+									<Segment color='blue'>
+										<Header as='h5'>Maladie </Header>
 
-									<Header as='h5'>Maladie </Header>
+										<Form.Field
+											id='form-textarea-control-opinion'
+											control={TextArea}
+											name='maladie'
+											placeholder='Maladie'
+											value={maladie}
+											onChange={(e) => onChange(e)}
+										/>
+										<Header as='h5'>Allergie</Header>
 
-									<Form.Field
-										id='form-textarea-control-opinion'
-										control={TextArea}
-										readOnly
-										name='maladie'
-										placeholder='Maladie'
-										value={maladie}
-										onChange={(e) => onChange(e)}
-									/>
+										<Form.Group widths='equal'>
+											<Form.Field
+												id='form-textarea-control-opinion'
+												control={TextArea}
+												name='allergie'
+												placeholder='Allergie'
+												value={allergie}
+												onChange={(e) => onChange(e)}
+											/>
+										</Form.Group>
+										<Header as='h5'>Médication en cours </Header>
 
-									<Header as='h5'>Allergie</Header>
+										<Form.Field
+											id='form-textarea-control-opinion'
+											control={TextArea}
+											name='medication'
+											placeholder='Medication en cours'
+											readOnly
+										/>
+										<Header as='h5'>Antécedant Médicaux </Header>
 
-									<Form.Field
-										id='form-textarea-control-opinion'
-										control={TextArea}
-										readOnly
-										name='allergie'
-										placeholder='Allergie'
-										value={allergie}
-										onChange={(e) => onChange(e)}
-									/>
-									<Header as='h5'>Diagnostic</Header>
+										<Form.Field
+											id='form-textarea-control-opinion'
+											control={TextArea}
+											name='antecedent'
+											placeholder='Antécedant Médicaux'
+											readOnly
+										/>
 
-									<Form.Field
-										id='form-textarea-control-opinion'
-										control={TextArea}
-										readOnly
-										name='diagnostic'
-										placeholder='Diagnostic'
-										value={diagnostic}
-									/>
+										<Header as='h5'>Habitude</Header>
+
+										<Form.Field
+											id='form-textarea-control-opinion'
+											control={TextArea}
+											name='Habitude'
+											placeholder='Habitude'
+											readOnly
+										/>
+									</Segment>
+									<Segment color='purple'>
+										<Header as='h5'>Motif de Consultation</Header>
+
+										<Form.Field
+											id='form-textarea-control-opinion'
+											control={TextArea}
+											name='Motif'
+											placeholder='Motif de Consultation'
+											readOnly
+										/>
+
+										<Header as='h5'>Diagnostic</Header>
+
+										<Form.Field
+											id='form-textarea-control-opinion'
+											control={TextArea}
+											name='diagnostic'
+											placeholder='Diagnostic'
+											value={diagnostic}
+											onChange={(e) => onChange(e)}
+											readOnly
+										/>
+										<Header as='h5'>Analyses</Header>
+
+										<Form.Field
+											id='form-textarea-control-opinion'
+											control={TextArea}
+											name='Analyses'
+											placeholder='Analyses'
+											readOnly
+										/>
+
+										<Header as='h5'>Notes</Header>
+
+										<Form.Field
+											id='form-textarea-control-opinion'
+											control={TextArea}
+											name='notes'
+											placeholder='Notes'
+											value={notes}
+											onChange={(e) => onChange(e)}
+											readOnly
+										/>
+									</Segment>
 								</Form>
 							</Segment>
 							<Segment>

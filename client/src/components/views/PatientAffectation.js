@@ -180,7 +180,6 @@ const PatientAffectation = () => {
 											value={notes}
 											onChange={(e) => onChange(e)}
 										/>
-										<Header as='h5'>Radio</Header>
 									</Segment>
 
 									<Button type='submit'>Submit</Button>
