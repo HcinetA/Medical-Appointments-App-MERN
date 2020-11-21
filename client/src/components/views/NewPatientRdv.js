@@ -1,16 +1,23 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Form, Input, TextArea, Button, Segment } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getDoctors } from '../../actions/doctor';
 
-const NewPatientRdv = () => {
+const NewPatientRdv = ({ getDoctors, doctor: { doctors, loading } }) => {
+	useEffect(() => {
+		getDoctors();
+	}, [getDoctors]);
+
 	const [formData, setFormData] = useState({
 		name: '',
 		tel: '',
-		doctor: '',
+
 		date: '',
 		time: '',
 		notes: '',
 	});
-	const { name, tel, doctor, date, time, notes } = formData;
+	const { name, tel, date, time, notes } = formData;
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	const onSubmit = (e) => {
@@ -60,12 +67,12 @@ const NewPatientRdv = () => {
 						label='Select Doctor'
 						control='select'
 						name='doctor'
-						value={doctor}
 						required
 						onChange={(e) => onChange(e)}
 					>
-						<option value='Doc1'>Doc1</option>
-						<option value='doc2'>Doc2</option>
+						{doctors.map((doctor) => (
+							<option value='{doctor._id}'>{doctor.lastName}</option>
+						))}
 					</Form.Field>
 
 					<Form.Group widths='equal'>
@@ -105,4 +112,13 @@ const NewPatientRdv = () => {
 	);
 };
 
-export default NewPatientRdv;
+NewPatientRdv.propTypes = {
+	getDoctors: PropTypes.func.isRequired,
+	doctor: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+	doctor: state.doctor,
+});
+
+export default connect(mapStateToProps, { getDoctors })(NewPatientRdv);
