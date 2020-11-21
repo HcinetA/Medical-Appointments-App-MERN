@@ -33,8 +33,8 @@ app.use(cors());
 //     res.render('public/apidoc/index.html');
 // });
 
-app.get('/', (req, res) => res.send('API Running'));
-app.use(require('./api/routes/patient.route'));
+// app.get('/', (req, res) => res.send('API Running'));
+app.use('/api/patient', require('./api/routes/patient.route'));
 app.use(require('./api/routes/appointment.route'));
 app.use(require('./api/routes/prescription.route'));
 app.use(require('./api/routes/maladie.route'));
@@ -42,7 +42,7 @@ app.use(require('./api/routes/maladie.route'));
 app.use('/forgot', require('./api/routes/forgot.route'));
 app.use('/api/user', require('./api/routes/auth.route'));
 app.use(require('./api/routes/role.route'));
-
+app.use('/api/user/getUserByToken', require('./api/routes/user.route'));
 app.use((req, res) => {
     res.redirect('/');
 })
