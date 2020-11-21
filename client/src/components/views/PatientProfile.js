@@ -11,7 +11,6 @@ import {
 	Comment,
 	Header,
 	Form,
-	TextArea,
 } from 'semantic-ui-react';
 
 const panes = [

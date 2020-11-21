@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { Table, Button, Menu, Icon, Input, Segment } from 'semantic-ui-react';
 
 const Patients = () => {
