@@ -4,21 +4,19 @@ mongoose.Promise = global.Promise;
 
 const Appointment = require('./appointment.model').schema;
 
-const PatientSchema = new Schema({
+const patientSchema = new Schema({
     name: {
         type: String,
     },
     phone: { type: Number },
     age: { type: Number },
     information: { type: Number },
-    appointments: [{ Appointment }],
-    user: { type: Schema.Types.ObjectId }
+    appointments: [{ Appointment }]
 }, {
     timestamps: true
 });
-// const Patient = mongoose.model('Patient', patientSchema);
-// module.exports = {
-//     schema: patientSchema,
-//     model: Patient
-// }
-module.exports = mongoose.model('Patient', PatientSchema);
+const Patient = mongoose.model('Patient', patientSchema);
+module.exports = {
+    schema: patientSchema,
+    model: Patient
+}
