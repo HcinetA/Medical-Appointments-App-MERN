@@ -42,7 +42,7 @@ app.use('/api/maladie', auth, require('./api/routes/maladie.route'));
 app.use('/forgot', require('./api/routes/forgot.route'));
 app.use('/api/user', require('./api/routes/auth.route'));
 app.use(require('./api/routes/role.route'));
-
+app.use('/api/user', auth, require('./api/routes/user.route'));
 app.use((req, res) => {
     res.redirect('/');
 })

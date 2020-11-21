@@ -37,7 +37,7 @@ router.post('/', async(req, res) => {
             phone: req.body.phone,
             age: req.body.age,
             information: req.body.information,
-            user: req.user._id
+            user: req.user.id
         });
         if (req.body.appointment) {
             newPatient.appointments = req.body.appointment._id
