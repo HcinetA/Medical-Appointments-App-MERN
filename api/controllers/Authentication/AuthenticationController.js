@@ -16,7 +16,7 @@ class AuthenticationController {
             });
         }
         // get name and email and password from request
-        const { name, email, password } = req.body;
+        const { name, email, password, firstName, lastName, gender } = req.body;
 
         try {
             // Check if user already exist
