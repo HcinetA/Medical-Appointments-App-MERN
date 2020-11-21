@@ -23,7 +23,7 @@ class AuthenticationController {
         const email = req.body.email;
         const role = req.body.role;
         const password = req.body.password;
-
+        const gender = req.body.gender;
         try {
             // Check if user already exist
             let user = await User.findOne({ email });
@@ -83,7 +83,7 @@ class AuthenticationController {
                 }
             );
         } catch (error) {
-            console.log(err.message);
+            console.log(error);
             res.status(500).send('Server error');
         }
     }
