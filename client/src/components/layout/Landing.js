@@ -10,10 +10,7 @@ const Landing = () => {
 					<p className='lead'>HEXAMED outils de gestion de cabinet !</p>
 					<div className='buttons'>
 						<Link to='login' className='btn btn-primary'>
-							Login Docteur
-						</Link>
-						<Link to='login_assistant' className='btn btn-light'>
-							Login Assistante
+							Login
 						</Link>
 					</div>
 				</div>
