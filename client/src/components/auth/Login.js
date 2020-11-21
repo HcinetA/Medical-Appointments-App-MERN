@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import {
 	Button,
 	Form,
@@ -10,7 +11,7 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
-const Login = ({ login }) => {
+const Login = ({ login, isAuthenticated, role_secure }) => {
 	const [formData, setFormData] = useState({
 		email: '',
 		password: '',
@@ -21,8 +22,15 @@ const Login = ({ login }) => {
 	const onSubmit = (e) => {
 		e.preventDefault();
 		login(email, password);
-		console.log(formData);
 	};
+	// REDIRECT
+	if (isAuthenticated && role_secure === 'doctor2') {
+		return <Redirect to='/newrdv' />;
+	} else if (isAuthenticated && role_secure === 'doctor') {
+		return <Redirect to='/newrdv' />;
+	} else if (isAuthenticated && role_secure === 'assistante') {
+		return <Redirect to='/newrdv' />;
+	}
 	return (
 		<Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
 			<Grid.Column style={{ maxWidth: 450 }}>
@@ -66,5 +74,11 @@ const Login = ({ login }) => {
 
 Login.propTypes = {
 	login: PropTypes.func.isRequired,
+	isAuthenticated: PropTypes.bool,
+	role_secure: PropTypes.func.isRequired,
 };
-export default connect(null, { login })(Login);
+const mapStateToProps = (state) => ({
+	isAuthenticated: state.auth.isAuthenticated,
+	role_secure: state.auth.role_secure,
+});
+export default connect(mapStateToProps, { login })(Login);

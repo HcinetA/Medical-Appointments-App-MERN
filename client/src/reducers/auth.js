@@ -12,7 +12,7 @@ const initialState = {
 	isAuthenticated: null,
 	loading: true,
 	user: null,
-	role: null,
+	role_secure: null,
 };
 
 export default function (state = initialState, action) {
@@ -23,7 +23,7 @@ export default function (state = initialState, action) {
 				...state,
 				isAuthenticated: true,
 				user: payload,
-				role: payload.role,
+				role_secure: payload.role,
 			};
 		case REGISTER_SUCCESS:
 		case LOGIN_SUCCESS:
@@ -33,7 +33,7 @@ export default function (state = initialState, action) {
 				...payload,
 				isAuthenticated: true,
 				loading: false,
-				role: payload.role,
+				role_secure: payload.role,
 			};
 		case REGISTER_FAIL:
 		case AUTH_ERROR:
@@ -44,6 +44,7 @@ export default function (state = initialState, action) {
 				token: null,
 				isAuthenticated: false,
 				loading: false,
+				role_secure: null,
 			};
 		default:
 			return state;

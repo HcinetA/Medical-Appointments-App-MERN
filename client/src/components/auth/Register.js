@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { Form, Input, Button, Checkbox, Segment } from 'semantic-ui-react';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
+import { Link, Redirect } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
-import { profile_url } from 'gravatar';
 
-const Register = ({ setAlert, register }) => {
+const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 	const [formData, setFormData] = useState({
 		first_name: '',
 		last_name: '',
@@ -36,6 +36,14 @@ const Register = ({ setAlert, register }) => {
 			register({ first_name, last_name, gender, email, password, role });
 		}
 	};
+	// REDIRECT
+	if (isAuthenticated && role_secure === 'doctor2') {
+		return <Redirect to='/cdoctordashboard' />;
+	} else if (isAuthenticated && role_secure === 'doctor') {
+		return <Redirect to='/doctordashboard' />;
+	} else if (isAuthenticated && role_secure === 'assistante') {
+		return <Redirect to='/assistantedashboard' />;
+	}
 	return (
 		<Fragment>
 			<h1 className='large text-primary'>Sign Up</h1>
@@ -134,5 +142,11 @@ const Register = ({ setAlert, register }) => {
 Register.propTypes = {
 	setAlert: PropTypes.func.isRequired,
 	register: PropTypes.func.isRequired,
+	isAuthenticated: PropTypes.bool,
+	role_secure: PropTypes.func.isRequired,
 };
-export default connect(null, { setAlert, register })(Register);
+const mapStateToProps = (state) => ({
+	isAuthenticated: state.auth.isAuthenticated,
+	role_secure: state.auth.role_secure,
+});
+export default connect(mapStateToProps, { setAlert, register })(Register);
