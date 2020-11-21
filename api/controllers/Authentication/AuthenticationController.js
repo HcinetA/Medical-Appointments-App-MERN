@@ -45,6 +45,9 @@ class AuthenticationController {
                 email,
                 avatar,
                 password,
+                firstName,
+                lastName,
+                gender
             });
 
             // encrypt password
