@@ -15,33 +15,36 @@ import PaymentsTable from './components/views/PaymentsTable';
 import Patients from './components/views/Patients';
 import PatientProfile from './components/views/PatientProfile';
 //redux
-
+import { Provider } from 'react-redux';
+import store from './store';
 import './App.css';
 
 const App = () => (
-	<Router>
-		<Fragment>
-			<Navbar />
-			<Route exact path='/' component={Landing} />
-			<section className='container'>
-				<Switch>
-					<Route exact path='/register' component={Register} />
-					<Route exact path='/login' component={Login} />
-					<Route exact path='/newrdv' component={Newrdv} />
-					<Route exact path='/newpatient' component={NewPatientRdv} />
-					<Route exact path='/appointments' component={AppointmentTable} />
-					<Route exact path='/paffectation' component={PatientAffectation} />
-					<Route exact path='/consultation' component={Consultation} />
+	<Provider store={store}>
+		<Router>
+			<Fragment>
+				<Navbar />
+				<Route exact path='/' component={Landing} />
+				<section className='container'>
+					<Switch>
+						<Route exact path='/register' component={Register} />
+						<Route exact path='/login' component={Login} />
+						<Route exact path='/newrdv' component={Newrdv} />
+						<Route exact path='/newpatient' component={NewPatientRdv} />
+						<Route exact path='/appointments' component={AppointmentTable} />
+						<Route exact path='/paffectation' component={PatientAffectation} />
+						<Route exact path='/consultation' component={Consultation} />
 
-					<Route exact path='/aconsultation' component={Aconsultation} />
-					<Route exact path='/payments' component={PaymentsTable} />
-					<Route exact path='/patients' component={Patients} />
-					<Route exact path='/patient_profile' component={PatientProfile} />
+						<Route exact path='/aconsultation' component={Aconsultation} />
+						<Route exact path='/payments' component={PaymentsTable} />
+						<Route exact path='/patients' component={Patients} />
+						<Route exact path='/patient_profile' component={PatientProfile} />
 
-					<Route exact path='/form' component={Formi} />
-				</Switch>
-			</section>
-		</Fragment>
-	</Router>
+						<Route exact path='/form' component={Formi} />
+					</Switch>
+				</section>
+			</Fragment>
+		</Router>
+	</Provider>
 );
 export default App;
