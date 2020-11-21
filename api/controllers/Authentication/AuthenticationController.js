@@ -41,7 +41,6 @@ class AuthenticationController {
 
             // create user object
             user = new User({
-                name,
                 email,
                 avatar,
                 password,
