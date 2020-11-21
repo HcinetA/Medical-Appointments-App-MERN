@@ -2,25 +2,39 @@ import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 import { Form, Input, Button, Checkbox, Segment } from 'semantic-ui-react';
 import { setAlert } from '../../actions/alert';
-import PropTypes from 'prop-types';
+import { register } from '../../actions/auth';
 
-const Register = ({ setAlert }) => {
+import PropTypes from 'prop-types';
+import { profile_url } from 'gravatar';
+
+const Register = ({ setAlert, register }) => {
 	const [formData, setFormData] = useState({
-		name: '',
+		first_name: '',
 		last_name: '',
 		email: '',
 		gender: '',
 		password: '',
 		password2: '',
+		role: '',
 	});
-	const { name, last_name, gender, email, password, password2 } = formData;
+	const {
+		first_name,
+		last_name,
+		gender,
+		email,
+		password,
+		password2,
+		role,
+	} = formData;
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	const onSubmit = (e) => {
 		e.preventDefault();
 		if (password !== password2) {
 			setAlert('password do not match', 'danger');
-		} else console.log(formData);
+		} else {
+			register({ first_name, last_name, gender, email, password, role });
+		}
 	};
 	return (
 		<Fragment>
@@ -36,9 +50,9 @@ const Register = ({ setAlert }) => {
 							control={Input}
 							label='First name'
 							placeholder='First name'
-							name='name'
+							name='first_name'
 							required
-							value={name}
+							value={first_name}
 							onChange={(e) => onChange(e)}
 						/>
 						<Form.Field
@@ -51,6 +65,8 @@ const Register = ({ setAlert }) => {
 							value={last_name}
 							onChange={(e) => onChange(e)}
 						/>
+					</Form.Group>
+					<Form.Group widths='equal'>
 						<Form.Field
 							label='Gender'
 							control='select'
@@ -61,6 +77,18 @@ const Register = ({ setAlert }) => {
 						>
 							<option value='male'>Male</option>
 							<option value='female'>Female</option>
+						</Form.Field>
+						<Form.Field
+							label='Role'
+							control='select'
+							name='role'
+							value={role}
+							required
+							onChange={(e) => onChange(e)}
+						>
+							<option value='doctor'>Doctor</option>
+							<option value='doctor2'>Doctor consultation</option>
+							<option value='assistante'>Assistante</option>
 						</Form.Field>
 					</Form.Group>
 					<Form.Input
@@ -105,5 +133,6 @@ const Register = ({ setAlert }) => {
 
 Register.propTypes = {
 	setAlert: PropTypes.func.isRequired,
+	register: PropTypes.func.isRequired,
 };
-export default connect(null, { setAlert })(Register);
+export default connect(null, { setAlert, register })(Register);
