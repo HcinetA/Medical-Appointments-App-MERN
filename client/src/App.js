@@ -15,6 +15,9 @@ import PaymentsTable from './components/views/PaymentsTable';
 import Patients from './components/views/Patients';
 import PatientProfile from './components/views/PatientProfile';
 import Alert from './components/layout/Alert';
+import Dashboard from './components/dashboard/Dashboard';
+import PrivateRoute from './components/routing/PrivateRoute';
+
 //redux
 import { Provider } from 'react-redux';
 import store from './store';
@@ -56,7 +59,11 @@ const App = () => {
 							<Route exact path='/patients' component={Patients} />
 							<Route exact path='/patient_profile' component={PatientProfile} />
 
-							<Route exact path='/form' component={Formi} />
+							<PrivateRoute
+								exact
+								path='/assistantedashboard'
+								component={Dashboard}
+							/>
 						</Switch>
 					</section>
 				</Fragment>

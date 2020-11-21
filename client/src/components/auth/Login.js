@@ -25,11 +25,11 @@ const Login = ({ login, isAuthenticated, role_secure }) => {
 	};
 	// REDIRECT
 	if (isAuthenticated && role_secure === 'doctor2') {
-		return <Redirect to='/newrdv' />;
+		return <Redirect to='/cdoctordashboard' />;
 	} else if (isAuthenticated && role_secure === 'doctor') {
-		return <Redirect to='/newrdv' />;
+		return <Redirect to='/doctordashboard' />;
 	} else if (isAuthenticated && role_secure === 'assistante') {
-		return <Redirect to='/newrdv' />;
+		return <Redirect to='/assistantedashboard' />;
 	}
 	return (
 		<Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
