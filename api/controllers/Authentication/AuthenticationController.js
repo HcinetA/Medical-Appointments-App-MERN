@@ -16,7 +16,7 @@ class AuthenticationController {
             });
         }
         // get name and email and password from request
-        const { name, email, password, firstName, lastName, gender } = req.body;
+        const { email, password, firstName, lastName, gender } = req.body;
 
         try {
             // Check if user already exist
@@ -60,8 +60,10 @@ class AuthenticationController {
             const payload = {
                 user: {
                     id: user.id,
-                },
-            };
+                    email: user.email,
+                    role: user.role
+                }
+            }
 
             jwt.sign(
                 payload,
