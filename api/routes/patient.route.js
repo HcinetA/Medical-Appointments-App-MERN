@@ -10,7 +10,7 @@ const patientChecker = require('../middleware/patient-checker');
 
 router.get('/', async(req, res) => {
     try {
-        const patients = await Patient.find().populate('appointments', 'invoices');
+        const patients = await Patient.find().populate('appointments')
         res.json(patients);
     } catch (error) {
         console.log(error);
@@ -33,7 +33,8 @@ router.post('/', patientChecker.savePatientCheck, async(req, res) => {
     try {
         const phone = req.body.phone;
         const already_exists_patient = await Patient.find({ 'phone': phone });
-        if (already_exists_patient) {
+        console.log(already_exists_patient);
+        if (already_exists_patient.length > 0) {
             return res.status(400).json("Un autre patient possede le meme numero de telephone ")
         } else {
             const patient = new Patient(req.body);
