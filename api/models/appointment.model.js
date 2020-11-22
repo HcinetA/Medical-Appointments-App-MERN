@@ -9,9 +9,13 @@ const AppointmentSchema = new mongoose.Schema({
     doctor: { type: Schema.Types.ObjectId, ref: 'User' },
     patient: { type: Schema.Types.ObjectId, ref: 'Patient' },
     acte: { type: String },
-    notes: { type: String },
     honoraire: { type: String },
-    status: { type: Boolean, default: false, required: false }
+    status: { type: Boolean, default: false, required: false },
+    motif_consultatio: { type: String },
+    diagnostic: { type: String },
+    analyses: { type: String },
+    notes: { type: String },
+
 }, {
     timestamps: true,
     discriminatorKey: 'kind'
