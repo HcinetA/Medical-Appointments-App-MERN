@@ -16,11 +16,6 @@ const PatientSchema = new Schema({
     timestamps: true
 });
 
-PatientSchema.pre('save', function(next) {
-    if (this.appointments[0].patient)
-        next()
-    else
-        this.save(() => { next() })
-})
+
 
 module.exports = mongoose.model('Patient', PatientSchema);

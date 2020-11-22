@@ -30,15 +30,10 @@ router.get('/:id', async(req, res) => {
 router.post('/', async(req, res) => {
     const errors = validationResult(req);
     try {
-        const patient = new Patient({
-            name: req.body.name,
-            phone: req.body.phone,
-            age: req.body.age,
-            information: req.body.information
-        });
+
+        const patient = new Patient(req.body);
         const saved_patient = await patient.save();
         res.json(saved_patient);
-
 
     } catch (error) {
         console.error(error);
