@@ -13,3 +13,7 @@ export const ADD_PATIENT = 'ADD_PATIENT';
 export const PATIENT_ERROR = 'PATIENT_ERROR';
 export const GET_PATIENTS = 'GET_PATIENTS';
 export const PATIENTS_ERROR = 'PATIENTS_ERROR';
+export const ADD_RDV = 'ADD_RDV';
+export const RDVS_ERROR = 'RDVS_ERROR';
+export const GET_RDVS = 'GET_RDVS';
+export const RDV_ERROR = 'RDV_ERROR';
