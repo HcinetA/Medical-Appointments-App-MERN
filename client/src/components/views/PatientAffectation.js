@@ -33,7 +33,25 @@ const PatientAffectation = ({
 	}, [getDoctors]);
 	useEffect(() => {
 		getRdv(match.params.id);
-	}, [getRdv]);
+		setFormData2({
+			// motif: loading || !rdv.motif ? '' : rdv.motif,
+			// diagnostic: loading || !rdv.diagnostic ? '' : rdv.diagnostic,
+			analyses: loading || !rdv.analyses ? '' : rdv.analyses,
+			notes_consultation:
+				loading || !rdv.notes_consultation ? '' : rdv.notes_consultation,
+			doctor: loading || !rdv.doctor._id ? '' : rdv.doctor._id,
+		});
+		// eslint-disable-next-line
+	}, [getRdv, loading]);
+
+	const [formData2, setFormData2] = useState({
+		motif: '',
+		diagnostic: '',
+		analyses: '',
+		notes_consultation: '',
+		doctor: '',
+		status: true,
+	});
 	const [formData, setFormData] = useState({
 		name: '',
 		notes: '',
@@ -44,14 +62,6 @@ const PatientAffectation = ({
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 
-	const [formData2, setFormData2] = useState({
-		motif: '',
-		diagnostic: '',
-		analyses: '',
-		notes_consultation: '',
-		doctor: '',
-		status: true,
-	});
 	const { motif, diagnostic, analyses, notes_consultation, doctor } = formData2;
 
 	const onChange2 = (e2) =>
@@ -98,7 +108,7 @@ const PatientAffectation = ({
 											id='form-textarea-control-opinion'
 											control={TextArea}
 											name='motif'
-											placeholder='Motif de Consultation'
+											placeholder={rdv.motif}
 											value={motif}
 											onChange={(e2) => onChange2(e2)}
 										/>
