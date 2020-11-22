@@ -50,6 +50,7 @@ const PatientAffectation = ({
 		analyses: '',
 		notes_consultation: '',
 		doctor: '',
+		status: true,
 	});
 	const { motif, diagnostic, analyses, notes_consultation, doctor } = formData2;
 
@@ -64,7 +65,13 @@ const PatientAffectation = ({
 
 	const onSubmit2 = (e2) => {
 		e2.preventDefault();
-		uptRdv({ motif, diagnostic, analyses, notes_consultation, doctor });
+		uptRdv(rdv._id, {
+			motif,
+			diagnostic,
+			analyses,
+			notes_consultation,
+			doctor,
+		});
 		console.log(formData2);
 	};
 

@@ -69,14 +69,23 @@ export const getRdv = (id) => async (dispatch) => {
 	}
 };
 
-// update rdv
-export const uptRdv = (id) => async (dispatch) => {
+// uptade  rdvs
+
+export const uptRdv = (id, formData) => async (dispatch) => {
+	const config = {
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	};
 	try {
-		const res = await axios.put(`/api/appointment/${id}`);
+		const res = await axios.post(`/api/appointment/${id}`, formData, config);
+
 		dispatch({
 			type: UPT_RDV,
 			payload: res.data,
 		});
+
+		dispatch(setAlert('RDV Created ', 'success'));
 	} catch (err) {
 		dispatch({
 			type: UPTRDV_ERROR,
