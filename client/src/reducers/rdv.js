@@ -1,58 +1,58 @@
 import { uptRdv } from '../actions/rdv';
 import {
-	ADD_RDV,
-	RDVS_ERROR,
-	GET_RDVS,
-	RDV_ERROR,
-	GET_RDV,
-	UPT_RDV,
-	UPTRDV_ERROR,
+    ADD_RDV,
+    RDVS_ERROR,
+    GET_RDVS,
+    RDV_ERROR,
+    GET_RDV,
+    UPT_RDV,
+    UPTRDV_ERROR,
 } from '../actions/types';
 
 const initialState = {
-	rdvs: [],
-	rdv: null,
-	loading: true,
-	error: {},
+    rdvs: [],
+    rdv: null,
+    loading: true,
+    error: {},
 };
 
-export default function (state = initialState, action) {
-	const { type, payload } = action;
-	switch (type) {
-		case GET_RDVS:
-			return {
-				...state,
-				rdvs: payload,
-				loading: false,
-			};
-		case GET_RDV:
-			return {
-				...state,
-				rdv: payload,
-				loading: false,
-			};
-		case RDV_ERROR:
-		case RDVS_ERROR:
-		case UPTRDV_ERROR:
-			return {
-				...state,
-				error: payload,
-				loading: false,
-			};
-		case ADD_RDV:
-			return {
-				...state,
-				rdvs: [...state.rdvs, payload],
-				loading: false,
-			};
-		case UPT_RDV:
-			return {
-				...state,
-				rdv: [...state.rdv, payload],
-				loading: false,
-			};
+export default function(state = initialState, action) {
+    const { type, payload } = action;
+    switch (type) {
+        case GET_RDVS:
+            return {
+                ...state,
+                rdvs: payload,
+                loading: false,
+            };
+        case GET_RDV:
+            return {
+                ...state,
+                rdv: payload,
+                loading: false,
+            };
+        case RDV_ERROR:
+        case RDVS_ERROR:
+        case UPTRDV_ERROR:
+            return {
+                ...state,
+                error: payload,
+                loading: false,
+            };
+        case ADD_RDV:
+            return {
+                ...state,
+                rdvs: [...state.rdvs, payload],
+                loading: false,
+            };
+        case UPT_RDV:
+            return {
+                ...state,
+                rdv: {...state.rdv, payload },
+                loading: false,
+            };
 
-		default:
-			return state;
-	}
+        default:
+            return state;
+    }
 }
