@@ -34,7 +34,7 @@ const PatientAffectation = ({
 	useEffect(() => {
 		getRdv(match.params.id);
 		setFormData2({
-			diagnostic: loading && !rdv ? '' : rdv.diagnostic,
+			diagnostic: loading || !rdv ? '' : rdv.diagnostic,
 			analyses: loading || !rdv.analyses ? '' : rdv.analyses,
 			notes_consultation:
 				loading || !rdv.notes_consultation ? '' : rdv.notes_consultation,
