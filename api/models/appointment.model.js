@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = require('./user.model').schema;
+const Schema = mongoose.Schema;
 
 const AppointmentSchema = new mongoose.Schema({
 
@@ -9,12 +10,19 @@ const AppointmentSchema = new mongoose.Schema({
         required: false
     },
     time: Date,
-    doctor: User,
-    patient: { type: mongoose.Schema.Types.ObjectId, ref: 'Patient', autopopulate: true }
+    doctor: { type: Schema.Types.ObjectId, ref: 'User' },
+    patient: { type: Schema.Types.ObjectId, ref: 'Patient' },
+    acte: { type: String },
+    notes: { type: String },
+    honoraire: { type: String }
 
 }, {
     timestamps: true,
     discriminatorKey: 'kind'
 });
-AppointmentSchema.plugin(require('mongoose-autopopulate'));
+
+
+
+
+
 module.exports = Appointment = mongoose.model('Appointment', AppointmentSchema);

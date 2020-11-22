@@ -2,11 +2,13 @@ var express = require('express');
 var router = express.Router();
 const { validationResult } = require('express-validator');
 const Patient = require('../models/patient.model');
+const Appointment = require('../models/appointment.model');
+
 const User = require('../models/user.model');
 
 router.get('/', async(req, res) => {
     try {
-        const patients = await Patient.find().populate('appointment', ['daySchedule', 'date']);
+        const patients = await Patient.find().populate('appointments');
         res.json(patients);
     } catch (error) {
         console.log(error);
@@ -27,23 +29,17 @@ router.get('/:id', async(req, res) => {
 
 router.post('/', async(req, res) => {
     const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
     try {
-        const user = await User.findById(req.user.id).select('-password');
-        const newPatient = new Patient({
+        const patient = new Patient({
             name: req.body.name,
             phone: req.body.phone,
             age: req.body.age,
-            information: req.body.information,
-            user: req.user.id
+            information: req.body.information
         });
-        if (req.body.appointment) {
-            newPatient.appointments = req.body.appointment._id
-        }
-        const patient = await newPatient.save();
-        res.json(patient);
+        const saved_patient = await patient.save();
+        res.json(saved_patient);
+
+
     } catch (error) {
         console.error(error);
         res.status(500).send(error);

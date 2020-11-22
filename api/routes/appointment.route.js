@@ -3,14 +3,13 @@ var router = express.Router();
 var express = require('express');
 const { validationResult } = require('express-validator');
 var mongoose = require('mongoose');
-// const Patient = require('../models/patient.model');
 const User = require('../models/user.model');
 const Appointment = require('../models/appointment.model');
 
 
 router.get('/', async(req, res) => {
     try {
-        const appointments = await Appointment.find();
+        const appointments = await Appointment.find().populate('patient');
         res.json(appointments);
     } catch (error) {
         console.log(error);
