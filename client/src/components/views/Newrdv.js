@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import {
 	Form,
 	TextArea,
@@ -9,8 +9,21 @@ import {
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addPatient } from '../../actions/patient';
-const Newrdv = ({ addPatient }) => {
+import { addPatient, getPatients } from '../../actions/patient';
+import { getDoctors } from '../../actions/doctor';
+const Newrdv = ({
+	getDoctors,
+	doctor: { doctors, loading },
+	getPatients,
+	patient: { patients },
+	addPatient,
+}) => {
+	useEffect(() => {
+		getDoctors();
+	}, [getDoctors]);
+	useEffect(() => {
+		getPatients();
+	}, [getPatients]);
 	const [open, setOpen] = React.useState(false);
 
 	const [formData, setFormData] = useState({
@@ -102,24 +115,24 @@ const Newrdv = ({ addPatient }) => {
 							label='Select Patient'
 							control='select'
 							name='patient'
-							value={patient}
 							required
 							onChange={(e) => onChange(e)}
 						>
-							<option value='amin'>Amin</option>
-							<option value='john'>john</option>
+							{patients.map((patient) => (
+								<option value={patient._id}>{patient.name}</option>
+							))}
 						</Form.Field>
 
 						<Form.Field
 							label='Select Doctor'
 							control='select'
 							name='doctor'
-							value={doctor}
 							required
 							onChange={(e) => onChange(e)}
 						>
-							<option value='Doc1'>Doc1</option>
-							<option value='doc2'>Doc2</option>
+							{doctors.map((doctor) => (
+								<option value={doctor._id}>DR.{doctor.firstName}</option>
+							))}
 						</Form.Field>
 					</Form.Group>
 
@@ -161,6 +174,18 @@ const Newrdv = ({ addPatient }) => {
 };
 Newrdv.propTypes = {
 	addPatient: PropTypes.func.isRequired,
+	getDoctors: PropTypes.func.isRequired,
+	doctor: PropTypes.object.isRequired,
+	getPatients: PropTypes.func.isRequired,
+	patient: PropTypes.object.isRequired,
 };
 
-export default connect(null, { addPatient })(Newrdv);
+const mapStateToProps = (state) => ({
+	doctor: state.doctor,
+	patient: state.patient,
+});
+export default connect(mapStateToProps, {
+	addPatient,
+	getDoctors,
+	getPatients,
+})(Newrdv);

@@ -7,7 +7,6 @@ import Register from './components/auth/Register';
 import Formi from './components/auth/Formi';
 import Newrdv from './components/views/Newrdv.js';
 import NewPatientRdv from './components/views/NewPatientRdv';
-import Test from './components/views/Test';
 
 import AppointmentTable from './components/views/AppointmentTable';
 import PatientAffectation from './components/views/PatientAffectation';
@@ -60,7 +59,6 @@ const App = () => {
 							<Route exact path='/payments' component={PaymentsTable} />
 							<Route exact path='/patients' component={Patients} />
 							<Route exact path='/patient_profile' component={PatientProfile} />
-							<Route exact path='/test' component={Test} />
 
 							<PrivateRoute
 								exact
