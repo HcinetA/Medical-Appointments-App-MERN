@@ -20,3 +20,4 @@ export const RDV_ERROR = 'RDV_ERROR';
 export const GET_RDV = 'GET_RDV';
 export const UPT_RDV = 'UPT_RDV';
 export const UPTRDV_ERROR = 'UPTRDV_ERROR';
+export const UPT_PATIENT = 'UPT_PATIENT';

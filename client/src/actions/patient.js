@@ -5,6 +5,7 @@ import {
 	PATIENTS_ERROR,
 	GET_PATIENTS,
 	PATIENT_ERROR,
+	UPT_PATIENT,
 } from './types';
 
 // get patients
@@ -41,6 +42,31 @@ export const addPatient = (formData2) => async (dispatch) => {
 		});
 
 		dispatch(setAlert('Patient Created ', 'success'));
+	} catch (err) {
+		dispatch({
+			type: PATIENT_ERROR,
+			payload: { msg: err.response.statusText, status: err.response.status },
+		});
+	}
+};
+
+// uptade  patient
+
+export const uptRdv = (id, formData) => async (dispatch) => {
+	const config = {
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	};
+	try {
+		const res = await axios.put(`/api/patients/${id}`, formData, config);
+
+		dispatch({
+			type: UPT_PATIENT,
+			payload: res.data,
+		});
+
+		dispatch(setAlert('RDV Created ', 'success'));
 	} catch (err) {
 		dispatch({
 			type: PATIENT_ERROR,
