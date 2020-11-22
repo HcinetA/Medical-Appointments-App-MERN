@@ -78,7 +78,7 @@ export const uptRdv = (id, formData) => async (dispatch) => {
 		},
 	};
 	try {
-		const res = await axios.post(`/api/appointment/${id}`, formData, config);
+		const res = await axios.put(`/api/appointment/${id}`, formData, config);
 
 		dispatch({
 			type: UPT_RDV,
