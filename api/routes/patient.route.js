@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const { validationResult } = require('express-validator');
+const { body, validationResult } = require('express-validator');
 const Patient = require('../models/patient.model');
 const Appointment = require('../models/appointment.model');
 
@@ -8,7 +8,7 @@ const User = require('../models/user.model');
 
 router.get('/', async(req, res) => {
     try {
-        const patients = await Patient.find().populate('appointments');
+        const patients = await Patient.find().populate('appointments', 'invoices');
         res.json(patients);
     } catch (error) {
         console.log(error);

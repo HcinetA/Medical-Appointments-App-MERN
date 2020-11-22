@@ -38,6 +38,7 @@ app.use('/api/patient', auth, require('./api/routes/patient.route'));
 app.use('/api/appointment', auth, require('./api/routes/appointment.route'));
 
 app.use('/api/maladie', auth, require('./api/routes/maladie.route'));
+app.use('/api/invoice', auth, require('./api/routes/invoice.route'));
 
 app.use('/forgot', require('./api/routes/forgot.route'));
 app.use('/api/user', require('./api/routes/auth.route'));
