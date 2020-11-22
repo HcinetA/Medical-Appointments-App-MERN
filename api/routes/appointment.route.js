@@ -72,7 +72,6 @@ router.post('/', async(req, res) => {
         const appointment = await newAppointment.save();
         patient.appointments.push(appointment);
         const saved_patient = await patient.save()
-        console.log(saved_patient);
         res.json(appointment);
     } catch (error) {
         console.log(error);
