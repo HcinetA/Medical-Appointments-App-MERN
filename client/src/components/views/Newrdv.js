@@ -10,6 +10,7 @@ import {
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addPatient, getPatients } from '../../actions/patient';
+import { addRdv, getRdvs } from '../../actions/rdv';
 import { getDoctors } from '../../actions/doctor';
 const Newrdv = ({
 	getDoctors,
@@ -17,6 +18,9 @@ const Newrdv = ({
 	getPatients,
 	patient: { patients },
 	addPatient,
+	getRdvs,
+	rdv: { rdvs },
+	addRdv,
 }) => {
 	useEffect(() => {
 		getDoctors();
@@ -24,6 +28,9 @@ const Newrdv = ({
 	useEffect(() => {
 		getPatients();
 	}, [getPatients]);
+	useEffect(() => {
+		getRdvs();
+	}, [getRdvs]);
 	const [open, setOpen] = React.useState(false);
 
 	const [formData, setFormData] = useState({
@@ -39,8 +46,8 @@ const Newrdv = ({
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	const onSubmit = (e) => {
 		e.preventDefault();
-		setOpen(false);
 		console.log(formData);
+		addRdv({ patient, doctor, date, time, notes });
 	};
 
 	const [formData2, setFormData2] = useState({
@@ -178,14 +185,20 @@ Newrdv.propTypes = {
 	doctor: PropTypes.object.isRequired,
 	getPatients: PropTypes.func.isRequired,
 	patient: PropTypes.object.isRequired,
+	getRdvs: PropTypes.func.isRequired,
+	rdv: PropTypes.object.isRequired,
+	addRdv: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
 	doctor: state.doctor,
+	rdv: state.rdv,
 	patient: state.patient,
 });
 export default connect(mapStateToProps, {
 	addPatient,
 	getDoctors,
 	getPatients,
+	getRdvs,
+	addRdv,
 })(Newrdv);

@@ -1,24 +1,19 @@
 import axios from 'axios';
 import { setAlert } from './alert';
-import {
-	ADD_PATIENT,
-	PATIENTS_ERROR,
-	GET_PATIENTS,
-	PATIENT_ERROR,
-} from './types';
+import { ADD_RDV, RDVS_ERROR, GET_RDVS, RDV_ERROR } from './types';
 
 // get patients
 
-export const getPatients = () => async (dispatch) => {
+export const getRdvs = () => async (dispatch) => {
 	try {
-		const res = await axios.get('/api/patient/');
+		const res = await axios.get('/api/appointment/');
 		dispatch({
-			type: GET_PATIENTS,
+			type: GET_RDVS,
 			payload: res.data,
 		});
 	} catch (err) {
 		dispatch({
-			type: PATIENTS_ERROR,
+			type: RDVS_ERROR,
 			payload: { msg: err.response.statusText, status: err.response.status },
 		});
 	}
@@ -26,24 +21,24 @@ export const getPatients = () => async (dispatch) => {
 
 // add  patient
 
-export const addPatient = (formData2) => async (dispatch) => {
+export const addRdv = (formData) => async (dispatch) => {
 	const config = {
 		headers: {
 			'Content-Type': 'application/json',
 		},
 	};
 	try {
-		const res = await axios.post('/api/patient/', formData2, config);
+		const res = await axios.post('/api/appointment/, formData, config');
 
 		dispatch({
-			type: ADD_PATIENT,
+			type: ADD_RDV,
 			payload: res.data,
 		});
 
-		dispatch(setAlert('Patient Created ', 'success'));
+		dispatch(setAlert('RDV Created ', 'success'));
 	} catch (err) {
 		dispatch({
-			type: PATIENT_ERROR,
+			type: RDV_ERROR,
 			payload: { msg: err.response.statusText, status: err.response.status },
 		});
 	}
