@@ -9,7 +9,7 @@ const Appointment = require('../models/appointment.model');
 
 router.get('/', async(req, res) => {
     try {
-        const appointments = await Appointment.find().populate('patient');
+        const appointments = await Appointment.find();
         res.json(appointments);
     } catch (error) {
         console.log(error);
@@ -56,7 +56,17 @@ router.post('/', async(req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
     try {
-        const newAppointment = new Appointment(req.body);
+        const newAppointment = new Appointment({
+            daySchedule: req.body.daySchedule,
+            date: req.body.date,
+            time: req.body.time,
+            doctor: req.body.doctor,
+            patient: req.body.patient,
+            acte: req.body.acte,
+            notes: req.body.notes,
+            honoraire: req.body.honoraire
+        });
+
         const appointment = await newAppointment.save();
         res.json(appointment);
     } catch (error) {
