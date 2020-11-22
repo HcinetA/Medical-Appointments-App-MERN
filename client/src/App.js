@@ -50,7 +50,7 @@ const App = () => {
 							<Route exact path='/appointments' component={AppointmentTable} />
 							<Route
 								exact
-								path='/paffectation'
+								path='/appointment/:id'
 								component={PatientAffectation}
 							/>
 							<Route exact path='/consultation' component={Consultation} />

@@ -1,4 +1,10 @@
-import { ADD_RDV, RDVS_ERROR, GET_RDVS, RDV_ERROR } from '../actions/types';
+import {
+	ADD_RDV,
+	RDVS_ERROR,
+	GET_RDVS,
+	RDV_ERROR,
+	GET_RDV,
+} from '../actions/types';
 
 const initialState = {
 	rdvs: [],
@@ -14,6 +20,12 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				rdvs: payload,
+				loading: false,
+			};
+		case GET_RDV:
+			return {
+				...state,
+				rdv: payload,
 				loading: false,
 			};
 		case RDV_ERROR:

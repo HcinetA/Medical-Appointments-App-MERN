@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { setAlert } from './alert';
-import { ADD_RDV, RDVS_ERROR, GET_RDVS, RDV_ERROR } from './types';
+import { ADD_RDV, RDVS_ERROR, GET_RDVS, RDV_ERROR, GET_RDV } from './types';
 
-// get patients
+// get rddvs
 
 export const getRdvs = () => async (dispatch) => {
 	try {
@@ -19,7 +19,7 @@ export const getRdvs = () => async (dispatch) => {
 	}
 };
 
-// add  patient
+// add  rdvs
 
 export const addRdv = (formData) => async (dispatch) => {
 	const config = {
@@ -36,6 +36,23 @@ export const addRdv = (formData) => async (dispatch) => {
 		});
 
 		dispatch(setAlert('RDV Created ', 'success'));
+	} catch (err) {
+		dispatch({
+			type: RDV_ERROR,
+			payload: { msg: err.response.statusText, status: err.response.status },
+		});
+	}
+};
+
+// get rdv
+
+export const getRdv = (id) => async (dispatch) => {
+	try {
+		const res = await axios.get(`/api/appointment/${id}`);
+		dispatch({
+			type: GET_RDV,
+			payload: res.data,
+		});
 	} catch (err) {
 		dispatch({
 			type: RDV_ERROR,

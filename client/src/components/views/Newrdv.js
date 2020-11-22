@@ -39,15 +39,16 @@ const Newrdv = ({
 		date: '',
 		time: '',
 		notes: '',
+		status: 'false',
 	});
 
-	const { patient, doctor, date, time, notes } = formData;
+	const { patient, doctor, date, time, notes, status } = formData;
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	const onSubmit = (e) => {
 		e.preventDefault();
 		console.log(formData);
-		addRdv({ patient, doctor, date, time, notes });
+		addRdv({ patient, doctor, date, time, notes, status });
 	};
 
 	const [formData2, setFormData2] = useState({

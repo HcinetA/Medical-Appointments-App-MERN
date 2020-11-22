@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import {
 	TextArea,
 	Grid,
@@ -9,10 +9,17 @@ import {
 	Button,
 	Comment,
 } from 'semantic-ui-react';
-
-const PatientAffectation = () => {
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addPatient, getPatients } from '../../actions/patient';
+import { addRdv, getRdvs, getRdv } from '../../actions/rdv';
+import { getDoctors } from '../../actions/doctor';
+const PatientAffectation = ({ getRdv, rdv: { rdv }, match }) => {
+	useEffect(() => {
+		getRdvs(match.params.id);
+	}, [getRdv]);
 	const [formData, setFormData] = useState({
-		name: 'Amin',
+		name: '',
 
 		doctor: '',
 
@@ -230,5 +237,14 @@ const PatientAffectation = () => {
 		</Fragment>
 	);
 };
+PatientAffectation.propTypes = {
+	getRdv: PropTypes.func.isRequired,
+};
 
-export default PatientAffectation;
+const mapStateToProps = (state) => ({
+	rdv: state.rdv,
+});
+
+export default connect(mapStateToProps, {
+	getRdv,
+})(PatientAffectation);

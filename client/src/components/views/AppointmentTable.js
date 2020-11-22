@@ -1,13 +1,35 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { Table, Button, Menu, Icon, Segment, Input } from 'semantic-ui-react';
-
-const AppointmentTable = () => {
+import Moment from 'react-moment';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addPatient, getPatients } from '../../actions/patient';
+import { addRdv, getRdvs } from '../../actions/rdv';
+import { getDoctors } from '../../actions/doctor';
+const AppointmentTable = ({
+	getDoctors,
+	doctor: { doctors, loading },
+	getPatients,
+	patient: { patients },
+	addPatient,
+	getRdvs,
+	rdv: { rdvs },
+	addRdv,
+}) => {
+	useEffect(() => {
+		getDoctors();
+	}, [getDoctors]);
+	useEffect(() => {
+		getPatients();
+	}, [getPatients]);
+	useEffect(() => {
+		getRdvs();
+	}, [getRdvs]);
 	return (
 		<Fragment>
-			<h1 className='large text-primary'>Perscriptions</h1>
-			<p className='lead'>
-				<i className='fas fa-user'></i> Liste
-			</p>
+			<h1 className='large text-primary'>Liste De RDVS</h1>
+
 			<Segment basic textAlign='right'>
 				<Button positive icon='filter' content='My Appointments' />
 
@@ -31,110 +53,25 @@ const AppointmentTable = () => {
 				</Table.Header>
 
 				<Table.Body>
-					<Table.Row>
-						<Table.Cell>1</Table.Cell>
-						<Table.Cell>Amin Hcinet</Table.Cell>
-						<Table.Cell>15/10/2020 | 12:30</Table.Cell>
-						<Table.Cell>John Doe</Table.Cell>
-						<Table.Cell>
-							{' '}
-							<Button circular icon='x' disabled />
-						</Table.Cell>
-						<Table.Cell>
-							<Button primary>manage</Button>
-						</Table.Cell>
-					</Table.Row>
-					<Table.Row>
-						<Table.Cell>1</Table.Cell>
-						<Table.Cell>Amin Hcinet</Table.Cell>
-						<Table.Cell>15/10/2020 | 12:30</Table.Cell>
-						<Table.Cell>John Doe</Table.Cell>
-						<Table.Cell>
-							{' '}
-							<Button circular icon='x' disabled />
-						</Table.Cell>
-						<Table.Cell>
-							<Button primary>manage</Button>
-						</Table.Cell>
-					</Table.Row>{' '}
-					<Table.Row>
-						<Table.Cell>1</Table.Cell>
-						<Table.Cell>Amin Hcinet</Table.Cell>
-						<Table.Cell>15/10/2020 | 12:30</Table.Cell>
-						<Table.Cell>John Doe</Table.Cell>
-						<Table.Cell>
-							{' '}
-							<Button circular icon='check' disabled />
-						</Table.Cell>
-						<Table.Cell>
-							<Button primary>manage</Button>
-						</Table.Cell>
-					</Table.Row>{' '}
-					<Table.Row>
-						<Table.Cell>1</Table.Cell>
-						<Table.Cell>Amin Hcinet</Table.Cell>
-						<Table.Cell>15/10/2020 | 12:30</Table.Cell>
-						<Table.Cell>John Doe</Table.Cell>
-						<Table.Cell>
-							{' '}
-							<Button circular icon='x' disabled />
-						</Table.Cell>
-						<Table.Cell>
-							<Button primary>manage</Button>
-						</Table.Cell>
-					</Table.Row>{' '}
-					<Table.Row>
-						<Table.Cell>1</Table.Cell>
-						<Table.Cell>Amin Hcinet</Table.Cell>
-						<Table.Cell>15/10/2020 | 12:30</Table.Cell>
-						<Table.Cell>John Doe</Table.Cell>
-						<Table.Cell>
-							{' '}
-							<Button circular icon='check' disabled />
-						</Table.Cell>
-						<Table.Cell>
-							<Button primary>manage</Button>
-						</Table.Cell>
-					</Table.Row>{' '}
-					<Table.Row>
-						<Table.Cell>1</Table.Cell>
-						<Table.Cell>Amin Hcinet</Table.Cell>
-						<Table.Cell>15/10/2020 | 12:30</Table.Cell>
-						<Table.Cell>John Doe</Table.Cell>
-						<Table.Cell>
-							{' '}
-							<Button circular icon='check' disabled />
-						</Table.Cell>
-						<Table.Cell>
-							<Button primary>manage</Button>
-						</Table.Cell>
-					</Table.Row>{' '}
-					<Table.Row>
-						<Table.Cell>1</Table.Cell>
-						<Table.Cell>Amin Hcinet</Table.Cell>
-						<Table.Cell>15/10/2020 | 12:30</Table.Cell>
-						<Table.Cell>John Doe</Table.Cell>
-						<Table.Cell>
-							{' '}
-							<Button circular icon='check' disabled />
-						</Table.Cell>
-						<Table.Cell>
-							<Button primary>manage</Button>
-						</Table.Cell>
-					</Table.Row>{' '}
-					<Table.Row>
-						<Table.Cell>1</Table.Cell>
-						<Table.Cell>Amin Hcinet</Table.Cell>
-						<Table.Cell>15/10/2020 | 12:30</Table.Cell>
-						<Table.Cell>John Doe</Table.Cell>
-						<Table.Cell>
-							{' '}
-							<Button circular icon='check' disabled />
-						</Table.Cell>
-						<Table.Cell>
-							<Button primary>manage</Button>
-						</Table.Cell>
-					</Table.Row>
+					{rdvs.map((rdv) => (
+						<Table.Row>
+							<Table.Cell>1</Table.Cell>
+							<Table.Cell>{rdv.patient.name}</Table.Cell>
+							<Table.Cell>
+								<Moment format='YYYY-MM-DD'>{rdv.date}</Moment> | {rdv.time}
+							</Table.Cell>
+							<Table.Cell>DR . {rdv.doctor.firstName}</Table.Cell>
+							<Table.Cell>
+								{' '}
+								<Button circular icon='x' disabled />
+							</Table.Cell>
+							<Table.Cell>
+								<Link to={`/appointment/${rdv._id}`}>
+									<Button primary> Manage</Button>
+								</Link>
+							</Table.Cell>
+						</Table.Row>
+					))}
 				</Table.Body>
 				<Table.Footer>
 					<Table.Row>
@@ -159,4 +96,26 @@ const AppointmentTable = () => {
 	);
 };
 
-export default AppointmentTable;
+AppointmentTable.propTypes = {
+	addPatient: PropTypes.func.isRequired,
+	getDoctors: PropTypes.func.isRequired,
+	doctor: PropTypes.object.isRequired,
+	getPatients: PropTypes.func.isRequired,
+	patient: PropTypes.object.isRequired,
+	getRdvs: PropTypes.func.isRequired,
+	rdv: PropTypes.object.isRequired,
+	addRdv: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+	doctor: state.doctor,
+	rdv: state.rdv,
+	patient: state.patient,
+});
+export default connect(mapStateToProps, {
+	addPatient,
+	getDoctors,
+	getPatients,
+	getRdvs,
+	addRdv,
+})(AppointmentTable);
