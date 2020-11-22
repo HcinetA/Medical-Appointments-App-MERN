@@ -53,17 +53,17 @@ const Newrdv = ({
 	const [formData2, setFormData2] = useState({
 		name: '',
 
-		date_naissance: '',
+		date_of_birth: '',
 
-		tel: '',
+		phone: '',
 	});
-	const { name, date_naissance, tel } = formData2;
+	const { name, date_of_birth, phone } = formData2;
 	const onChange2 = (e2) =>
 		setFormData2({ ...formData2, [e2.target.name]: e2.target.value });
 	const onSubmit2 = (e2) => {
 		e2.preventDefault();
 		setOpen(false);
-		addPatient({ name, date_naissance, tel });
+		addPatient({ name, date_of_birth, phone });
 		console.log(formData2);
 	};
 	return (
@@ -94,17 +94,17 @@ const Newrdv = ({
 							<Form.Field
 								control={Input}
 								label='Phone Number'
-								placeholder='Tel'
-								name='tel'
+								placeholder='phone'
+								name='phone'
 								required
-								value={tel}
+								value={phone}
 								onChange={(e2) => onChange2(e2)}
 							/>
 							<Form.Input
 								label=' Date de naissance'
 								type='date'
-								name='date_naissance'
-								value={date_naissance}
+								name='date_of_birth'
+								value={date_of_birth}
 								required
 								onChange={(e2) => onChange2(e2)}
 							/>
