@@ -1,16 +1,29 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import {
 	Form,
 	TextArea,
 	Button,
 	Segment,
-	Header,
-	Image,
 	Modal,
 	Input,
 } from 'semantic-ui-react';
-
-const Newrdv = () => {
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addPatient, getPatients } from '../../actions/patient';
+import { getDoctors } from '../../actions/doctor';
+const Newrdv = ({
+	getDoctors,
+	doctor: { doctors, loading },
+	getPatients,
+	patient: { patients },
+	addPatient,
+}) => {
+	useEffect(() => {
+		getDoctors();
+	}, [getDoctors]);
+	useEffect(() => {
+		getPatients();
+	}, [getPatients]);
 	const [open, setOpen] = React.useState(false);
 
 	const [formData, setFormData] = useState({
@@ -19,18 +32,33 @@ const Newrdv = () => {
 		date: '',
 		time: '',
 		notes: '',
-		name: '',
-		tel: '',
 	});
-	const { patient, doctor, date, time, notes, name, tel } = formData;
+
+	const { patient, doctor, date, time, notes } = formData;
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	const onSubmit = (e) => {
 		e.preventDefault();
-
+		setOpen(false);
 		console.log(formData);
 	};
 
+	const [formData2, setFormData2] = useState({
+		name: '',
+
+		date_naissance: '',
+
+		tel: '',
+	});
+	const { name, date_naissance, tel } = formData2;
+	const onChange2 = (e2) =>
+		setFormData2({ ...formData2, [e2.target.name]: e2.target.value });
+	const onSubmit2 = (e2) => {
+		e2.preventDefault();
+		setOpen(false);
+		addPatient({ name, date_naissance, tel });
+		console.log(formData2);
+	};
 	return (
 		<Fragment>
 			<h1 className='large text-primary'>New rdv</h1>
@@ -42,11 +70,11 @@ const Newrdv = () => {
 					onClose={() => setOpen(false)}
 					onOpen={() => setOpen(true)}
 					open={open}
-					trigger={<Button>Show Modal</Button>}
+					trigger={<Button positive icon='plus' content='New Patient' />}
 				>
 					<Modal.Header>Create Patient</Modal.Header>
 					<Modal.Content>
-						<Form onSubmit={(e) => onSubmit(e)}>
+						<Form onSubmit={(e2) => onSubmit2(e2)}>
 							<Form.Field
 								control={Input}
 								label='Patient Name'
@@ -54,7 +82,7 @@ const Newrdv = () => {
 								name='name'
 								required
 								value={name}
-								onChange={(e) => onChange(e)}
+								onChange={(e2) => onChange2(e2)}
 							/>
 							<Form.Field
 								control={Input}
@@ -63,35 +91,22 @@ const Newrdv = () => {
 								name='tel'
 								required
 								value={tel}
-								onChange={(e) => onChange(e)}
+								onChange={(e2) => onChange2(e2)}
 							/>
 							<Form.Input
 								label=' Date de naissance'
 								type='date'
-								name='date'
-								value={date}
+								name='date_naissance'
+								value={date_naissance}
 								required
-								onChange={(e) => onChange(e)}
+								onChange={(e2) => onChange2(e2)}
 							/>
-							<Button positive type='submit' onClick={() => setOpen(false)}>
+							<Button positive type='submit'>
 								Submit{' '}
 							</Button>
 						</Form>
 					</Modal.Content>
-					<Modal.Actions>
-						<Button color='black' onClick={() => setOpen(false)}>
-							Nope
-						</Button>
-						<Button
-							content="Yep, that's me"
-							labelPosition='right'
-							icon='checkmark'
-							onClick={() => setOpen(false)}
-							positive
-						/>
-					</Modal.Actions>
 				</Modal>
-				<Button positive icon='plus' content='New Patient' />
 			</Segment>
 			<Segment raised>
 				<Form onSubmit={(e) => onSubmit(e)}>
@@ -100,24 +115,24 @@ const Newrdv = () => {
 							label='Select Patient'
 							control='select'
 							name='patient'
-							value={patient}
 							required
 							onChange={(e) => onChange(e)}
 						>
-							<option value='amin'>Amin</option>
-							<option value='john'>john</option>
+							{patients.map((patient) => (
+								<option value={patient._id}>{patient.name}</option>
+							))}
 						</Form.Field>
 
 						<Form.Field
 							label='Select Doctor'
 							control='select'
 							name='doctor'
-							value={doctor}
 							required
 							onChange={(e) => onChange(e)}
 						>
-							<option value='Doc1'>Doc1</option>
-							<option value='doc2'>Doc2</option>
+							{doctors.map((doctor) => (
+								<option value={doctor._id}>DR.{doctor.firstName}</option>
+							))}
 						</Form.Field>
 					</Form.Group>
 
@@ -157,5 +172,20 @@ const Newrdv = () => {
 		</Fragment>
 	);
 };
+Newrdv.propTypes = {
+	addPatient: PropTypes.func.isRequired,
+	getDoctors: PropTypes.func.isRequired,
+	doctor: PropTypes.object.isRequired,
+	getPatients: PropTypes.func.isRequired,
+	patient: PropTypes.object.isRequired,
+};
 
-export default Newrdv;
+const mapStateToProps = (state) => ({
+	doctor: state.doctor,
+	patient: state.patient,
+});
+export default connect(mapStateToProps, {
+	addPatient,
+	getDoctors,
+	getPatients,
+})(Newrdv);
