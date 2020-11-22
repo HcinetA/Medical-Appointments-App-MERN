@@ -11,7 +11,7 @@ const AppointmentSchema = new mongoose.Schema({
     acte: { type: String },
     honoraire: { type: String },
     status: { type: Boolean, default: false, required: false },
-    motif_consultatio: { type: String },
+    motif: { type: String },
     diagnostic: { type: String },
     analyses: { type: String },
     notes: { type: String },
