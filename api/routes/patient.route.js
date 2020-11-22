@@ -1,10 +1,12 @@
 var express = require('express');
 var router = express.Router();
-const { body, validationResult } = require('express-validator');
+const { body, validationResult, check } = require('express-validator');
 const Patient = require('../models/patient.model');
 const Appointment = require('../models/appointment.model');
 
 const User = require('../models/user.model');
+
+const patientChecker = require('../middleware/patient-checker');
 
 router.get('/', async(req, res) => {
     try {
@@ -27,14 +29,17 @@ router.get('/:id', async(req, res) => {
     }
 });
 
-router.post('/', async(req, res) => {
-    const errors = validationResult(req);
+router.post('/', patientChecker.savePatientCheck, async(req, res) => {
     try {
-
-        const patient = new Patient(req.body);
-        const saved_patient = await patient.save();
-        res.json(saved_patient);
-
+        const phone = req.body.phone;
+        const already_exists_patient = await Patient.find({ 'phone': phone });
+        if (already_exists_patient) {
+            return res.status(400).json("Un autre patient possede le meme numero de telephone ")
+        } else {
+            const patient = new Patient(req.body);
+            const saved_patient = await patient.save();
+            res.json(saved_patient);
+        }
     } catch (error) {
         console.error(error);
         res.status(500).send(error);
