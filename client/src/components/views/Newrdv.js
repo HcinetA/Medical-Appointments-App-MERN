@@ -1,15 +1,28 @@
 import React, { Fragment, useState } from 'react';
-import { Form, TextArea, Button, Segment } from 'semantic-ui-react';
+import {
+	Form,
+	TextArea,
+	Button,
+	Segment,
+	Header,
+	Image,
+	Modal,
+	Input,
+} from 'semantic-ui-react';
 
 const Newrdv = () => {
+	const [open, setOpen] = React.useState(false);
+
 	const [formData, setFormData] = useState({
 		patient: '',
 		doctor: '',
 		date: '',
 		time: '',
 		notes: '',
+		name: '',
+		tel: '',
 	});
-	const { patient, doctor, date, time, notes } = formData;
+	const { patient, doctor, date, time, notes, name, tel } = formData;
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	const onSubmit = (e) => {
@@ -25,6 +38,59 @@ const Newrdv = () => {
 				<i className='fas fa-user'></i> Create an appointment
 			</p>
 			<Segment basic textAlign='right'>
+				<Modal
+					onClose={() => setOpen(false)}
+					onOpen={() => setOpen(true)}
+					open={open}
+					trigger={<Button>Show Modal</Button>}
+				>
+					<Modal.Header>Create Patient</Modal.Header>
+					<Modal.Content>
+						<Form onSubmit={(e) => onSubmit(e)}>
+							<Form.Field
+								control={Input}
+								label='Patient Name'
+								placeholder='Name'
+								name='name'
+								required
+								value={name}
+								onChange={(e) => onChange(e)}
+							/>
+							<Form.Field
+								control={Input}
+								label='Phone Number'
+								placeholder='Tel'
+								name='tel'
+								required
+								value={tel}
+								onChange={(e) => onChange(e)}
+							/>
+							<Form.Input
+								label=' Date de naissance'
+								type='date'
+								name='date'
+								value={date}
+								required
+								onChange={(e) => onChange(e)}
+							/>
+							<Button positive type='submit' onClick={() => setOpen(false)}>
+								Submit{' '}
+							</Button>
+						</Form>
+					</Modal.Content>
+					<Modal.Actions>
+						<Button color='black' onClick={() => setOpen(false)}>
+							Nope
+						</Button>
+						<Button
+							content="Yep, that's me"
+							labelPosition='right'
+							icon='checkmark'
+							onClick={() => setOpen(false)}
+							positive
+						/>
+					</Modal.Actions>
+				</Modal>
 				<Button positive icon='plus' content='New Patient' />
 			</Segment>
 			<Segment raised>

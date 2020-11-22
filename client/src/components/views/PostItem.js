@@ -12,7 +12,7 @@ const PostItem = ({
 	},
 	showActions,
 }) => {
-	return <div>{name}</div>;
+	return <div>hsdhksdhkshd</div>;
 };
 
 PostItem.propTypes = {
