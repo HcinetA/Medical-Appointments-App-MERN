@@ -28,7 +28,7 @@ export const addRdv = (formData) => async (dispatch) => {
 		},
 	};
 	try {
-		const res = await axios.post('/api/appointment/, formData, config');
+		const res = await axios.post('/api/appointment/', formData, config);
 
 		dispatch({
 			type: ADD_RDV,
