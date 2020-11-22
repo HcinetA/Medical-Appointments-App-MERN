@@ -12,12 +12,13 @@ import {
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addPatient, getPatients } from '../../actions/patient';
-import { addRdv, getRdvs, getRdv } from '../../actions/rdv';
+import { addRdv, getRdvs, getRdv, uptRdv } from '../../actions/rdv';
 import { getDoctors } from '../../actions/doctor';
-const PatientAffectation = ({ getRdv, rdv: { rdv }, match }) => {
+const PatientAffectation = ({ uptRdv, getRdv, rdv: { rdv }, match }) => {
 	useEffect(() => {
-		getRdvs(match.params.id);
+		getRdv(match.params.id);
 	}, [getRdv]);
+
 	const [formData, setFormData] = useState({
 		name: '',
 
@@ -238,13 +239,30 @@ const PatientAffectation = ({ getRdv, rdv: { rdv }, match }) => {
 	);
 };
 PatientAffectation.propTypes = {
+	addPatient: PropTypes.func.isRequired,
+	getDoctors: PropTypes.func.isRequired,
+	doctor: PropTypes.object.isRequired,
+	getPatients: PropTypes.func.isRequired,
+	patient: PropTypes.object.isRequired,
+	getRdvs: PropTypes.func.isRequired,
+	rdv: PropTypes.object.isRequired,
+	addRdv: PropTypes.func.isRequired,
 	getRdv: PropTypes.func.isRequired,
+	uptRdv: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+	doctor: state.doctor,
 	rdv: state.rdv,
+	patient: state.patient,
 });
 
 export default connect(mapStateToProps, {
+	addPatient,
+	getDoctors,
+	getPatients,
+	getRdvs,
+	addRdv,
 	getRdv,
+	uptRdv,
 })(PatientAffectation);

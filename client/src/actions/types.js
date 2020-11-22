@@ -18,3 +18,5 @@ export const RDVS_ERROR = 'RDVS_ERROR';
 export const GET_RDVS = 'GET_RDVS';
 export const RDV_ERROR = 'RDV_ERROR';
 export const GET_RDV = 'GET_RDV';
+export const UPT_RDV = 'UPT_RDV';
+export const UPTRDV_ERROR = 'UPTRDV_ERROR';

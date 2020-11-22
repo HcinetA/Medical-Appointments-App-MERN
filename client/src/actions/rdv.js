@@ -1,6 +1,14 @@
 import axios from 'axios';
 import { setAlert } from './alert';
-import { ADD_RDV, RDVS_ERROR, GET_RDVS, RDV_ERROR, GET_RDV } from './types';
+import {
+	ADD_RDV,
+	RDVS_ERROR,
+	GET_RDVS,
+	RDV_ERROR,
+	GET_RDV,
+	UPT_RDV,
+	UPTRDV_ERROR,
+} from './types';
 
 // get rddvs
 
@@ -56,6 +64,22 @@ export const getRdv = (id) => async (dispatch) => {
 	} catch (err) {
 		dispatch({
 			type: RDV_ERROR,
+			payload: { msg: err.response.statusText, status: err.response.status },
+		});
+	}
+};
+
+// update rdv
+export const uptRdv = (id) => async (dispatch) => {
+	try {
+		const res = await axios.put(`/api/appointment/${id}`);
+		dispatch({
+			type: UPT_RDV,
+			payload: res.data,
+		});
+	} catch (err) {
+		dispatch({
+			type: UPTRDV_ERROR,
 			payload: { msg: err.response.statusText, status: err.response.status },
 		});
 	}

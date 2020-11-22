@@ -1,9 +1,12 @@
+import { uptRdv } from '../actions/rdv';
 import {
 	ADD_RDV,
 	RDVS_ERROR,
 	GET_RDVS,
 	RDV_ERROR,
 	GET_RDV,
+	UPT_RDV,
+	UPTRDV_ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -30,6 +33,7 @@ export default function (state = initialState, action) {
 			};
 		case RDV_ERROR:
 		case RDVS_ERROR:
+		case UPTRDV_ERROR:
 			return {
 				...state,
 				error: payload,
@@ -39,6 +43,12 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				rdvs: [...state.rdvs, payload],
+				loading: false,
+			};
+		case UPT_RDV:
+			return {
+				...state,
+				rdv: [...state.rdv, payload],
 				loading: false,
 			};
 
