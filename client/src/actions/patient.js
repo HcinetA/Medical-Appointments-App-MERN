@@ -6,6 +6,7 @@ import {
 	GET_PATIENTS,
 	PATIENT_ERROR,
 	UPT_PATIENT,
+	GET_PATIENT,
 } from './types';
 
 // get patients
@@ -50,9 +51,26 @@ export const addPatient = (formData2) => async (dispatch) => {
 	}
 };
 
+// get patient
+
+export const getPatient = (id) => async (dispatch) => {
+	try {
+		const res = await axios.get(`/api/patient/${id}`);
+		dispatch({
+			type: GET_PATIENT,
+			payload: res.data,
+		});
+	} catch (err) {
+		dispatch({
+			type: PATIENT_ERROR,
+			payload: { msg: err.response.statusText, status: err.response.status },
+		});
+	}
+};
+
 // uptade  patient
 
-export const uptRdv = (id, formData) => async (dispatch) => {
+export const uptPatient = (id, formData) => async (dispatch) => {
 	const config = {
 		headers: {
 			'Content-Type': 'application/json',
@@ -60,7 +78,7 @@ export const uptRdv = (id, formData) => async (dispatch) => {
 	};
 	try {
 		const res = await axios.put(`/api/patients/${id}`, formData, config);
-
+		console.log(formData);
 		dispatch({
 			type: UPT_PATIENT,
 			payload: res.data,
