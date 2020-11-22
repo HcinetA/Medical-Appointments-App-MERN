@@ -36,7 +36,7 @@ app.use(cors());
 app.get('/', (req, res) => res.send('API Running'));
 app.use('/api/patient', auth, require('./api/routes/patient.route'));
 app.use('/api/appointment', auth, require('./api/routes/appointment.route'));
-app.use('/api/prescription', auth, require('./api/routes/prescription.route'));
+
 app.use('/api/maladie', auth, require('./api/routes/maladie.route'));
 
 app.use('/forgot', require('./api/routes/forgot.route'));
