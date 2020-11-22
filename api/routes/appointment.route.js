@@ -3,13 +3,13 @@ var router = express.Router();
 var express = require('express');
 const { validationResult } = require('express-validator');
 var mongoose = require('mongoose');
-const User = require('../models/user.model');
+const Patient = require('../models/patient.model');
 const Appointment = require('../models/appointment.model');
 
 
 router.get('/', async(req, res) => {
     try {
-        const appointments = await Appointment.find();
+        const appointments = await Appointment.find().populate('patient', ['name', 'phone']);
         res.json(appointments);
     } catch (error) {
         console.log(error);
@@ -20,7 +20,7 @@ router.get('/', async(req, res) => {
 router.get('/:id', async(req, res) => {
     try {
         const id = req.params.id
-        const appointment = await Appointment.findById(id);
+        const appointment = await Appointment.findById(id).populate('patient', ['name', 'phone']);
         res.json(appointment);
     } catch (err) {
         console.log(err);
@@ -56,7 +56,8 @@ router.post('/', async(req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
     try {
-        const newAppointment = new Appointment({
+        const patient = await Patient.findById(req.body.patient);
+        const app = {
             daySchedule: req.body.daySchedule,
             date: req.body.date,
             time: req.body.time,
@@ -65,11 +66,16 @@ router.post('/', async(req, res) => {
             acte: req.body.acte,
             notes: req.body.notes,
             honoraire: req.body.honoraire
-        });
+        }
+        const newAppointment = new Appointment(req.body);
 
         const appointment = await newAppointment.save();
+        patient.appointments.push(appointment);
+        const saved_patient = await patient.save()
+        console.log(saved_patient);
         res.json(appointment);
     } catch (error) {
+        console.log(error);
         res.status(500).send(error);
     }
 });
