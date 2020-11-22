@@ -4,13 +4,13 @@ import {
 	TextArea,
 	Button,
 	Segment,
-	Header,
-	Image,
 	Modal,
 	Input,
 } from 'semantic-ui-react';
-
-const Newrdv = () => {
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addPatient } from '../../actions/patient';
+const Newrdv = ({ addPatient }) => {
 	const [open, setOpen] = React.useState(false);
 
 	const [formData, setFormData] = useState({
@@ -19,18 +19,33 @@ const Newrdv = () => {
 		date: '',
 		time: '',
 		notes: '',
-		name: '',
-		tel: '',
 	});
-	const { patient, doctor, date, time, notes, name, tel } = formData;
+
+	const { patient, doctor, date, time, notes } = formData;
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	const onSubmit = (e) => {
 		e.preventDefault();
-
+		setOpen(false);
 		console.log(formData);
 	};
 
+	const [formData2, setFormData2] = useState({
+		name: '',
+
+		date_naissance: '',
+
+		tel: '',
+	});
+	const { name, date_naissance, tel } = formData2;
+	const onChange2 = (e2) =>
+		setFormData2({ ...formData2, [e2.target.name]: e2.target.value });
+	const onSubmit2 = (e2) => {
+		e2.preventDefault();
+		setOpen(false);
+		addPatient({ name, date_naissance, tel });
+		console.log(formData2);
+	};
 	return (
 		<Fragment>
 			<h1 className='large text-primary'>New rdv</h1>
@@ -42,11 +57,11 @@ const Newrdv = () => {
 					onClose={() => setOpen(false)}
 					onOpen={() => setOpen(true)}
 					open={open}
-					trigger={<Button>Show Modal</Button>}
+					trigger={<Button positive icon='plus' content='New Patient' />}
 				>
 					<Modal.Header>Create Patient</Modal.Header>
 					<Modal.Content>
-						<Form onSubmit={(e) => onSubmit(e)}>
+						<Form onSubmit={(e2) => onSubmit2(e2)}>
 							<Form.Field
 								control={Input}
 								label='Patient Name'
@@ -54,7 +69,7 @@ const Newrdv = () => {
 								name='name'
 								required
 								value={name}
-								onChange={(e) => onChange(e)}
+								onChange={(e2) => onChange2(e2)}
 							/>
 							<Form.Field
 								control={Input}
@@ -63,35 +78,22 @@ const Newrdv = () => {
 								name='tel'
 								required
 								value={tel}
-								onChange={(e) => onChange(e)}
+								onChange={(e2) => onChange2(e2)}
 							/>
 							<Form.Input
 								label=' Date de naissance'
 								type='date'
-								name='date'
-								value={date}
+								name='date_naissance'
+								value={date_naissance}
 								required
-								onChange={(e) => onChange(e)}
+								onChange={(e2) => onChange2(e2)}
 							/>
-							<Button positive type='submit' onClick={() => setOpen(false)}>
+							<Button positive type='submit'>
 								Submit{' '}
 							</Button>
 						</Form>
 					</Modal.Content>
-					<Modal.Actions>
-						<Button color='black' onClick={() => setOpen(false)}>
-							Nope
-						</Button>
-						<Button
-							content="Yep, that's me"
-							labelPosition='right'
-							icon='checkmark'
-							onClick={() => setOpen(false)}
-							positive
-						/>
-					</Modal.Actions>
 				</Modal>
-				<Button positive icon='plus' content='New Patient' />
 			</Segment>
 			<Segment raised>
 				<Form onSubmit={(e) => onSubmit(e)}>
@@ -157,5 +159,8 @@ const Newrdv = () => {
 		</Fragment>
 	);
 };
+Newrdv.propTypes = {
+	addPatient: PropTypes.func.isRequired,
+};
 
-export default Newrdv;
+export default connect(null, { addPatient })(Newrdv);
