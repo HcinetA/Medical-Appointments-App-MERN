@@ -88,6 +88,7 @@ router.put('/:id', async(req, res) => {
         await Appointment.findByIdAndUpdate(req.params.id, req.body);
         res.send(responseObject);
     } catch (error) {
+        console.log(error);
         res.status(500).send(error)
     }
 });
