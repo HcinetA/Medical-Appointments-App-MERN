@@ -12,8 +12,10 @@ import {
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { setAlert } from '../../actions/alert';
+
 import { addPatient, getPatients } from '../../actions/patient';
-import { addRdv, getRdvs, getRdv } from '../../actions/rdv';
+import { addRdv, getRdvs, getRdv, uptRdv } from '../../actions/rdv';
 import { getDoctors } from '../../actions/doctor';
 const PatientAffectation = ({
 	getRdv,
@@ -21,6 +23,8 @@ const PatientAffectation = ({
 	match,
 	getDoctors,
 	doctor: { doctors },
+	uptRdv,
+	setAlert,
 }) => {
 	const [open, setOpen] = React.useState(false);
 
@@ -60,7 +64,7 @@ const PatientAffectation = ({
 
 	const onSubmit2 = (e2) => {
 		e2.preventDefault();
-
+		uptRdv({ motif, diagnostic, analyses, notes_consultation, doctor });
 		console.log(formData2);
 	};
 
@@ -117,7 +121,7 @@ const PatientAffectation = ({
 											control='select'
 											name='doctor'
 											required
-											onChange={(e) => onChange(e)}
+											onChange={(e2) => onChange2(e2)}
 										>
 											{doctors.map((doctor) => (
 												<option value={doctor._id}>
@@ -284,10 +288,13 @@ const PatientAffectation = ({
 };
 
 PatientAffectation.propTypes = {
+	setAlert: PropTypes.func.isRequired,
+
 	getRdv: PropTypes.func.isRequired,
 	getDoctors: PropTypes.func.isRequired,
 	rdv: PropTypes.object.isRequired,
 	doctor: PropTypes.object.isRequired,
+	uptRdv: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -295,6 +302,9 @@ const mapStateToProps = (state) => ({
 	rdv: state.rdv,
 });
 
-export default connect(mapStateToProps, { getRdv, getDoctors })(
-	PatientAffectation
-);
+export default connect(mapStateToProps, {
+	getRdv,
+	setAlert,
+	uptRdv,
+	getDoctors,
+})(PatientAffectation);
