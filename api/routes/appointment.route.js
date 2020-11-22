@@ -9,7 +9,7 @@ const Appointment = require('../models/appointment.model');
 
 router.get('/', async(req, res) => {
     try {
-        const appointments = await Appointment.find().populate('patient', ['name', 'phone']);
+        const appointments = await Appointment.find().populate('patient', ['name', 'phone']).populate('doctor');
         res.json(appointments);
     } catch (error) {
         console.log(error);
@@ -20,7 +20,7 @@ router.get('/', async(req, res) => {
 router.get('/:id', async(req, res) => {
     try {
         const id = req.params.id
-        const appointment = await Appointment.findById(id).populate('patient', ['name', 'phone']);
+        const appointment = await Appointment.findById(id).populate('patient', ['name', 'phone']).populate('doctor');
         res.json(appointment);
     } catch (err) {
         console.log(err);
