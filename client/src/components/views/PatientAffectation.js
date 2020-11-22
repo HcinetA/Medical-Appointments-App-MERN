@@ -35,11 +35,10 @@ const PatientAffectation = ({
 		getRdv(match.params.id);
 		setFormData2({
 			diagnostic: loading || !rdv ? '' : rdv.diagnostic,
-			analyses: loading || !rdv.analyses ? '' : rdv.analyses,
-			notes_consultation:
-				loading || !rdv.notes_consultation ? '' : rdv.notes_consultation,
-			doctor: loading || !rdv.doctor._id ? '' : rdv.doctor._id,
-			motif: loading || !rdv.motif ? '' : rdv.motif,
+			analyses: loading || !rdv ? '' : rdv.analyses,
+			notes_consultation: loading || !rdv ? '' : rdv.notes_consultation,
+			doctor: loading || !rdv ? '' : rdv.doctor._id,
+			motif: loading || !rdv ? '' : rdv.motif,
 		});
 		// eslint-disable-next-line
 	}, [loading]);
@@ -109,7 +108,7 @@ const PatientAffectation = ({
 											id='form-textarea-control-opinion'
 											control={TextArea}
 											name='motif'
-											placeholder={rdv.motif}
+											placeholder='motif'
 											value={motif}
 											onChange={(e2) => onChange2(e2)}
 										/>
