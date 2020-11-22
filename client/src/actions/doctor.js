@@ -13,7 +13,7 @@ export const getDoctors = () => async (dispatch) => {
 			dispatch({
 				type: GET_DOCTORS,
 
-				payload: [...res.data, ...res2.data],
+				payload: res.data,
 			});
 		});
 	} catch (err) {

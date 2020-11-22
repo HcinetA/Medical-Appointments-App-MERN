@@ -12,30 +12,52 @@ import {
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addPatient, getPatients } from '../../actions/patient';
-import { addRdv, getRdvs, getRdv, uptRdv } from '../../actions/rdv';
+import { addRdv, getRdvs, getRdv } from '../../actions/rdv';
 import { getDoctors } from '../../actions/doctor';
-const PatientAffectation = ({ uptRdv, getRdv, rdv: { rdv }, match }) => {
+const PatientAffectation = ({
+	getRdv,
+	rdv: { rdv },
+	match,
+	getDoctors,
+	doctor: { doctors, loading },
+}) => {
+	useEffect(() => {
+		getDoctors();
+	}, [getDoctors]);
 	useEffect(() => {
 		getRdv(match.params.id);
 	}, [getRdv]);
-
 	const [formData, setFormData] = useState({
 		name: '',
-
-		doctor: '',
-
-		diagnostic: '',
 		notes: '',
 		maladie: '',
 		allergie: '',
 	});
-	const { name, doctor, notes, diagnostic, maladie, allergie } = formData;
+	const { name, notes, maladie, allergie } = formData;
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
+
+	const [formData2, setFormData2] = useState({
+		motif: '',
+		diagnostic: '',
+		analyses: '',
+		notes_consultation: '',
+	});
+	const { motif, diagnostic, analyses, notes_consultation } = formData2;
+
+	const onChange2 = (e2) =>
+		setFormData2({ ...formData2, [e2.target.name]: e2.target.value });
+
 	const onSubmit = (e) => {
 		e.preventDefault();
 
 		console.log(formData);
+	};
+
+	const onSubmit2 = (e2) => {
+		e2.preventDefault();
+
+		console.log(formData2);
 	};
 
 	return (
@@ -133,14 +155,18 @@ const PatientAffectation = ({ uptRdv, getRdv, rdv: { rdv }, match }) => {
 											placeholder='Habitude'
 										/>
 									</Segment>
+								</Form>
+								<Form onSubmit={(e2) => onSubmit2(e2)}>
 									<Segment color='purple'>
 										<Header as='h5'>Motif de Consultation</Header>
 
 										<Form.Field
 											id='form-textarea-control-opinion'
 											control={TextArea}
-											name='Motif'
+											name='motif'
 											placeholder='Motif de Consultation'
+											value={motif}
+											onChange={(e2) => onChange2(e2)}
 										/>
 
 										<Header as='h5'>Diagnostic</Header>
@@ -151,42 +177,28 @@ const PatientAffectation = ({ uptRdv, getRdv, rdv: { rdv }, match }) => {
 											name='diagnostic'
 											placeholder='Diagnostic'
 											value={diagnostic}
-											onChange={(e) => onChange(e)}
+											onChange={(e2) => onChange2(e2)}
 										/>
 										<Header as='h5'>Analyses</Header>
 
 										<Form.Field
 											id='form-textarea-control-opinion'
 											control={TextArea}
-											name='Analyses'
+											name='analyses'
 											placeholder='Analyses'
+											value={analyses}
+											onChange={(e2) => onChange2(e2)}
 										/>
-										<Header as='h5'>Choose a doctor...</Header>
-
-										<Input
-											fluid
-											list='doctors'
-											multiple
-											placeholder='Choose a doctor...'
-											name='doctor'
-											value={doctor}
-											onChange={(e) => onChange(e)}
-										/>
-										<datalist id='doctors'>
-											<option value='Doctor 1'>Doctor 1</option>
-											<option value='Doctor 2'>Doctor 2</option>
-											<option value='Doctor 3'>Doctor 3</option>
-										</datalist>
 
 										<Header as='h5'>Notes</Header>
 
 										<Form.Field
 											id='form-textarea-control-opinion'
 											control={TextArea}
-											name='notes'
+											name='notes_consultation'
 											placeholder='Notes'
-											value={notes}
-											onChange={(e) => onChange(e)}
+											value={notes_consultation}
+											onChange={(e2) => onChange2(e2)}
 										/>
 									</Segment>
 
@@ -239,30 +251,17 @@ const PatientAffectation = ({ uptRdv, getRdv, rdv: { rdv }, match }) => {
 	);
 };
 PatientAffectation.propTypes = {
-	addPatient: PropTypes.func.isRequired,
-	getDoctors: PropTypes.func.isRequired,
-	doctor: PropTypes.object.isRequired,
-	getPatients: PropTypes.func.isRequired,
-	patient: PropTypes.object.isRequired,
-	getRdvs: PropTypes.func.isRequired,
-	rdv: PropTypes.object.isRequired,
-	addRdv: PropTypes.func.isRequired,
 	getRdv: PropTypes.func.isRequired,
-	uptRdv: PropTypes.func.isRequired,
+	getDoctors: PropTypes.func.isRequired,
+	rdv: PropTypes.object.isRequired,
+	doctor: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-	doctor: state.doctor,
 	rdv: state.rdv,
-	patient: state.patient,
+	doctor: state.doctor,
 });
 
-export default connect(mapStateToProps, {
-	addPatient,
-	getDoctors,
-	getPatients,
-	getRdvs,
-	addRdv,
-	getRdv,
-	uptRdv,
-})(PatientAffectation);
+export default connect(mapStateToProps, { getRdv, getDoctors })(
+	PatientAffectation
+);
