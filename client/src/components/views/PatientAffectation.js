@@ -8,6 +8,7 @@ import {
 	Header,
 	Button,
 	Comment,
+	Modal,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -16,11 +17,13 @@ import { addRdv, getRdvs, getRdv } from '../../actions/rdv';
 import { getDoctors } from '../../actions/doctor';
 const PatientAffectation = ({
 	getRdv,
-	rdv: { rdv },
+	rdv: { rdv, loading },
 	match,
 	getDoctors,
-	doctor: { doctors, loading },
+	doctor: { doctors },
 }) => {
+	const [open, setOpen] = React.useState(false);
+
 	useEffect(() => {
 		getDoctors();
 	}, [getDoctors]);
@@ -42,8 +45,9 @@ const PatientAffectation = ({
 		diagnostic: '',
 		analyses: '',
 		notes_consultation: '',
+		doctor: '',
 	});
-	const { motif, diagnostic, analyses, notes_consultation } = formData2;
+	const { motif, diagnostic, analyses, notes_consultation, doctor } = formData2;
 
 	const onChange2 = (e2) =>
 		setFormData2({ ...formData2, [e2.target.name]: e2.target.value });
@@ -60,7 +64,9 @@ const PatientAffectation = ({
 		console.log(formData2);
 	};
 
-	return (
+	return loading || rdv === null ? (
+		<Fragment>Loading</Fragment>
+	) : (
 		<Fragment>
 			<h1 className='large text-primary'>New rdv</h1>
 			<p className='lead'>
@@ -73,89 +79,6 @@ const PatientAffectation = ({
 							<Segment>
 								{' '}
 								<Header as='h3'>Consultation</Header>
-								<Form onSubmit={(e) => onSubmit(e)}>
-									<Segment color='teal'>
-										<Form.Group widths='equal'>
-											<Form.Field
-												control={Input}
-												label='Patient Name'
-												placeholder='Name'
-												name='name'
-												required
-												readOnly
-												value={name}
-												onChange={(e) => onChange(e)}
-											/>
-										</Form.Group>
-										<Form.Group widths='equal'>
-											<Form.Field
-												control={Input}
-												label='Travaille'
-												placeholder='Travaille'
-												name='travaille'
-												required
-											/>
-											<Form.Field
-												label='Select City'
-												control='select'
-												name='city'
-												required
-											>
-												<option value='Monastir'>Monastir</option>
-												<option value='Sousse'>Sousse</option>
-											</Form.Field>
-										</Form.Group>
-									</Segment>
-									<Segment color='blue'>
-										<Header as='h5'>Maladie </Header>
-
-										<Form.Field
-											id='form-textarea-control-opinion'
-											control={TextArea}
-											name='maladie'
-											placeholder='Maladie'
-											value={maladie}
-											onChange={(e) => onChange(e)}
-										/>
-										<Header as='h5'>Allergie</Header>
-
-										<Form.Group widths='equal'>
-											<Form.Field
-												id='form-textarea-control-opinion'
-												control={TextArea}
-												name='allergie'
-												placeholder='Allergie'
-												value={allergie}
-												onChange={(e) => onChange(e)}
-											/>
-										</Form.Group>
-										<Header as='h5'>Médication en cours </Header>
-
-										<Form.Field
-											id='form-textarea-control-opinion'
-											control={TextArea}
-											name='medication'
-											placeholder='Medication en cours'
-										/>
-										<Header as='h5'>Antécedant Médicaux </Header>
-
-										<Form.Field
-											id='form-textarea-control-opinion'
-											control={TextArea}
-											name='antecedent'
-											placeholder='Antécedant Médicaux'
-										/>
-
-										<Header as='h5'>Habitude</Header>
-
-										<Form.Field
-											id='form-textarea-control-opinion'
-											control={TextArea}
-											name='Habitude'
-											placeholder='Habitude'
-										/>
-									</Segment>
-								</Form>
 								<Form onSubmit={(e2) => onSubmit2(e2)}>
 									<Segment color='purple'>
 										<Header as='h5'>Motif de Consultation</Header>
@@ -189,7 +112,19 @@ const PatientAffectation = ({
 											value={analyses}
 											onChange={(e2) => onChange2(e2)}
 										/>
-
+										<Form.Field
+											label='Select Doctor'
+											control='select'
+											name='doctor'
+											required
+											onChange={(e) => onChange(e)}
+										>
+											{doctors.map((doctor) => (
+												<option value={doctor._id}>
+													DR.{doctor.firstName}
+												</option>
+											))}
+										</Form.Field>
 										<Header as='h5'>Notes</Header>
 
 										<Form.Field
@@ -208,7 +143,104 @@ const PatientAffectation = ({
 						</Grid.Column>
 						<Grid.Column>
 							<Segment color='brown'>
-								{' '}
+								<Modal
+									onClose={() => setOpen(false)}
+									onOpen={() => setOpen(true)}
+									open={open}
+									trigger={
+										<Button positive icon='plus' content='Info genral' />
+									}
+								>
+									<Modal.Header>Information Génerale</Modal.Header>
+									<Modal.Content>
+										<Form onSubmit={(e) => onSubmit(e)}>
+											<Segment color='teal'>
+												<Form.Group widths='equal'>
+													<Form.Field
+														control={Input}
+														label='Patient Name'
+														placeholder='Name'
+														name='name'
+														required
+														readOnly
+														value={rdv.patient.name}
+														onChange={(e) => onChange(e)}
+													/>
+												</Form.Group>
+												<Form.Group widths='equal'>
+													<Form.Field
+														control={Input}
+														label='Travaille'
+														placeholder='Travaille'
+														name='travaille'
+														required
+													/>
+													<Form.Field
+														label='Select City'
+														control='select'
+														name='city'
+														required
+													>
+														<option value='Monastir'>Monastir</option>
+														<option value='Sousse'>Sousse</option>
+													</Form.Field>
+												</Form.Group>
+											</Segment>
+											<Segment color='blue'>
+												<Header as='h5'>Maladie </Header>
+
+												<Form.Field
+													id='form-textarea-control-opinion'
+													control={TextArea}
+													name='maladie'
+													placeholder='Maladie'
+													value={maladie}
+													onChange={(e) => onChange(e)}
+												/>
+												<Header as='h5'>Allergie</Header>
+
+												<Form.Group widths='equal'>
+													<Form.Field
+														id='form-textarea-control-opinion'
+														control={TextArea}
+														name='allergie'
+														placeholder='Allergie'
+														value={allergie}
+														onChange={(e) => onChange(e)}
+													/>
+												</Form.Group>
+												<Header as='h5'>Médication en cours </Header>
+
+												<Form.Field
+													id='form-textarea-control-opinion'
+													control={TextArea}
+													name='medication'
+													placeholder='Medication en cours'
+												/>
+												<Header as='h5'>Antécedant Médicaux </Header>
+
+												<Form.Field
+													id='form-textarea-control-opinion'
+													control={TextArea}
+													name='antecedent'
+													placeholder='Antécedant Médicaux'
+												/>
+
+												<Header as='h5'>Habitude</Header>
+
+												<Form.Field
+													id='form-textarea-control-opinion'
+													control={TextArea}
+													name='Habitude'
+													placeholder='Habitude'
+												/>
+											</Segment>
+											<Button positive type='submit'>
+												Submit{' '}
+											</Button>
+										</Form>
+									</Modal.Content>
+								</Modal>{' '}
 								<Header as='h3'>Patient History</Header>
 								<Comment.Group>
 									<Comment>
@@ -250,6 +282,7 @@ const PatientAffectation = ({
 		</Fragment>
 	);
 };
+
 PatientAffectation.propTypes = {
 	getRdv: PropTypes.func.isRequired,
 	getDoctors: PropTypes.func.isRequired,
@@ -258,8 +291,8 @@ PatientAffectation.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-	rdv: state.rdv,
 	doctor: state.doctor,
+	rdv: state.rdv,
 });
 
 export default connect(mapStateToProps, { getRdv, getDoctors })(
