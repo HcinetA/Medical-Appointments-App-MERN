@@ -30,10 +30,8 @@ const Patients = ({
 		<Fragment>Loading</Fragment>
 	) : (
 		<Fragment>
-			<h1 className='large text-primary'>Perscriptions</h1>
-			<p className='lead'>
-				<i className='fas fa-user'></i> Liste
-			</p>
+			<h1 className='large text-primary'>Patients</h1>
+
 			<Segment basic textAlign='right'>
 				<Input
 					action={{ color: 'blue', content: 'Search' }}
@@ -45,11 +43,11 @@ const Patients = ({
 			<Table striped>
 				<Table.Header>
 					<Table.Row>
-						<Table.HeaderCell>#</Table.HeaderCell>
+						<Table.HeaderCell></Table.HeaderCell>
 						<Table.HeaderCell>Name</Table.HeaderCell>
 						<Table.HeaderCell>Phone </Table.HeaderCell>
 						<Table.HeaderCell>Age</Table.HeaderCell>
-						<Table.HeaderCell>Nex rdv</Table.HeaderCell>
+						<Table.HeaderCell>City</Table.HeaderCell>
 						<Table.HeaderCell>Options</Table.HeaderCell>
 					</Table.Row>
 				</Table.Header>
@@ -57,11 +55,11 @@ const Patients = ({
 				<Table.Body>
 					{patients.map((patient) => (
 						<Table.Row>
-							<Table.Cell>1</Table.Cell>
+							<Table.Cell></Table.Cell>
 							<Table.Cell>{patient.name}</Table.Cell>
 							<Table.Cell>{patient.phone}</Table.Cell>
-							<Table.Cell>27</Table.Cell>
-							<Table.Cell>15/10/2020</Table.Cell>
+							<Table.Cell>{patient.age} Ans</Table.Cell>
+							<Table.Cell>{patient.city}</Table.Cell>
 
 							<Table.Cell>
 								<Link to={`/patient/${patient._id}`}>
