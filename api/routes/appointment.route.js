@@ -91,6 +91,7 @@ router.post('/', async (req, res) => {
       honoraire: req.body.honoraire,
       motif: req.body.motif,
       notes_acte: req.body.notes_acte,
+      notes: req.body.notes,
     };
     const newAppointment = new Appointment(req.body);
 
