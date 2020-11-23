@@ -5,7 +5,7 @@ const Patient = require('../models/patient.model');
 
 router.get('/', async (req, res) => {
     try {
-        const invoices = await Invoice.find();
+        const invoices = await Invoice.find().populate('patient');
         res.json(invoices);
     } catch (error) {
         console.log(error);
@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const id = req.params.id;
-        const invoice = await Invoice.findById(id);
+        const invoice = await Invoice.findById(id).populate('patient');
         res.json(invoice);
     } catch (err) {
         console.log(err);
@@ -26,18 +26,22 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const patient = await Patient.findById(req.body.patient);
-        const inv = {
-            paid: req.body.paid,
-            rest: req.body.rest,
-            note_assistante: req.body.note_assistante,
-            patient: req.body.patient
+        const patient_id = req.body.patient;
+        if (patient_id) {
+            const patient = await Patient.findById(req.body.patient);
+            const inv = {
+                paid: req.body.paid,
+                reste: req.body.reste,
+                note_assistante: req.body.note_assistante,
+                patient: req.body.patient
+            }
+            const newInvoice = new Invoice(inv);
+            const invoice = await newInvoice.save();
+            patient.invoices.push(invoice)
+            const saved_patient = await patient.save();
+            res.json(invoice);
         }
-        const newInvoice = new Invoice(inv);
-        const invoice = await newInvoice.save();
-        patient.invoices.push(invoice)
-        const saved_patient = await patient.save();
-        res.json(invoice);
+
     } catch (error) {
         console.error(error);
         res.status(500).send(error);

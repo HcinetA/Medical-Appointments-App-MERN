@@ -67,7 +67,7 @@ router.get('/by_patient_id/:patient_id', async (req, res) => {
 router.get('/doctor/:user_id', async (req, res) => {
   try {
     const doctor_id = req.params.user_id;
-    const appointments = await Appointment.find({ doctor: doctor_id });
+    const appointments = await Appointment.find({ doctor: doctor_id }).populate('patient').populate('doctor', ['-password']);
     res.json(appointments);
   } catch (err) {
     console.log(err);
