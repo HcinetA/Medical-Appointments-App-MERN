@@ -20,11 +20,10 @@ import { addRdv, getRdvs, getRdv, uptRdv } from '../../actions/rdv';
 import { getDoctors } from '../../actions/doctor';
 
 const initialState = {
-	motif: '',
-	diagnostic: '',
-	analyses: '',
-	notes_consultation: '',
+	notes_acte: '',
 	doctor: '',
+	honoraire: '',
+	acte: '',
 	status: true,
 };
 
@@ -55,24 +54,21 @@ const Consultation = ({
 		}
 	}, [getRdv, match.params.id, loading]);
 	const [formData, setFormData] = useState({
-		name: 'Amin',
-		doctor: 'John Doe',
+		doctor: '',
 		acte: '',
-		diagnostic: 'Traitement endo',
+
 		notes_acte: '',
-		maladie: 'None',
-		allergie: 'None',
+
 		honoraire: '',
+		status: true,
 	});
 	const {
-		name,
 		notes_acte,
-		diagnostic,
-		maladie,
-		allergie,
+
 		doctor,
 		acte,
 		honoraire,
+		status,
 	} = formData;
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -84,6 +80,7 @@ const Consultation = ({
 
 			honoraire,
 			doctor,
+			status,
 		});
 		console.log(formData);
 	};
@@ -112,8 +109,9 @@ const Consultation = ({
 										placeholder='Doctor'
 										name='doctor'
 										required
+										hidden
 										readOnly
-										value={rdv.doctor.firstName}
+										value={rdv.doctor._id}
 										onChange={(e) => onChange(e)}
 									/>
 									<Form.Field
