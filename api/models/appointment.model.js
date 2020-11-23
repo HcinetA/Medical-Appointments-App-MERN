@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const User = require('./user.model').schema;
 const Schema = mongoose.Schema;
 
-const AppointmentSchema = new mongoose.Schema({
+const AppointmentSchema = new mongoose.Schema(
+  {
     daySchedule: { type: String },
     date: { type: Date, required: false },
     time: { type: String },
@@ -14,11 +15,13 @@ const AppointmentSchema = new mongoose.Schema({
     motif: { type: String },
     diagnostic: { type: String },
     analyses: { type: String },
+    notes_acte: { type: String },
     notes_consultation: { type: String },
-
-}, {
+  },
+  {
     timestamps: true,
-    discriminatorKey: 'kind'
-});
+    discriminatorKey: 'kind',
+  }
+);
 
 module.exports = Appointment = mongoose.model('Appointment', AppointmentSchema);
