@@ -3,6 +3,8 @@ import {
 	GET_PATIENTS,
 	PATIENTS_ERROR,
 	PATIENT_ERROR,
+	UPT_PATIENT,
+	GET_PATIENT,
 } from '../actions/types';
 
 const initialState = {
@@ -33,6 +35,18 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				patients: [...state.patients, payload],
+				loading: false,
+			};
+		case GET_PATIENT:
+			return {
+				...state,
+				patient: payload,
+				loading: false,
+			};
+		case UPT_PATIENT:
+			return {
+				...state,
+				patient: { ...state.patient, payload },
 				loading: false,
 			};
 

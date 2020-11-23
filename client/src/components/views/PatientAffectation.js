@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 
-import { addPatient, getPatients } from '../../actions/patient';
+import { addPatient, getPatients, uptPatient } from '../../actions/patient';
 import { addRdv, getRdvs, getRdv, uptRdv } from '../../actions/rdv';
 import { getDoctors } from '../../actions/doctor';
 const PatientAffectation = ({
@@ -25,23 +25,24 @@ const PatientAffectation = ({
 	doctor: { doctors },
 	uptRdv,
 	setAlert,
+	uptPatient,
 }) => {
 	const [open, setOpen] = React.useState(false);
 
 	useEffect(() => {
 		getDoctors();
 	}, [getDoctors]);
+
 	useEffect(() => {
 		getRdv(match.params.id);
 		setFormData2({
+			motif: loading || !rdv ? '' : rdv.motif,
 			diagnostic: loading || !rdv ? '' : rdv.diagnostic,
 			analyses: loading || !rdv ? '' : rdv.analyses,
 			notes_consultation: loading || !rdv ? '' : rdv.notes_consultation,
 			doctor: loading || !rdv ? '' : rdv.doctor._id,
-			motif: loading || !rdv ? '' : rdv.motif,
 		});
-		// eslint-disable-next-line
-	}, [loading]);
+	}, [getRdv, loading]);
 
 	const [formData2, setFormData2] = useState({
 		motif: '',
@@ -53,12 +54,23 @@ const PatientAffectation = ({
 	});
 	console.log(formData2);
 	const [formData, setFormData] = useState({
-		name: '',
-		notes: '',
 		maladie: '',
 		allergie: '',
+		job: '',
+		city: '',
+		medication: '',
+		antecedent: '',
+		habitude: '',
 	});
-	const { name, notes, maladie, allergie } = formData;
+	const {
+		maladie,
+		allergie,
+		job,
+		city,
+		medication,
+		antecedent,
+		habitude,
+	} = formData;
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -69,7 +81,15 @@ const PatientAffectation = ({
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-
+		uptPatient(rdv.patient._id, {
+			maladie,
+			allergie,
+			job,
+			city,
+			medication,
+			antecedent,
+			habitude,
+		});
 		console.log(formData);
 	};
 
@@ -85,7 +105,7 @@ const PatientAffectation = ({
 		console.log(formData2);
 	};
 
-	return loading || rdv === null ? (
+	return loading && rdv === null ? (
 		<Fragment>Loading</Fragment>
 	) : (
 		<Fragment>
@@ -108,7 +128,7 @@ const PatientAffectation = ({
 											id='form-textarea-control-opinion'
 											control={TextArea}
 											name='motif'
-											placeholder='motif'
+											placeholder='Motif'
 											value={motif}
 											onChange={(e2) => onChange2(e2)}
 										/>
@@ -184,7 +204,7 @@ const PatientAffectation = ({
 														name='name'
 														required
 														readOnly
-														value={rdv.patient.name}
+														value='name'
 														onChange={(e) => onChange(e)}
 													/>
 												</Form.Group>
@@ -193,14 +213,18 @@ const PatientAffectation = ({
 														control={Input}
 														label='Travaille'
 														placeholder='Travaille'
-														name='travaille'
+														name='job'
 														required
+														value={job}
+														onChange={(e) => onChange(e)}
 													/>
 													<Form.Field
 														label='Select City'
 														control='select'
 														name='city'
 														required
+														value={city}
+														onChange={(e) => onChange(e)}
 													>
 														<option value='Monastir'>Monastir</option>
 														<option value='Sousse'>Sousse</option>
@@ -237,6 +261,8 @@ const PatientAffectation = ({
 													control={TextArea}
 													name='medication'
 													placeholder='Medication en cours'
+													value={medication}
+													onChange={(e) => onChange(e)}
 												/>
 												<Header as='h5'>Antécedant Médicaux </Header>
 
@@ -245,6 +271,8 @@ const PatientAffectation = ({
 													control={TextArea}
 													name='antecedent'
 													placeholder='Antécedant Médicaux'
+													value={antecedent}
+													onChange={(e) => onChange(e)}
 												/>
 
 												<Header as='h5'>Habitude</Header>
@@ -252,8 +280,10 @@ const PatientAffectation = ({
 												<Form.Field
 													id='form-textarea-control-opinion'
 													control={TextArea}
-													name='Habitude'
+													name='habitude'
 													placeholder='Habitude'
+													value={habitude}
+													onChange={(e) => onChange(e)}
 												/>
 											</Segment>
 											<Button positive type='submit'>
@@ -312,6 +342,7 @@ PatientAffectation.propTypes = {
 	rdv: PropTypes.object.isRequired,
 	doctor: PropTypes.object.isRequired,
 	uptRdv: PropTypes.func.isRequired,
+	uptPatient: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -324,4 +355,5 @@ export default connect(mapStateToProps, {
 	setAlert,
 	uptRdv,
 	getDoctors,
+	uptPatient,
 })(PatientAffectation);
