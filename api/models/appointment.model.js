@@ -15,8 +15,8 @@ const AppointmentSchema = new mongoose.Schema(
     motif: { type: String },
     diagnostic: { type: String },
     analyses: { type: String },
-    notes_acte: { type: String },
     notes_consultation: { type: String },
+    notes_acte: { type: String },
   },
   {
     timestamps: true,
