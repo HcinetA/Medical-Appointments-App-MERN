@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const Invoice = require('../models/invoice.model');
+const Patient = require('../models/patient.model');
 
 router.get('/', async (req, res) => {
     try {
