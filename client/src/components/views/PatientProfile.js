@@ -26,6 +26,7 @@ const PatientProfile = ({
 	patient: { patient, loading },
 	match,
 	getAptPatient,
+	rdv: { rdvs },
 }) => {
 	useEffect(() => {
 		getPatient(match.params.id);
@@ -84,7 +85,7 @@ const PatientProfile = ({
 						</Table.Header>
 
 						<Table.Body>
-							{patient.appointments.map((rdv) => (
+							{rdvs.map((rdv) => (
 								<Table.Row>
 									<Table.Cell>1</Table.Cell>
 
@@ -92,7 +93,9 @@ const PatientProfile = ({
 										{' '}
 										<Moment format='YYYY/MM/DD'>{rdv.date}</Moment> | {rdv.time}{' '}
 									</Table.Cell>
-									<Table.Cell>John Doe</Table.Cell>
+									<Table.Cell>
+										Dr. {rdv.doctor.firstName} {rdv.doctor.lastName}
+									</Table.Cell>
 									<Table.Cell>
 										{' '}
 										<Button circular icon='x' disabled />
@@ -219,6 +222,7 @@ PatientProfile.propTypes = {
 
 const mapStateToProps = (state) => ({
 	patient: state.patient,
+	rdv: state.rdv,
 });
 export default connect(mapStateToProps, {
 	getPatient,
