@@ -21,6 +21,7 @@ const PatientSchema = new Schema(
     job: { type: String },
     habitude: { type: String },
     city: { type: String },
+    age: { type: Number }
   },
   {
     timestamps: true,
