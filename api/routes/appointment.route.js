@@ -110,20 +110,7 @@ router.put('/:id', async (req, res) => {
     updated_element: req.body,
   };
   try {
-    const app = {
-      daySchedule: req.body.daySchedule,
-      date: req.body.date,
-      time: req.body.time,
-      doctor: req.body.doctor,
-      patient: req.body.patient,
-      acte: req.body.acte,
-      notes_consultation: req.body.notes_consultation,
-      honoraire: req.body.honoraire,
-      motif: req.body.motif,
-      notes_acte: req.body.notes_acte,
-      status: req.body.status,
-    };
-    await Appointment.findByIdAndUpdate(req.params.id, app);
+    await Appointment.findByIdAndUpdate(req.params.id, req.body);
     res.send(responseObject);
   } catch (error) {
     console.log(error);
