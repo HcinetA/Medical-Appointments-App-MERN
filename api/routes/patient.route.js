@@ -10,7 +10,9 @@ const patientChecker = require('../middleware/patient-checker');
 
 router.get('/', async (req, res) => {
   try {
-    const patients = await Patient.find().populate('appointments');
+    const patients = await Patient.find()
+      .populate('appointments')
+      .populate('doctor');
     res.json(patients);
   } catch (error) {
     console.log(error);
@@ -21,7 +23,9 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const id = req.params.id;
-    const patient = await Patient.findById(id).populate('appointments');
+    const patient = await Patient.findById(id)
+      .populate('appointments')
+      .populate('doctor');
     res.json(patient);
   } catch (err) {
     console.log(err);
