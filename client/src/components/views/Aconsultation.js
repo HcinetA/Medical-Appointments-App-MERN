@@ -23,6 +23,7 @@ const initialState = {
 	paid: '',
 
 	note_assistante: '',
+	patient: '',
 };
 const Aconsultation = ({
 	match,
@@ -44,13 +45,13 @@ const Aconsultation = ({
 	useEffect(() => {
 		getRdv(match.params.id);
 	}, [getRdv, match.params.id]);
-
-	const { paid, reste, note_assistante } = formData;
+	const { paid, reste, note_assistante, patient } = formData;
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
+
 	const onSubmit = (e) => {
 		e.preventDefault();
-		addPayment({ paid, reste, note_assistante });
+		addPayment({ paid, reste, note_assistante, patient });
 
 		console.log(formData);
 	};
@@ -69,6 +70,15 @@ const Aconsultation = ({
 								{' '}
 								<Header as='h3'>Payments</Header>
 								<Form onSubmit={(e) => onSubmit(e)}>
+									<Form.Field
+										label='Select Patient'
+										control='select'
+										name='patient'
+										required
+										onChange={(e) => onChange(e)}
+									>
+										<option value={rdv.patient._id}>{rdv.patient._id}</option>
+									</Form.Field>
 									<Form.Group widths='equal'>
 										<Form.Field
 											control={Input}
