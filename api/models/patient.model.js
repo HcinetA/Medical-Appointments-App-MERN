@@ -8,9 +8,7 @@ const PatientSchema = new Schema(
     phone: { type: Number, unique: true },
     date_of_birth: { type: Date },
     information: { type: String },
-    appointments: [
-      { type: Schema.Types.ObjectId, ref: 'Appointment', autopopulate: true },
-    ],
+    appointments: [{ type: Schema.Types.ObjectId, ref: 'Appointment', autopopulate: true }],
     user: { type: Schema.Types.ObjectId },
     invoices: [{ type: Schema.Types.ObjectId, ref: 'Invoice' }],
     maladie: { type: String },

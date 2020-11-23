@@ -25,8 +25,17 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const newInvoice = new Invoice(req.body);
+        const patient = await Patient.findById(req.body.patient);
+        const inv = {
+            paid: req.body.paid,
+            rest: req.body.rest,
+            note_assistante: req.body.note_assistante,
+            patient: req.body.patient
+        }
+        const newInvoice = new Invoice(inv);
         const invoice = await newInvoice.save();
+        patient.invoices.push(invoice)
+        const saved_patient = await patient.save();
         res.json(invoice);
     } catch (error) {
         console.error(error);

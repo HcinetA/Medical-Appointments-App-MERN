@@ -12,7 +12,8 @@ router.get('/', async (req, res) => {
   try {
     const patients = await Patient.find()
       .populate('appointments')
-      .populate('doctor');
+      .populate('doctor')
+      .populate('invoices');
     res.json(patients);
   } catch (error) {
     console.log(error);
@@ -25,7 +26,8 @@ router.get('/:id', async (req, res) => {
     const id = req.params.id;
     const patient = await Patient.findById(id)
       .populate('appointments')
-      .populate('doctor');
+      .populate('doctor')
+      .populate('invoices');
     res.json(patient);
   } catch (err) {
     console.log(err);
