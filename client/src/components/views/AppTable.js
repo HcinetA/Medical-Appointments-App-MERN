@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
-import { Table, Button, Menu, Icon, Input, Segment } from 'semantic-ui-react';
+import { Table, Button, Menu, Icon, Segment, Input } from 'semantic-ui-react';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { addPatient, getPatients } from '../../actions/patient';
 import { addRdv, getRdvs } from '../../actions/rdv';
 import { getDoctors } from '../../actions/doctor';
-const Patients = ({
+const AppTable = ({
 	getDoctors,
 	doctor: { doctors },
 	getPatients,
@@ -26,75 +26,79 @@ const Patients = ({
 	useEffect(() => {
 		getRdvs();
 	}, [getRdvs]);
+
 	return loading || rdvs === null ? (
 		<Fragment>Loading</Fragment>
 	) : (
 		<Fragment>
-			<h1 className='large text-primary'>Perscriptions</h1>
-			<p className='lead'>
-				<i className='fas fa-user'></i> Liste
-			</p>
+			<h1 className='large text-primary'> Liste De RDVS </h1>
 			<Segment basic textAlign='right'>
+				<Button positive icon='filter' content='My Appointments' />
+
 				<Input
 					action={{ color: 'blue', content: 'Search' }}
 					icon='search'
 					iconPosition='left'
 					placeholder='Patient Name'
 				/>
-			</Segment>
+			</Segment>{' '}
 			<Table striped>
 				<Table.Header>
 					<Table.Row>
-						<Table.HeaderCell>#</Table.HeaderCell>
-						<Table.HeaderCell>Name</Table.HeaderCell>
-						<Table.HeaderCell>Phone </Table.HeaderCell>
-						<Table.HeaderCell>Age</Table.HeaderCell>
-						<Table.HeaderCell>Nex rdv</Table.HeaderCell>
-						<Table.HeaderCell>Options</Table.HeaderCell>
-					</Table.Row>
+						<Table.HeaderCell> # </Table.HeaderCell>{' '}
+						<Table.HeaderCell> Name </Table.HeaderCell>{' '}
+						<Table.HeaderCell> Date </Table.HeaderCell>{' '}
+						<Table.HeaderCell> Doctor </Table.HeaderCell>{' '}
+						<Table.HeaderCell> Status </Table.HeaderCell>{' '}
+						<Table.HeaderCell> Options </Table.HeaderCell>{' '}
+					</Table.Row>{' '}
 				</Table.Header>
-
 				<Table.Body>
-					{patients.map((patient) => (
-						<Table.Row>
-							<Table.Cell>1</Table.Cell>
-							<Table.Cell>{patient.name}</Table.Cell>
-							<Table.Cell>{patient.phone}</Table.Cell>
-							<Table.Cell>27</Table.Cell>
-							<Table.Cell>15/10/2020</Table.Cell>
-
+					{' '}
+					{rdvs.map((rdv) => (
+						<Table.Row key={rdv.id} rdv={rdv}>
+							<Table.Cell> 1 </Table.Cell>{' '}
+							<Table.Cell> {rdv.patient.name} </Table.Cell>{' '}
 							<Table.Cell>
-								<Link to={`/patient/${patient._id}`}>
+								<Moment format='YYYY/MM/DD'>{rdv.date}</Moment> | {rdv.time}{' '}
+							</Table.Cell>{' '}
+							<Table.Cell> DR. {rdv.doctor.firstName} </Table.Cell>{' '}
+							<Table.Cell>
+								{' '}
+								<Button circular icon='x' disabled />
+							</Table.Cell>{' '}
+							<Table.Cell>
+								<Link to={`/app/${rdv._id}`}>
 									<Button primary> Manage </Button>{' '}
 								</Link>{' '}
-							</Table.Cell>
+							</Table.Cell>{' '}
 						</Table.Row>
 					))}{' '}
-				</Table.Body>
+				</Table.Body>{' '}
 				<Table.Footer>
 					<Table.Row>
-						<Table.HeaderCell colSpan='12'>
+						<Table.HeaderCell colSpan='6'>
 							<Menu floated='right' pagination>
 								<Menu.Item as='a' icon>
 									<Icon name='chevron left' />
-								</Menu.Item>
-								<Menu.Item as='a'>1</Menu.Item>
-								<Menu.Item as='a'>2</Menu.Item>
-								<Menu.Item as='a'>3</Menu.Item>
-								<Menu.Item as='a'>4</Menu.Item>
+								</Menu.Item>{' '}
+								<Menu.Item as='a'> 1 </Menu.Item>{' '}
+								<Menu.Item as='a'> 2 </Menu.Item>{' '}
+								<Menu.Item as='a'> 3 </Menu.Item>{' '}
+								<Menu.Item as='a'> 4 </Menu.Item>{' '}
 								<Menu.Item as='a' icon>
 									<Icon name='chevron right' />
-								</Menu.Item>
-							</Menu>
-						</Table.HeaderCell>
-					</Table.Row>
-				</Table.Footer>
-			</Table>
+								</Menu.Item>{' '}
+							</Menu>{' '}
+						</Table.HeaderCell>{' '}
+					</Table.Row>{' '}
+				</Table.Footer>{' '}
+			</Table>{' '}
 		</Fragment>
 	);
 };
 
-Patients.propTypes = {
+AppTable.propTypes = {
 	addPatient: PropTypes.func.isRequired,
 	getDoctors: PropTypes.func.isRequired,
 	doctor: PropTypes.object.isRequired,
@@ -116,4 +120,4 @@ export default connect(mapStateToProps, {
 	getPatients,
 	getRdvs,
 	addRdv,
-})(Patients);
+})(AppTable);

@@ -1,16 +1,14 @@
 import {
-	ADD_RDV,
-	RDVS_ERROR,
-	GET_RDVS,
-	RDV_ERROR,
-	GET_RDV,
-	UPT_RDV,
-	UPTRDV_ERROR,
+	ADD_PAYMENT,
+	PAYMENTS_ERROR,
+	GET_PAYMENTS,
+	GET_PAYMENT,
+	UPT_PAYMENT,
 } from '../actions/types';
 
 const initialState = {
-	rdvs: [],
-	rdv: null,
+	payments: [],
+	payment: null,
 	loading: true,
 	error: {},
 };
@@ -18,39 +16,37 @@ const initialState = {
 export default function (state = initialState, action) {
 	const { type, payload } = action;
 	switch (type) {
-		case GET_RDVS:
+		case ADD_PAYMENT:
 			return {
 				...state,
-				rdvs: payload,
+				payments: [...state.payments, payload],
 				loading: false,
 			};
-		case GET_RDV:
-			return {
-				...state,
-				rdv: payload,
-				loading: false,
-			};
-
-		case ADD_RDV:
-			return {
-				...state,
-				rdvs: [...state.rdvs, payload],
-				loading: false,
-			};
-		case UPT_RDV:
-			return {
-				...state,
-				rdv: { ...state.rdv, payload },
-				loading: false,
-			};
-		case RDV_ERROR:
-		case RDVS_ERROR:
-		case UPTRDV_ERROR:
+		case PAYMENTS_ERROR:
 			return {
 				...state,
 				error: payload,
 				loading: false,
 			};
+		case GET_PAYMENTS:
+			return {
+				...state,
+				payments: payload,
+				loading: false,
+			};
+		case GET_PAYMENT:
+			return {
+				...state,
+				payment: payload,
+				loading: false,
+			};
+		case UPT_PAYMENT:
+			return {
+				...state,
+				payment: { ...state.payment, payload },
+				loading: false,
+			};
+
 		default:
 			return state;
 	}

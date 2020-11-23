@@ -4,12 +4,13 @@ import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
-import Formi from './components/auth/Formi';
 import Newrdv from './components/views/Newrdv.js';
 import NewPatientRdv from './components/views/NewPatientRdv';
 
 import AppointmentTable from './components/views/AppointmentTable';
 import ConsultationTable from './components/views/ConsultationTable';
+import AppTable from './components/views/AppTable';
+
 import PatientAffectation from './components/views/PatientAffectation';
 import Consultation from './components/views/Consultation';
 import Aconsultation from './components/views/Aconsultation';
@@ -49,12 +50,15 @@ const App = () => {
 							<Route exact path='/newrdv' component={Newrdv} />
 							<Route exact path='/newpatient' component={NewPatientRdv} />
 							<Route exact path='/appointments' component={AppointmentTable} />
+							<Route exact path='/apps' component={AppTable} />
 							<Route
 								exact
 								path='/appointment/:id'
 								component={PatientAffectation}
 							/>
 							<Route exact path='/consultation/:id' component={Consultation} />
+							<Route exact path='/app/:id' component={Aconsultation} />
+							<Route exact path='/patient/:id' component={PatientProfile} />
 
 							<Route
 								exact
@@ -62,10 +66,8 @@ const App = () => {
 								component={ConsultationTable}
 							/>
 
-							<Route exact path='/aconsultation' component={Aconsultation} />
 							<Route exact path='/payments' component={PaymentsTable} />
 							<Route exact path='/patients' component={Patients} />
-							<Route exact path='/patient_profile' component={PatientProfile} />
 
 							<PrivateRoute
 								exact
