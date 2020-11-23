@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { addPatient, getPatients } from '../../actions/patient';
 import { addRdv, getRdvs } from '../../actions/rdv';
 import { getDoctors } from '../../actions/doctor';
+
 const Newrdv = ({
 	getDoctors,
 	doctor: { doctors, loading },
@@ -57,15 +58,23 @@ const Newrdv = ({
 		date_of_birth: '',
 
 		phone: '',
+
+		age: '',
 	});
+
 	const { name, date_of_birth, phone } = formData2;
 	const onChange2 = (e2) =>
 		setFormData2({ ...formData2, [e2.target.name]: e2.target.value });
+	var ageCalculator = require('age-calculator');
+	let { AgeFromDateString } = require('age-calculator');
+
+	const age = new AgeFromDateString(date_of_birth).age;
+
 	const onSubmit2 = (e2) => {
 		e2.preventDefault();
 		setOpen(false);
-		addPatient({ name, date_of_birth, phone });
-		console.log(formData2);
+		addPatient({ name, date_of_birth, phone, age });
+		console.log({ name, date_of_birth, phone, age });
 	};
 	return (
 		<Fragment>
@@ -101,12 +110,21 @@ const Newrdv = ({
 								value={phone}
 								onChange={(e2) => onChange2(e2)}
 							/>
+
 							<Form.Input
 								label=' Date de naissance'
 								type='date'
 								name='date_of_birth'
 								value={date_of_birth}
 								required
+								onChange={(e2) => onChange2(e2)}
+							/>
+							<Form.Field
+								control={Input}
+								type='hidden'
+								name='age'
+								required
+								value={age}
 								onChange={(e2) => onChange2(e2)}
 							/>
 							<Button positive type='submit'>

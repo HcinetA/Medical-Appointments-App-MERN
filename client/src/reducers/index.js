@@ -6,6 +6,7 @@ import doctor from './doctor';
 import patient from './patient';
 
 import rdv from './rdv';
+import payment from './payment';
 
 export default combineReducers({
 	alert,
@@ -13,4 +14,5 @@ export default combineReducers({
 	doctor,
 	patient,
 	rdv,
+	payment,
 });

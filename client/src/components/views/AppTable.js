@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { addPatient, getPatients } from '../../actions/patient';
 import { addRdv, getRdvs } from '../../actions/rdv';
 import { getDoctors } from '../../actions/doctor';
-const AppointmentTable = ({
+const AppTable = ({
 	getDoctors,
 	doctor: { doctors },
 	getPatients,
@@ -56,7 +56,7 @@ const AppointmentTable = ({
 				<Table.Body>
 					{' '}
 					{rdvs.map((rdv) => (
-						<Table.Row>
+						<Table.Row key={rdv.id} rdv={rdv}>
 							<Table.Cell> 1 </Table.Cell>{' '}
 							<Table.Cell> {rdv.patient.name} </Table.Cell>{' '}
 							<Table.Cell>
@@ -68,7 +68,7 @@ const AppointmentTable = ({
 								<Button circular icon='x' disabled />
 							</Table.Cell>{' '}
 							<Table.Cell>
-								<Link to={`/appointment/${rdv._id}`}>
+								<Link to={`/app/${rdv._id}`}>
 									<Button primary> Manage </Button>{' '}
 								</Link>{' '}
 							</Table.Cell>{' '}
@@ -98,7 +98,7 @@ const AppointmentTable = ({
 	);
 };
 
-AppointmentTable.propTypes = {
+AppTable.propTypes = {
 	addPatient: PropTypes.func.isRequired,
 	getDoctors: PropTypes.func.isRequired,
 	doctor: PropTypes.object.isRequired,
@@ -120,4 +120,4 @@ export default connect(mapStateToProps, {
 	getPatients,
 	getRdvs,
 	addRdv,
-})(AppointmentTable);
+})(AppTable);

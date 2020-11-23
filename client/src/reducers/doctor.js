@@ -3,7 +3,7 @@ import { GET_DOCTORS, DOCTORS_ERROR } from '../actions/types';
 const initialState = {
 	doctors: [],
 	doctor: null,
-	dloading: true,
+	loading: true,
 	error: {},
 };
 
@@ -15,13 +15,13 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				doctors: payload,
-				dloading: false,
+				loading: false,
 			};
 		case DOCTORS_ERROR:
 			return {
 				...state,
 				error: payload,
-				dloading: false,
+				loading: false,
 			};
 
 		default:

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import {
 	TextArea,
 	Grid,
@@ -8,53 +8,59 @@ import {
 	Header,
 	Button,
 	Comment,
+	Label,
 } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { setAlert } from '../../actions/alert';
 
-const Aconsultation = () => {
-	const [formData, setFormData] = useState({
-		name: 'Amin',
-		doctor: 'John Doe',
-		acte: ' Traitement endo',
-		diagnostic: 'Traitement endo',
-		notes: '',
-		maladie: 'None',
-		allergie: 'None',
-		cout: '100',
-		paid: '',
-		date: '',
-		time: '',
-		reste: '',
-		note_assistante: '',
-	});
-	const {
-		name,
-		notes,
-		diagnostic,
-		maladie,
-		allergie,
-		doctor,
-		acte,
-		cout,
-		paid,
-		date,
-		time,
-		reste,
-		note_assistante,
-	} = formData;
+import { addPatient, getPatients, uptPatient } from '../../actions/patient';
+import { addRdv, getRdvs, getRdv, uptRdv } from '../../actions/rdv';
+import { addPayment } from '../../actions/payment';
+
+import { getDoctors } from '../../actions/doctor';
+const initialState = {
+	paid: '',
+
+	note_assistante: '',
+};
+const Aconsultation = ({
+	match,
+	getDoctors,
+	doctor: { doctors, dloading },
+	uptRdv,
+	setAlert,
+	uptPatient,
+	getRdv,
+	rdv: { rdv, loading },
+	addPayment,
+}) => {
+	const [formData, setFormData] = useState(initialState);
+
+	useEffect(() => {
+		getDoctors();
+	}, [getDoctors]);
+
+	useEffect(() => {
+		getRdv(match.params.id);
+	}, [getRdv, match.params.id]);
+
+	const { paid, reste, note_assistante } = formData;
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	const onSubmit = (e) => {
 		e.preventDefault();
+		addPayment({ paid, reste, note_assistante });
 
 		console.log(formData);
 	};
 
-	return (
+	return loading || rdv === null ? (
+		<Fragment>Loading</Fragment>
+	) : (
 		<Fragment>
-			<h1 className='large text-primary'>New rdv</h1>
-			<p className='lead'>
-				<i className='fas fa-user'></i> Create an appointment
-			</p>
+			<h1 className='large text-primary'>Payment</h1>
+
 			<Segment raised>
 				<Grid columns='equal' stackable>
 					<Grid.Row>
@@ -69,6 +75,7 @@ const Aconsultation = () => {
 											label='Montant Payé'
 											placeholder='montant Payé'
 											name='paid'
+											pattern='[0-9]*'
 											required
 											value={paid}
 											onChange={(e) => onChange(e)}
@@ -78,6 +85,7 @@ const Aconsultation = () => {
 											label='Reste'
 											placeholder='Reste'
 											name='reste'
+											readOnly
 											value={reste}
 											onChange={(e) => onChange(e)}
 										/>
@@ -91,27 +99,7 @@ const Aconsultation = () => {
 										value={note_assistante}
 										onChange={(e) => onChange(e)}
 									/>
-									<Segment>
-										<Header as='h3'>Next Rdv</Header>
 
-										<Form.Group widths='equal'>
-											<Form.Input
-												label=' Select Date'
-												type='date'
-												name='date'
-												value={date}
-												onChange={(e) => onChange(e)}
-											/>
-
-											<Form.Input
-												label=' Select Time'
-												type='time'
-												name='time'
-												value={time}
-												onChange={(e) => onChange(e)}
-											/>
-										</Form.Group>
-									</Segment>
 									<Button type='submit'>Submit</Button>
 								</Form>
 							</Segment>
@@ -119,37 +107,23 @@ const Aconsultation = () => {
 
 						<Grid.Column>
 							<Segment>
-								<Header as='h3'>Doctor Notes</Header>
+								<Header as='h3'>Informations</Header>
 								<Form>
-									<Form.Field
-										control={Input}
-										label='Patient Name'
-										placeholder='Name'
-										name='name'
-										required
-										readOnly
-										value={name}
-										onChange={(e) => onChange(e)}
-									/>
-									<Form.Field
-										control={Input}
-										label='Doctor Name'
-										placeholder='Doctor'
-										name='doctor'
-										required
-										readOnly
-										value={doctor}
-										onChange={(e) => onChange(e)}
-									/>
+									<Header as='h5'>Patient Name</Header>
+									<Label size='large'>Mr. {rdv.patient.name}</Label>
+
+									<Header as='h5'>Doctor Name</Header>
+									<Label size='large'>
+										Dr. {rdv.doctor.lastName} {rdv.doctor.firstName}
+									</Label>
 									<Header as='h5'>Acte</Header>
 
 									<Form.Field
 										id='form-textarea-control-opinion'
 										control={TextArea}
 										readOnly
-										name='acte'
 										placeholder='Acte'
-										value={acte}
+										value={rdv.acte}
 									/>
 
 									<Header as='h5'>Notes Docteur </Header>
@@ -158,63 +132,16 @@ const Aconsultation = () => {
 										id='form-textarea-control-opinion'
 										control={TextArea}
 										readOnly
-										name='notes'
 										placeholder='Notes'
-										value={notes}
-										onChange={(e) => onChange(e)}
+										value={rdv.notes_acte}
 									/>
-
-									<Header as='h5'>Cout</Header>
-
-									<Form.Field
-										control={Input}
-										placeholder='Cout'
-										name='cout'
-										required
-										readOnly
-										value={cout}
-										onChange={(e) => onChange(e)}
-									/>
+									<Header as='h4'>Honoraire</Header>
+									<Label tag size='big'>
+										{rdv.honoraire} Dt
+									</Label>
 								</Form>
 							</Segment>
-							<Segment>
-								<Header as='h3'>General data</Header>
-								<Form>
-									<Header as='h5'>Maladie </Header>
 
-									<Form.Field
-										id='form-textarea-control-opinion'
-										control={TextArea}
-										readOnly
-										name='maladie'
-										placeholder='Maladie'
-										value={maladie}
-										onChange={(e) => onChange(e)}
-									/>
-
-									<Header as='h5'>Allergie</Header>
-
-									<Form.Field
-										id='form-textarea-control-opinion'
-										control={TextArea}
-										readOnly
-										name='allergie'
-										placeholder='Allergie'
-										value={allergie}
-										onChange={(e) => onChange(e)}
-									/>
-									<Header as='h5'>Diagnostic</Header>
-
-									<Form.Field
-										id='form-textarea-control-opinion'
-										control={TextArea}
-										readOnly
-										name='diagnostic'
-										placeholder='Diagnostic'
-										value={diagnostic}
-									/>
-								</Form>
-							</Segment>
 							<Segment>
 								<Header as='h3'>Patient History</Header>
 								<Comment.Group>
@@ -258,4 +185,28 @@ const Aconsultation = () => {
 	);
 };
 
-export default Aconsultation;
+Aconsultation.propTypes = {
+	setAlert: PropTypes.func.isRequired,
+
+	getRdv: PropTypes.func.isRequired,
+	getDoctors: PropTypes.func.isRequired,
+	rdv: PropTypes.object.isRequired,
+	doctor: PropTypes.object.isRequired,
+	uptRdv: PropTypes.func.isRequired,
+	uptPatient: PropTypes.func.isRequired,
+	addPayment: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+	doctor: state.doctor,
+	rdv: state.rdv,
+});
+
+export default connect(mapStateToProps, {
+	getRdv,
+	setAlert,
+	uptRdv,
+	getDoctors,
+	uptPatient,
+	addPayment,
+})(Aconsultation);
