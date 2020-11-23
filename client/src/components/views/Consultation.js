@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import {
 	TextArea,
 	Grid,
@@ -10,46 +10,94 @@ import {
 	Comment,
 	Icon,
 } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
-const Consultation = () => {
+import { connect } from 'react-redux';
+import { setAlert } from '../../actions/alert';
+
+import { addPatient, getPatients, uptPatient } from '../../actions/patient';
+import { addRdv, getRdvs, getRdv, uptRdv } from '../../actions/rdv';
+import { getDoctors } from '../../actions/doctor';
+
+const initialState = {
+	motif: '',
+	diagnostic: '',
+	analyses: '',
+	notes_consultation: '',
+	doctor: '',
+	status: true,
+};
+
+const Consultation = ({
+	match,
+	getDoctors,
+	doctor: { doctors, dloading },
+	uptRdv,
+	setAlert,
+	uptPatient,
+	getRdv,
+	rdv: { rdv, loading },
+}) => {
+	useEffect(() => {
+		getDoctors();
+	}, [getDoctors]);
+
+	useEffect(() => {
+		if (rdv === null) {
+			getRdv(match.params.id);
+		}
+		if (!loading && rdv === null) {
+			const rdvData = { ...initialState };
+			setFormData(rdvData);
+		} else {
+			const rdvData = { ...rdv };
+			setFormData(rdvData);
+		}
+	}, [getRdv, match.params.id, loading]);
 	const [formData, setFormData] = useState({
 		name: 'Amin',
 		doctor: 'John Doe',
 		acte: '',
 		diagnostic: 'Traitement endo',
-		notes: '',
+		notes_acte: '',
 		maladie: 'None',
 		allergie: 'None',
-		cout: '',
+		honoraire: '',
 	});
 	const {
 		name,
-		notes,
+		notes_acte,
 		diagnostic,
 		maladie,
 		allergie,
 		doctor,
 		acte,
-		cout,
+		honoraire,
 	} = formData;
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	const onSubmit = (e) => {
 		e.preventDefault();
+		uptRdv(rdv._id, {
+			notes_acte,
+			acte,
 
+			honoraire,
+			doctor,
+		});
 		console.log(formData);
 	};
 
-	return (
+	return loading || rdv === null ? (
+		<Fragment>Loading</Fragment>
+	) : (
 		<Fragment>
 			<Button icon labelPosition='left'>
 				<Icon name='left arrow' />
 				Back to Appointment list
 			</Button>
-			<h1 className='large text-primary'>New rdv</h1>
-			<p className='lead'>
-				<i className='fas fa-user'></i> Create an appointment
-			</p>
+			<h1 className='large text-primary'>Consultation</h1>
+
 			<Segment raised>
 				<Grid columns='equal' stackable>
 					<Grid.Row>
@@ -65,7 +113,7 @@ const Consultation = () => {
 										name='doctor'
 										required
 										readOnly
-										value={doctor}
+										value={rdv.doctor.firstName}
 										onChange={(e) => onChange(e)}
 									/>
 									<Form.Field
@@ -83,18 +131,18 @@ const Consultation = () => {
 										id='form-textarea-control-opinion'
 										control={TextArea}
 										label='Notes'
-										name='notes'
+										name='notes_acte'
 										placeholder='Notes'
-										value={notes}
+										value={notes_acte}
 										onChange={(e) => onChange(e)}
 									/>
 									<Form.Field
 										control={Input}
 										label='Honoraire'
 										placeholder='Honoraire'
-										name='cout'
+										name='honoraire'
 										required
-										value={cout}
+										value={honoraire}
 										pattern='[0-9]*'
 										onChange={(e) => onChange(e)}
 									/>
@@ -114,9 +162,8 @@ const Consultation = () => {
 												label='Patient Name'
 												placeholder='Name'
 												name='name'
-												required
 												readOnly
-												value={name}
+												value={rdv.patient.name}
 												onChange={(e) => onChange(e)}
 											/>
 										</Form.Group>
@@ -126,19 +173,17 @@ const Consultation = () => {
 												label='Travaille'
 												placeholder='Travaille'
 												name='travaille'
-												required
 												readOnly
+												value={rdv.patient.job}
 											/>
 											<Form.Field
-												label='Select City'
-												control='select'
+												control={Input}
+												label='Ville'
+												placeholder='Ville'
 												name='city'
-												required
 												readOnly
-											>
-												<option value='Monastir'>Monastir</option>
-												<option value='Sousse'>Sousse</option>
-											</Form.Field>
+												value={rdv.patient.city}
+											/>
 										</Form.Group>
 									</Segment>
 									<Segment color='blue'>
@@ -147,10 +192,10 @@ const Consultation = () => {
 										<Form.Field
 											id='form-textarea-control-opinion'
 											control={TextArea}
+											readOnly
 											name='maladie'
 											placeholder='Maladie'
-											value={maladie}
-											onChange={(e) => onChange(e)}
+											value={rdv.patient.maladie}
 										/>
 										<Header as='h5'>Allergie</Header>
 
@@ -160,8 +205,7 @@ const Consultation = () => {
 												control={TextArea}
 												name='allergie'
 												placeholder='Allergie'
-												value={allergie}
-												onChange={(e) => onChange(e)}
+												value={rdv.patient.allergie}
 											/>
 										</Form.Group>
 										<Header as='h5'>Médication en cours </Header>
@@ -172,6 +216,7 @@ const Consultation = () => {
 											name='medication'
 											placeholder='Medication en cours'
 											readOnly
+											value={rdv.patient.medication}
 										/>
 										<Header as='h5'>Antécedant Médicaux </Header>
 
@@ -181,6 +226,7 @@ const Consultation = () => {
 											name='antecedent'
 											placeholder='Antécedant Médicaux'
 											readOnly
+											value={rdv.patient.antecedent}
 										/>
 
 										<Header as='h5'>Habitude</Header>
@@ -188,9 +234,10 @@ const Consultation = () => {
 										<Form.Field
 											id='form-textarea-control-opinion'
 											control={TextArea}
-											name='Habitude'
+											name='habitude'
 											placeholder='Habitude'
 											readOnly
+											value={rdv.patient.habitude}
 										/>
 									</Segment>
 									<Segment color='purple'>
@@ -202,6 +249,7 @@ const Consultation = () => {
 											name='Motif'
 											placeholder='Motif de Consultation'
 											readOnly
+											value={rdv.motif}
 										/>
 
 										<Header as='h5'>Diagnostic</Header>
@@ -211,8 +259,7 @@ const Consultation = () => {
 											control={TextArea}
 											name='diagnostic'
 											placeholder='Diagnostic'
-											value={diagnostic}
-											onChange={(e) => onChange(e)}
+											value={rdv.diagnostic}
 											readOnly
 										/>
 										<Header as='h5'>Analyses</Header>
@@ -220,8 +267,9 @@ const Consultation = () => {
 										<Form.Field
 											id='form-textarea-control-opinion'
 											control={TextArea}
-											name='Analyses'
+											name='analyses'
 											placeholder='Analyses'
+											value={rdv.analyses}
 											readOnly
 										/>
 
@@ -230,10 +278,9 @@ const Consultation = () => {
 										<Form.Field
 											id='form-textarea-control-opinion'
 											control={TextArea}
-											name='notes'
+											name='notes_consultation'
 											placeholder='Notes'
-											value={notes}
-											onChange={(e) => onChange(e)}
+											value={rdv.notes_consultation}
 											readOnly
 										/>
 									</Segment>
@@ -282,4 +329,26 @@ const Consultation = () => {
 	);
 };
 
-export default Consultation;
+Consultation.propTypes = {
+	setAlert: PropTypes.func.isRequired,
+
+	getRdv: PropTypes.func.isRequired,
+	getDoctors: PropTypes.func.isRequired,
+	rdv: PropTypes.object.isRequired,
+	doctor: PropTypes.object.isRequired,
+	uptRdv: PropTypes.func.isRequired,
+	uptPatient: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+	doctor: state.doctor,
+	rdv: state.rdv,
+});
+
+export default connect(mapStateToProps, {
+	getRdv,
+	setAlert,
+	uptRdv,
+	getDoctors,
+	uptPatient,
+})(Consultation);

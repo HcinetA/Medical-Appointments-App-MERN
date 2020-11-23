@@ -9,6 +9,7 @@ import Newrdv from './components/views/Newrdv.js';
 import NewPatientRdv from './components/views/NewPatientRdv';
 
 import AppointmentTable from './components/views/AppointmentTable';
+import ConsultationTable from './components/views/ConsultationTable';
 import PatientAffectation from './components/views/PatientAffectation';
 import Consultation from './components/views/Consultation';
 import Aconsultation from './components/views/Aconsultation';
@@ -53,7 +54,13 @@ const App = () => {
 								path='/appointment/:id'
 								component={PatientAffectation}
 							/>
-							<Route exact path='/consultation' component={Consultation} />
+							<Route exact path='/consultation/:id' component={Consultation} />
+
+							<Route
+								exact
+								path='/consultations'
+								component={ConsultationTable}
+							/>
 
 							<Route exact path='/aconsultation' component={Aconsultation} />
 							<Route exact path='/payments' component={PaymentsTable} />
