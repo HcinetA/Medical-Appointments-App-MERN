@@ -17,42 +17,50 @@ import { setAlert } from '../../actions/alert';
 import { addPatient, getPatients, uptPatient } from '../../actions/patient';
 import { addRdv, getRdvs, getRdv, uptRdv } from '../../actions/rdv';
 import { getDoctors } from '../../actions/doctor';
+
+const initialState = {
+	motif: '',
+	diagnostic: '',
+	analyses: '',
+	notes_consultation: '',
+	doctor: '',
+	status: true,
+};
+
 const PatientAffectation = ({
-	getRdv,
-	rdv: { rdv, loading },
 	match,
 	getDoctors,
-	doctor: { doctors },
+	doctor: { doctors, dloading },
 	uptRdv,
 	setAlert,
 	uptPatient,
+	getRdv,
+	rdv: { rdv, loading },
 }) => {
 	const [open, setOpen] = React.useState(false);
+	const [formData2, setFormData2] = useState(initialState);
 
 	useEffect(() => {
 		getDoctors();
 	}, [getDoctors]);
 
 	useEffect(() => {
-		getRdv(match.params.id);
-		setFormData2({
-			motif: loading || !rdv ? '' : rdv.motif,
-			diagnostic: loading || !rdv ? '' : rdv.diagnostic,
-			analyses: loading || !rdv ? '' : rdv.analyses,
-			notes_consultation: loading || !rdv ? '' : rdv.notes_consultation,
-			doctor: loading || !rdv ? '' : rdv.doctor._id,
-		});
-	}, [getRdv, loading]);
+		if (rdv === null) {
+			getRdv(match.params.id);
+		}
+		if (!loading && rdv === null) {
+			const rdvData = { ...initialState };
+			setFormData2(rdvData);
+		} else {
+			const rdvData = { ...rdv };
+			setFormData2(rdvData);
+		}
+	}, [getRdv, match.params.id, loading]);
 
-	const [formData2, setFormData2] = useState({
-		motif: '',
-		diagnostic: '',
-		analyses: '',
-		notes_consultation: '',
-		doctor: '',
-		status: true,
-	});
-	console.log(formData2);
+	const { motif, diagnostic, analyses, notes_consultation, doctor } = formData2;
+
+	const onChange2 = (e2) =>
+		setFormData2({ ...formData2, [e2.target.name]: e2.target.value });
 	const [formData, setFormData] = useState({
 		maladie: '',
 		allergie: '',
@@ -74,11 +82,6 @@ const PatientAffectation = ({
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 
-	const { motif, diagnostic, analyses, notes_consultation, doctor } = formData2;
-
-	const onChange2 = (e2) =>
-		setFormData2({ ...formData2, [e2.target.name]: e2.target.value });
-
 	const onSubmit = (e) => {
 		e.preventDefault();
 		uptPatient(rdv.patient._id, {
@@ -90,7 +93,6 @@ const PatientAffectation = ({
 			antecedent,
 			habitude,
 		});
-		console.log(formData);
 	};
 
 	const onSubmit2 = (e2) => {
@@ -102,10 +104,9 @@ const PatientAffectation = ({
 			notes_consultation,
 			doctor,
 		});
-		console.log(formData2);
 	};
 
-	return loading && rdv === null ? (
+	return loading || rdv === null ? (
 		<Fragment>Loading</Fragment>
 	) : (
 		<Fragment>
@@ -128,7 +129,7 @@ const PatientAffectation = ({
 											id='form-textarea-control-opinion'
 											control={TextArea}
 											name='motif'
-											placeholder='Motif'
+											placeholder='motif'
 											value={motif}
 											onChange={(e2) => onChange2(e2)}
 										/>

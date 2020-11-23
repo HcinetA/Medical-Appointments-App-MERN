@@ -77,7 +77,7 @@ export const uptPatient = (id, formData) => async (dispatch) => {
 		},
 	};
 	try {
-		const res = await axios.put(`/api/patients/${id}`, formData, config);
+		const res = await axios.put(`/api/patient/${id}`, formData, config);
 		console.log(formData);
 		dispatch({
 			type: UPT_PATIENT,
