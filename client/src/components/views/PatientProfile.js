@@ -18,17 +18,21 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addPatient, getPatients, getPatient } from '../../actions/patient';
-import { addRdv, getRdvs } from '../../actions/rdv';
+import { addRdv, getRdvs, getAptPatient } from '../../actions/rdv';
 import { getDoctors } from '../../actions/doctor';
 
 const PatientProfile = ({
 	getPatient,
 	patient: { patient, loading },
 	match,
+	getAptPatient,
 }) => {
 	useEffect(() => {
 		getPatient(match.params.id);
 	}, [getPatient, match.params.id]);
+	useEffect(() => {
+		getAptPatient(match.params.id);
+	}, [getAptPatient, match.params.id]);
 	const panes = [
 		{
 			menuItem: { key: 'medical_info', icon: 'info', content: 'Medical Info' },
@@ -210,6 +214,7 @@ const PatientProfile = ({
 
 PatientProfile.propTypes = {
 	getPatient: PropTypes.func.isRequired,
+	getAptPatient: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -217,4 +222,5 @@ const mapStateToProps = (state) => ({
 });
 export default connect(mapStateToProps, {
 	getPatient,
+	getAptPatient,
 })(PatientProfile);

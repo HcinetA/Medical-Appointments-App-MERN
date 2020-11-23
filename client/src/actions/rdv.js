@@ -8,6 +8,7 @@ import {
 	GET_RDV,
 	UPT_RDV,
 	UPTRDV_ERROR,
+	GET_PATIENT_APT,
 } from './types';
 
 // get rddvs
@@ -85,4 +86,21 @@ export const uptRdv = (id, formData) => async (dispatch) => {
 			});
 		})
 		.catch((error) => console.log('catched error: \n', error));
+};
+
+// get appts  by patient id
+
+export const getAptPatient = (id) => async (dispatch) => {
+	try {
+		const res = await axios.get(`/api/appointment/by_patient_id/${id}`);
+		dispatch({
+			type: GET_PATIENT_APT,
+			payload: res.data,
+		});
+	} catch (err) {
+		dispatch({
+			type: RDVS_ERROR,
+			payload: { msg: err.response.statusText, status: err.response.status },
+		});
+	}
 };
