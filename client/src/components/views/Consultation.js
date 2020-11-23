@@ -112,7 +112,6 @@ const Consultation = ({
 										hidden
 										readOnly
 										value={rdv.doctor._id}
-										onChange={(e) => onChange(e)}
 									/>
 									<Form.Field
 										id='form-textarea-control-opinion'
