@@ -12,6 +12,8 @@ import {
 	Header,
 	Form,
 } from 'semantic-ui-react';
+import Moment from 'react-moment';
+
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -78,19 +80,26 @@ const PatientProfile = ({
 						</Table.Header>
 
 						<Table.Body>
-							<Table.Row>
-								<Table.Cell>1</Table.Cell>
+							{patient.appointments.map((rdv) => (
+								<Table.Row>
+									<Table.Cell>1</Table.Cell>
 
-								<Table.Cell>15/10/2020</Table.Cell>
-								<Table.Cell>John Doe</Table.Cell>
-								<Table.Cell>
-									{' '}
-									<Button circular icon='x' disabled />
-								</Table.Cell>
-								<Table.Cell>
-									<Button primary>manage</Button>
-								</Table.Cell>
-							</Table.Row>
+									<Table.Cell>
+										{' '}
+										<Moment format='YYYY/MM/DD'>{rdv.date}</Moment> | {rdv.time}{' '}
+									</Table.Cell>
+									<Table.Cell>John Doe</Table.Cell>
+									<Table.Cell>
+										{' '}
+										<Button circular icon='x' disabled />
+									</Table.Cell>
+									<Table.Cell>
+										<Link to={`/consultation/${rdv._id}`}>
+											<Button primary> Manage </Button>{' '}
+										</Link>{' '}
+									</Table.Cell>
+								</Table.Row>
+							))}{' '}
 						</Table.Body>
 					</Table>
 				</Tab.Pane>
@@ -175,7 +184,7 @@ const PatientProfile = ({
 									ui={false}
 								/>
 								<Card.Content>
-									<Card.Header>Amin Hcinet</Card.Header>
+									<Card.Header>{patient.name}</Card.Header>
 								</Card.Content>
 								<Card.Content extra>
 									<Header as='h5'>Phone </Header>

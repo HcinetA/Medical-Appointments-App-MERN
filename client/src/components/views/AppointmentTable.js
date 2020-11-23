@@ -56,7 +56,7 @@ const AppointmentTable = ({
 				<Table.Body>
 					{' '}
 					{rdvs.map((rdv) => (
-						<Table.Row key={rdv.id} rdv={rdv}>
+						<Table.Row>
 							<Table.Cell> 1 </Table.Cell>{' '}
 							<Table.Cell> {rdv.patient.name} </Table.Cell>{' '}
 							<Table.Cell>
