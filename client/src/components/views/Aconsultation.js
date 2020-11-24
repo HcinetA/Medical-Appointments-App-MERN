@@ -19,12 +19,7 @@ import { addRdv, getRdvs, getRdv, uptRdv } from '../../actions/rdv';
 import { addPayment } from '../../actions/payment';
 
 import { getDoctors } from '../../actions/doctor';
-const initialState = {
-	paid: '',
 
-	note_assistante: '',
-	patient: '',
-};
 const Aconsultation = ({
 	match,
 	getDoctors,
@@ -36,8 +31,6 @@ const Aconsultation = ({
 	rdv: { rdv, loading },
 	addPayment,
 }) => {
-	const [formData, setFormData] = useState(initialState);
-
 	useEffect(() => {
 		getDoctors();
 	}, [getDoctors]);
@@ -45,13 +38,20 @@ const Aconsultation = ({
 	useEffect(() => {
 		getRdv(match.params.id);
 	}, [getRdv, match.params.id]);
-	const { paid, reste, note_assistante, patient } = formData;
+	const [formData, setFormData] = useState({
+		paid: '',
+		note_assistante: '',
+
+		reste: '',
+	});
+
+	const { paid, reste, note_assistante } = formData;
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		addPayment({ paid, reste, note_assistante, patient });
+		addPayment({ paid, reste, note_assistante, patient: rdv.patient._id });
 
 		console.log(formData);
 	};
@@ -70,15 +70,6 @@ const Aconsultation = ({
 								{' '}
 								<Header as='h3'>Payments</Header>
 								<Form onSubmit={(e) => onSubmit(e)}>
-									<Form.Field
-										label='Select Patient'
-										control='select'
-										name='patient'
-										required
-										onChange={(e) => onChange(e)}
-									>
-										<option value={rdv.patient._id}>{rdv.patient._id}</option>
-									</Form.Field>
 									<Form.Group widths='equal'>
 										<Form.Field
 											control={Input}
@@ -197,7 +188,6 @@ const Aconsultation = ({
 
 Aconsultation.propTypes = {
 	setAlert: PropTypes.func.isRequired,
-
 	getRdv: PropTypes.func.isRequired,
 	getDoctors: PropTypes.func.isRequired,
 	rdv: PropTypes.object.isRequired,
@@ -210,6 +200,7 @@ Aconsultation.propTypes = {
 const mapStateToProps = (state) => ({
 	doctor: state.doctor,
 	rdv: state.rdv,
+	patient: state.patient,
 });
 
 export default connect(mapStateToProps, {

@@ -47,7 +47,7 @@ export const getPayments = () => async (dispatch) => {
 		.catch((error) => console.log('catched error: \n', error));
 };
 
-// get rdv
+// get payment by id
 
 export const getPayment = (id) => async (dispatch) => {
 	try {
