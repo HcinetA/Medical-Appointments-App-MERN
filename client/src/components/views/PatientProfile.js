@@ -11,6 +11,7 @@ import {
 	Comment,
 	Header,
 	Form,
+	Loader,
 } from 'semantic-ui-react';
 import Moment from 'react-moment';
 
@@ -202,7 +203,7 @@ const PatientProfile = ({
 	];
 
 	return loading || patient === null ? (
-		<Fragment>Loading</Fragment>
+		<Loader active />
 	) : (
 		<Fragment>
 			<Link to={`/patients`}>

@@ -9,6 +9,7 @@ import {
 	Button,
 	Comment,
 	Icon,
+	Loader,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
@@ -83,7 +84,7 @@ const Consultation = ({
 	};
 
 	return loading || rdv === null ? (
-		<Fragment>Loading</Fragment>
+		<Loader active />
 	) : (
 		<Fragment>
 			<Button icon labelPosition='left'>

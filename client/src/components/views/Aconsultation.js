@@ -10,6 +10,7 @@ import {
 	Comment,
 	Label,
 	Modal,
+	Loader,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -85,7 +86,7 @@ const Aconsultation = ({
 		addRdv({ doctor, date, time, patient: rdv.patient._id });
 	};
 	return loading || rdv === null ? (
-		<Fragment>Loading</Fragment>
+		<Loader active />
 	) : (
 		<Fragment>
 			<h1 className='large text-primary'>Payment</h1>

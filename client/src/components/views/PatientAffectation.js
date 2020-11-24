@@ -9,6 +9,7 @@ import {
 	Button,
 	Comment,
 	Modal,
+	Loader,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -110,7 +111,7 @@ const PatientAffectation = ({
 	};
 
 	return loading || rdv === null ? (
-		<Fragment>Loading</Fragment>
+		<Loader active />
 	) : (
 		<Fragment>
 			<h1 className='large text-primary'>New rdv</h1>
