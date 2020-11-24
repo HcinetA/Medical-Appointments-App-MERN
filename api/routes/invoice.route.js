@@ -33,7 +33,8 @@ router.post('/', async (req, res) => {
                 paid: req.body.paid,
                 reste: req.body.reste,
                 note_assistante: req.body.note_assistante,
-                patient: req.body.patient
+                patient: req.body.patient,
+                total: req.body.total
             }
             const newInvoice = new Invoice(inv);
             const invoice = await newInvoice.save();
