@@ -1,5 +1,14 @@
 import React, { Fragment, useEffect } from 'react';
-import { Table, Button, Menu, Icon, Input, Segment } from 'semantic-ui-react';
+import {
+	Table,
+	Button,
+	Menu,
+	Icon,
+	Input,
+	Segment,
+	Loader,
+	Image,
+} from 'semantic-ui-react';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -11,7 +20,7 @@ const PaymentsTable = ({ getPayments, payment: { payments, loading } }) => {
 		getPayments();
 	}, [getPayments]);
 	return loading || payments === null ? (
-		<Fragment>Loading</Fragment>
+		<Loader active />
 	) : (
 		<Fragment>
 			<h1 className='large text-primary'>Payments</h1>
@@ -28,10 +37,13 @@ const PaymentsTable = ({ getPayments, payment: { payments, loading } }) => {
 				<Table.Header>
 					<Table.Row>
 						<Table.HeaderCell>Patient </Table.HeaderCell>
+
+						<Table.HeaderCell>Acte</Table.HeaderCell>
 						<Table.HeaderCell>Amount</Table.HeaderCell>
 						<Table.HeaderCell>Payé</Table.HeaderCell>
 						<Table.HeaderCell>Reste</Table.HeaderCell>
 						<Table.HeaderCell>Date</Table.HeaderCell>
+
 						<Table.HeaderCell>Status</Table.HeaderCell>
 						<Table.HeaderCell>Options</Table.HeaderCell>
 					</Table.Row>
@@ -41,7 +53,9 @@ const PaymentsTable = ({ getPayments, payment: { payments, loading } }) => {
 					{payments.map((payment) => (
 						<Table.Row>
 							<Table.Cell>{payment.patient.name}</Table.Cell>
+							<Table.Cell>{payment.acte} </Table.Cell>
 							<Table.Cell>{payment.total} DT</Table.Cell>
+
 							<Table.Cell>{payment.paid} DT</Table.Cell>
 							<Table.Cell>{payment.reste} DT</Table.Cell>
 							<Table.Cell>

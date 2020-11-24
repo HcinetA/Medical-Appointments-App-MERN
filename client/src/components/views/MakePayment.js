@@ -10,6 +10,8 @@ import {
 	Comment,
 	Label,
 	Modal,
+	Image,
+	Message,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -48,22 +50,23 @@ const MakePayment = ({
 		getPayment(match.params.id);
 	}, [getPayment, match.params.id]);
 	const [formData, setFormData] = useState({
-		paid: '',
+		paid2: '',
 		note_assistante: '',
 	});
 
-	const { paid, note_assistante } = formData;
+	const { paid2, note_assistante } = formData;
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		addPayment({
-			paid,
-			reste: rdv.honoraire - paid,
+
+		uptPayment(payment._id, {
+			paid: +paid2 + +payment.paid,
+			reste: payment.reste - paid2,
 			note_assistante,
-			patient: rdv.patient._id,
-			total: rdv.honoraire,
+			patient: payment.patient._id,
+			total: payment.total,
 		});
 
 		console.log(formData);
@@ -92,7 +95,7 @@ const MakePayment = ({
 		<Fragment>Loading</Fragment>
 	) : (
 		<Fragment>
-			<h1 className='large text-primary'>Payment</h1>
+			<h1 className='large text-primary'>Make Payment</h1>
 
 			<Segment raised>
 				<Grid columns='equal' stackable>
@@ -107,10 +110,10 @@ const MakePayment = ({
 											control={Input}
 											label='Montant Payé'
 											placeholder='montant Payé'
-											name='paid'
+											name='paid2'
 											pattern='[0-9]*'
 											required
-											value={paid}
+											value={paid2}
 											onChange={(e) => onChange(e)}
 										/>
 									</Form.Group>
@@ -131,11 +134,70 @@ const MakePayment = ({
 
 						<Grid.Column>
 							<Segment>
-								<Header as='h4'>Total {payment.total}</Header>
-								<Header as='h4'>Paid {payment.paid}</Header>
-								<Header as='h4'> Rest {payment.reste}</Header>
-								<Header as='h4'>Notes {payment.note_assistante}</Header>
-								<Header as='h4'>Acte {payment.note_assistante}</Header>
+								<Grid columns={2}>
+									<Grid.Row>
+										<Grid.Column>
+											<Segment padded>
+												<Label attached='top'>Acte</Label>
+												<Message>
+													<p>
+														{' '}
+														<Header as='h4'> {payment.acte}</Header>
+													</p>
+												</Message>
+											</Segment>
+										</Grid.Column>
+
+										<Grid.Column>
+											<Segment padded>
+												<Label attached='top'>Notes</Label>
+
+												<Message>
+													<p>
+														<Header as='h4'> {payment.note_assistante}</Header>
+													</p>
+												</Message>
+											</Segment>
+										</Grid.Column>
+									</Grid.Row>
+								</Grid>
+								<Grid columns={3}>
+									<Grid.Row>
+										<Grid.Column>
+											<Segment padded>
+												<Label attached='top'>Total</Label>
+												<Message>
+													<p>
+														<Header as='h4'> {payment.total} Dt</Header>
+													</p>
+												</Message>
+											</Segment>
+										</Grid.Column>
+
+										<Grid.Column>
+											<Segment padded>
+												<Label attached='top'>Paid</Label>
+
+												<Message>
+													<p>
+														<Header as='h4'> {payment.paid} Dt</Header>
+													</p>
+												</Message>
+											</Segment>
+										</Grid.Column>
+										<Grid.Column>
+											<Segment padded>
+												<Label attached='top'>Reste</Label>
+
+												<Message>
+													<p>
+														<Header as='h4'> {payment.reste} Dt</Header>
+													</p>
+												</Message>
+											</Segment>
+										</Grid.Column>
+									</Grid.Row>
+								</Grid>
 							</Segment>
 						</Grid.Column>
 					</Grid.Row>

@@ -157,13 +157,12 @@ const PatientProfile = ({
 					<Table striped>
 						<Table.Header>
 							<Table.Row>
-								<Table.HeaderCell> </Table.HeaderCell>
-
-								<Table.HeaderCell>Patient </Table.HeaderCell>
+								<Table.HeaderCell>Acte</Table.HeaderCell>
 								<Table.HeaderCell>Amount</Table.HeaderCell>
 								<Table.HeaderCell>Payé</Table.HeaderCell>
 								<Table.HeaderCell>Reste</Table.HeaderCell>
 								<Table.HeaderCell>Date</Table.HeaderCell>
+
 								<Table.HeaderCell>Status</Table.HeaderCell>
 								<Table.HeaderCell>Options</Table.HeaderCell>
 							</Table.Row>
@@ -172,8 +171,7 @@ const PatientProfile = ({
 						<Table.Body>
 							{payments.map((payment) => (
 								<Table.Row>
-									<Table.Cell></Table.Cell>
-									<Table.Cell>{payment.patient.name}</Table.Cell>
+									<Table.Cell>{payment.acte} </Table.Cell>
 									<Table.Cell>{payment.total} DT</Table.Cell>
 									<Table.Cell>{payment.paid} DT</Table.Cell>
 									<Table.Cell>{payment.reste} DT</Table.Cell>
@@ -190,7 +188,9 @@ const PatientProfile = ({
 										)}
 									</Table.Cell>
 									<Table.Cell>
-										<Button primary>manage</Button>
+										<Link to={`/payment/${payment._id}`}>
+											<Button primary>manage</Button>
+										</Link>{' '}
 									</Table.Cell>
 								</Table.Row>
 							))}{' '}
