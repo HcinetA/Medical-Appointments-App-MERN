@@ -28,3 +28,5 @@ export const GET_PAYMENTS = 'GET_PAYMENTS';
 export const GET_PAYMENT = 'GET_PAYMENT';
 export const UPT_PAYMENT = 'UPT_PAYMENT';
 export const GET_PATIENT_APT = 'GET_PATIENT_APT';
+
+export const GET_PATIENT_INV = 'GET_PATIENT_INV';
