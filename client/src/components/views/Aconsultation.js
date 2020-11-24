@@ -19,11 +19,7 @@ import { addRdv, getRdvs, getRdv, uptRdv } from '../../actions/rdv';
 import { addPayment } from '../../actions/payment';
 
 import { getDoctors } from '../../actions/doctor';
-const initialState = {
-	paid: '',
 
-	note_assistante: '',
-};
 const Aconsultation = ({
 	match,
 	getDoctors,
@@ -35,8 +31,6 @@ const Aconsultation = ({
 	rdv: { rdv, loading },
 	addPayment,
 }) => {
-	const [formData, setFormData] = useState(initialState);
-
 	useEffect(() => {
 		getDoctors();
 	}, [getDoctors]);
@@ -44,13 +38,24 @@ const Aconsultation = ({
 	useEffect(() => {
 		getRdv(match.params.id);
 	}, [getRdv, match.params.id]);
+	const [formData, setFormData] = useState({
+		paid: '',
+		note_assistante: '',
+	});
 
-	const { paid, reste, note_assistante } = formData;
+	const { paid, note_assistante } = formData;
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
+
 	const onSubmit = (e) => {
 		e.preventDefault();
-		addPayment({ paid, reste, note_assistante });
+		addPayment({
+			paid,
+			reste: rdv.honoraire - paid,
+			note_assistante,
+			patient: rdv.patient._id,
+			total: rdv.honoraire,
+		});
 
 		console.log(formData);
 	};
@@ -78,15 +83,6 @@ const Aconsultation = ({
 											pattern='[0-9]*'
 											required
 											value={paid}
-											onChange={(e) => onChange(e)}
-										/>
-										<Form.Field
-											control={Input}
-											label='Reste'
-											placeholder='Reste'
-											name='reste'
-											readOnly
-											value={reste}
 											onChange={(e) => onChange(e)}
 										/>
 									</Form.Group>
@@ -187,7 +183,6 @@ const Aconsultation = ({
 
 Aconsultation.propTypes = {
 	setAlert: PropTypes.func.isRequired,
-
 	getRdv: PropTypes.func.isRequired,
 	getDoctors: PropTypes.func.isRequired,
 	rdv: PropTypes.object.isRequired,
@@ -200,6 +195,7 @@ Aconsultation.propTypes = {
 const mapStateToProps = (state) => ({
 	doctor: state.doctor,
 	rdv: state.rdv,
+	patient: state.patient,
 });
 
 export default connect(mapStateToProps, {
