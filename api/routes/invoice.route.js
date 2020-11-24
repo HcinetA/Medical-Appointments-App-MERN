@@ -45,7 +45,8 @@ router.post('/', async (req, res) => {
                 reste: req.body.reste,
                 note_assistante: req.body.note_assistante,
                 patient: req.body.patient,
-                total: req.body.total
+                total: req.body.total,
+                acte: req.body.acte
             }
             const newInvoice = new Invoice(inv);
             const invoice = await newInvoice.save();
