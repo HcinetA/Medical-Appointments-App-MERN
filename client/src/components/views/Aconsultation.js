@@ -41,17 +41,21 @@ const Aconsultation = ({
 	const [formData, setFormData] = useState({
 		paid: '',
 		note_assistante: '',
-
-		reste: '',
 	});
 
-	const { paid, reste, note_assistante } = formData;
+	const { paid, note_assistante } = formData;
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		addPayment({ paid, reste, note_assistante, patient: rdv.patient._id });
+		addPayment({
+			paid,
+			reste: rdv.honoraire - paid,
+			note_assistante,
+			patient: rdv.patient._id,
+			total: rdv.honoraire,
+		});
 
 		console.log(formData);
 	};
@@ -79,15 +83,6 @@ const Aconsultation = ({
 											pattern='[0-9]*'
 											required
 											value={paid}
-											onChange={(e) => onChange(e)}
-										/>
-										<Form.Field
-											control={Input}
-											label='Reste'
-											placeholder='Reste'
-											name='reste'
-											readOnly
-											value={reste}
 											onChange={(e) => onChange(e)}
 										/>
 									</Form.Group>

@@ -1,13 +1,21 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { Table, Button, Menu, Icon, Input, Segment } from 'semantic-ui-react';
+import Moment from 'react-moment';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getPayments } from '../../actions/payment';
 
-const PaymentsTable = () => {
-	return (
+const PaymentsTable = ({ getPayments, payment: { payments, loading } }) => {
+	useEffect(() => {
+		getPayments();
+	}, [getPayments]);
+	return loading || payments === null ? (
+		<Fragment>Loading</Fragment>
+	) : (
 		<Fragment>
-			<h1 className='large text-primary'>Perscriptions</h1>
-			<p className='lead'>
-				<i className='fas fa-user'></i> Liste
-			</p>
+			<h1 className='large text-primary'>Payments</h1>
+
 			<Segment basic textAlign='right'>
 				<Input
 					action={{ color: 'blue', content: 'Search' }}
@@ -19,10 +27,9 @@ const PaymentsTable = () => {
 			<Table striped>
 				<Table.Header>
 					<Table.Row>
-						<Table.HeaderCell>#</Table.HeaderCell>
-						<Table.HeaderCell>Code</Table.HeaderCell>
 						<Table.HeaderCell>Patient </Table.HeaderCell>
 						<Table.HeaderCell>Amount</Table.HeaderCell>
+						<Table.HeaderCell>Payé</Table.HeaderCell>
 						<Table.HeaderCell>Reste</Table.HeaderCell>
 						<Table.HeaderCell>Date</Table.HeaderCell>
 						<Table.HeaderCell>Status</Table.HeaderCell>
@@ -31,126 +38,24 @@ const PaymentsTable = () => {
 				</Table.Header>
 
 				<Table.Body>
-					<Table.Row>
-						<Table.Cell>1</Table.Cell>
-						<Table.Cell>1X58DFS</Table.Cell>
-						<Table.Cell>John Doe</Table.Cell>
-						<Table.Cell>120 DT</Table.Cell>
-						<Table.Cell>120 DT</Table.Cell>
-						<Table.Cell>15/10/2020</Table.Cell>
+					{payments.map((payment) => (
+						<Table.Row>
+							<Table.Cell>{payment.patient.name}</Table.Cell>
+							<Table.Cell>120 DT</Table.Cell>
+							<Table.Cell>{payment.paid}</Table.Cell>
+							<Table.Cell>{payment.reste}</Table.Cell>
+							<Table.Cell>
+								<Moment format='YYYY/MM/DD'>{payment.updatedAt}</Moment>
+							</Table.Cell>
 
-						<Table.Cell>
-							<Button circular icon='x' disabled />
-						</Table.Cell>
-						<Table.Cell>
-							<Button primary>manage</Button>
-						</Table.Cell>
-					</Table.Row>
-					<Table.Row>
-						<Table.Cell>1</Table.Cell>
-						<Table.Cell>1X58DFS</Table.Cell>
-						<Table.Cell>John Doe</Table.Cell>
-						<Table.Cell>120 DT</Table.Cell>
-						<Table.Cell>120 DT</Table.Cell>
-						<Table.Cell>15/10/2020</Table.Cell>
-
-						<Table.Cell>
-							<Button circular icon='x' disabled />
-						</Table.Cell>
-						<Table.Cell>
-							<Button primary>manage</Button>
-						</Table.Cell>
-					</Table.Row>
-					<Table.Row>
-						<Table.Cell>1</Table.Cell>
-						<Table.Cell>1X58DFS</Table.Cell>
-						<Table.Cell>John Doe</Table.Cell>
-						<Table.Cell>120 DT</Table.Cell>
-						<Table.Cell>120 DT</Table.Cell>
-						<Table.Cell>15/10/2020</Table.Cell>
-
-						<Table.Cell>
-							<Button circular icon='x' disabled />
-						</Table.Cell>
-						<Table.Cell>
-							<Button primary>manage</Button>
-						</Table.Cell>
-					</Table.Row>
-					<Table.Row>
-						<Table.Cell>1</Table.Cell>
-						<Table.Cell>1X58DFS</Table.Cell>
-						<Table.Cell>John Doe</Table.Cell>
-						<Table.Cell>120 DT</Table.Cell>
-						<Table.Cell>120 DT</Table.Cell>
-						<Table.Cell>15/10/2020</Table.Cell>
-
-						<Table.Cell>
-							<Button circular icon='check' disabled />
-						</Table.Cell>
-						<Table.Cell>
-							<Button primary>manage</Button>
-						</Table.Cell>
-					</Table.Row>
-					<Table.Row>
-						<Table.Cell>1</Table.Cell>
-						<Table.Cell>1X58DFS</Table.Cell>
-						<Table.Cell>John Doe</Table.Cell>
-						<Table.Cell>120 DT</Table.Cell>
-						<Table.Cell>120 DT</Table.Cell>
-						<Table.Cell>15/10/2020</Table.Cell>
-
-						<Table.Cell>
-							<Button circular icon='x' disabled />
-						</Table.Cell>
-						<Table.Cell>
-							<Button primary>manage</Button>
-						</Table.Cell>
-					</Table.Row>
-					<Table.Row>
-						<Table.Cell>1</Table.Cell>
-						<Table.Cell>1X58DFS</Table.Cell>
-						<Table.Cell>John Doe</Table.Cell>
-						<Table.Cell>120 DT</Table.Cell>
-						<Table.Cell>120 DT</Table.Cell>
-						<Table.Cell>15/10/2020</Table.Cell>
-
-						<Table.Cell>
-							<Button circular icon='x' disabled />
-						</Table.Cell>
-						<Table.Cell>
-							<Button primary>manage</Button>
-						</Table.Cell>
-					</Table.Row>
-					<Table.Row>
-						<Table.Cell>1</Table.Cell>
-						<Table.Cell>1X58DFS</Table.Cell>
-						<Table.Cell>John Doe</Table.Cell>
-						<Table.Cell>120 DT</Table.Cell>
-						<Table.Cell>120 DT</Table.Cell>
-						<Table.Cell>15/10/2020</Table.Cell>
-
-						<Table.Cell>
-							<Button circular icon='check' disabled />
-						</Table.Cell>
-						<Table.Cell>
-							<Button primary>manage</Button>
-						</Table.Cell>
-					</Table.Row>
-					<Table.Row>
-						<Table.Cell>1</Table.Cell>
-						<Table.Cell>1X58DFS</Table.Cell>
-						<Table.Cell>John Doe</Table.Cell>
-						<Table.Cell>120 DT</Table.Cell>
-						<Table.Cell>120 DT</Table.Cell>
-						<Table.Cell>15/10/2020</Table.Cell>
-
-						<Table.Cell>
-							<Button circular icon='check' disabled />
-						</Table.Cell>
-						<Table.Cell>
-							<Button primary>manage</Button>
-						</Table.Cell>
-					</Table.Row>
+							<Table.Cell>
+								<Button circular icon='x' disabled />
+							</Table.Cell>
+							<Table.Cell>
+								<Button primary>manage</Button>
+							</Table.Cell>
+						</Table.Row>
+					))}{' '}
 				</Table.Body>
 				<Table.Footer>
 					<Table.Row>
@@ -175,4 +80,14 @@ const PaymentsTable = () => {
 	);
 };
 
-export default PaymentsTable;
+PaymentsTable.propTypes = {
+	getPayments: PropTypes.func.isRequired,
+	payment: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+	payment: state.payment,
+});
+export default connect(mapStateToProps, {
+	getPayments,
+})(PaymentsTable);
