@@ -41,9 +41,9 @@ const PaymentsTable = ({ getPayments, payment: { payments, loading } }) => {
 					{payments.map((payment) => (
 						<Table.Row>
 							<Table.Cell>{payment.patient.name}</Table.Cell>
-							<Table.Cell>120 DT</Table.Cell>
-							<Table.Cell>{payment.paid}</Table.Cell>
-							<Table.Cell>{payment.reste}</Table.Cell>
+							<Table.Cell>{payment.total} DT</Table.Cell>
+							<Table.Cell>{payment.paid} DT</Table.Cell>
+							<Table.Cell>{payment.reste} DT</Table.Cell>
 							<Table.Cell>
 								<Moment format='YYYY/MM/DD'>{payment.updatedAt}</Moment>
 							</Table.Cell>
