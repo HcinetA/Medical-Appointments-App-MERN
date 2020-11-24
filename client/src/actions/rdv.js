@@ -37,7 +37,6 @@ export const addRdv = (formData, history) => async (dispatch) => {
 		.post('/api/appointment/', formData, config)
 		.then((res) => {
 			dispatch(setAlert('RDV Created ', 'success'));
-			history.push('/assistantedashboard');
 
 			dispatch({
 				type: ADD_RDV,

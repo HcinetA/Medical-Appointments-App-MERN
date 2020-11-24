@@ -9,6 +9,7 @@ import {
 	Button,
 	Comment,
 	Label,
+	Modal,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -25,12 +26,15 @@ const Aconsultation = ({
 	getDoctors,
 	doctor: { doctors, dloading },
 	uptRdv,
+	addRdv,
 	setAlert,
 	uptPatient,
 	getRdv,
 	rdv: { rdv, loading },
 	addPayment,
 }) => {
+	const [open, setOpen] = React.useState(false);
+
 	useEffect(() => {
 		getDoctors();
 	}, [getDoctors]);
@@ -60,12 +64,77 @@ const Aconsultation = ({
 		console.log(formData);
 	};
 
+	const [formData2, setFormData2] = useState({
+		doctor: '',
+
+		date: '',
+
+		time: '',
+
+		patient: '',
+	});
+
+	const { doctor, date, time, patient } = formData2;
+	const onChange2 = (e2) =>
+		setFormData2({ ...formData2, [e2.target.name]: e2.target.value });
+
+	const onSubmit2 = (e2) => {
+		e2.preventDefault();
+		setOpen(false);
+		addRdv({ doctor, date, time, patient: rdv.patient._id });
+	};
 	return loading || rdv === null ? (
 		<Fragment>Loading</Fragment>
 	) : (
 		<Fragment>
 			<h1 className='large text-primary'>Payment</h1>
+			<Segment basic textAlign='right'>
+				<Modal
+					onClose={() => setOpen(false)}
+					onOpen={() => setOpen(true)}
+					open={open}
+					trigger={<Button positive icon='plus' content='New Rdv' />}
+				>
+					<Modal.Header>Next Rdv</Modal.Header>
+					<Modal.Content>
+						<Form onSubmit={(e2) => onSubmit2(e2)}>
+							<Form.Field
+								label='Select Doctor'
+								control='select'
+								name='doctor'
+								required
+								onChange={(e2) => onChange2(e2)}
+							>
+								{doctors.map((doctor) => (
+									<option value={doctor._id}>DR.{doctor.firstName}</option>
+								))}
+							</Form.Field>
 
+							<Form.Input
+								label=' Select Date'
+								type='date'
+								name='date'
+								value={date}
+								required
+								onChange={(e2) => onChange2(e2)}
+							/>
+
+							<Form.Input
+								label=' Select Time'
+								type='time'
+								name='time'
+								value={time}
+								required
+								onChange={(e2) => onChange2(e2)}
+							/>
+
+							<Button positive type='submit'>
+								Submit{' '}
+							</Button>
+						</Form>
+					</Modal.Content>
+				</Modal>
+			</Segment>
 			<Segment raised>
 				<Grid columns='equal' stackable>
 					<Grid.Row>
@@ -137,42 +206,6 @@ const Aconsultation = ({
 									</Label>
 								</Form>
 							</Segment>
-
-							<Segment>
-								<Header as='h3'>Patient History</Header>
-								<Comment.Group>
-									<Comment>
-										<Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
-										<Comment.Content>
-											<Comment.Author as='a'>Amin</Comment.Author>
-											<Comment.Metadata>
-												<div>15/10/2020</div>
-											</Comment.Metadata>
-											<Comment.Text>Coiffage</Comment.Text>
-										</Comment.Content>
-									</Comment>
-									<Comment>
-										<Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
-										<Comment.Content>
-											<Comment.Author as='a'>Matt</Comment.Author>
-											<Comment.Metadata>
-												<div>15/10/2020</div>
-											</Comment.Metadata>
-											<Comment.Text>implant</Comment.Text>
-										</Comment.Content>
-									</Comment>
-									<Comment>
-										<Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
-										<Comment.Content>
-											<Comment.Author as='a'>Matt</Comment.Author>
-											<Comment.Metadata>
-												<div>15/10/2020</div>
-											</Comment.Metadata>
-											<Comment.Text>Treatment endo.</Comment.Text>
-										</Comment.Content>
-									</Comment>
-								</Comment.Group>
-							</Segment>
 						</Grid.Column>
 					</Grid.Row>
 				</Grid>
@@ -190,6 +223,7 @@ Aconsultation.propTypes = {
 	uptRdv: PropTypes.func.isRequired,
 	uptPatient: PropTypes.func.isRequired,
 	addPayment: PropTypes.func.isRequired,
+	addRdv: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -205,4 +239,5 @@ export default connect(mapStateToProps, {
 	getDoctors,
 	uptPatient,
 	addPayment,
+	addRdv,
 })(Aconsultation);

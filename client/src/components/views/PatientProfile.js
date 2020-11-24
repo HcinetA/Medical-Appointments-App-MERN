@@ -106,7 +106,11 @@ const PatientProfile = ({
 									</Table.Cell>
 									<Table.Cell>
 										{' '}
-										<Button circular icon='x' disabled />
+										{rdv.status ? (
+											<Button positive circular icon='check' disabled />
+										) : (
+											<Button negative circular icon='x' disabled />
+										)}
 									</Table.Cell>
 									<Table.Cell>
 										<Link to={`/consultation/${rdv._id}`}>
@@ -153,6 +157,8 @@ const PatientProfile = ({
 					<Table striped>
 						<Table.Header>
 							<Table.Row>
+								<Table.HeaderCell> </Table.HeaderCell>
+
 								<Table.HeaderCell>Patient </Table.HeaderCell>
 								<Table.HeaderCell>Amount</Table.HeaderCell>
 								<Table.HeaderCell>Payé</Table.HeaderCell>
@@ -166,6 +172,7 @@ const PatientProfile = ({
 						<Table.Body>
 							{payments.map((payment) => (
 								<Table.Row>
+									<Table.Cell></Table.Cell>
 									<Table.Cell>{payment.patient.name}</Table.Cell>
 									<Table.Cell>{payment.total} DT</Table.Cell>
 									<Table.Cell>{payment.paid} DT</Table.Cell>
@@ -175,7 +182,12 @@ const PatientProfile = ({
 									</Table.Cell>
 
 									<Table.Cell>
-										<Button circular icon='x' disabled />
+										{' '}
+										{payment.reste === 0 ? (
+											<Button positive circular icon='check' disabled />
+										) : (
+											<Button negative circular icon='x' disabled />
+										)}
 									</Table.Cell>
 									<Table.Cell>
 										<Button primary>manage</Button>

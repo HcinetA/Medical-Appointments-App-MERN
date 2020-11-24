@@ -33,8 +33,6 @@ const AppTable = ({
 		<Fragment>
 			<h1 className='large text-primary'> Liste De RDVS </h1>
 			<Segment basic textAlign='right'>
-				<Button positive icon='filter' content='My Appointments' />
-
 				<Input
 					action={{ color: 'blue', content: 'Search' }}
 					icon='search'
@@ -45,7 +43,6 @@ const AppTable = ({
 			<Table striped>
 				<Table.Header>
 					<Table.Row>
-						<Table.HeaderCell> # </Table.HeaderCell>{' '}
 						<Table.HeaderCell> Name </Table.HeaderCell>{' '}
 						<Table.HeaderCell> Date </Table.HeaderCell>{' '}
 						<Table.HeaderCell> Doctor </Table.HeaderCell>{' '}
@@ -57,7 +54,6 @@ const AppTable = ({
 					{' '}
 					{rdvs.map((rdv) => (
 						<Table.Row key={rdv.id} rdv={rdv}>
-							<Table.Cell> 1 </Table.Cell>{' '}
 							<Table.Cell> {rdv.patient.name} </Table.Cell>{' '}
 							<Table.Cell>
 								<Moment format='YYYY/MM/DD'>{rdv.date}</Moment> | {rdv.time}{' '}
@@ -65,7 +61,11 @@ const AppTable = ({
 							<Table.Cell> DR. {rdv.doctor.firstName} </Table.Cell>{' '}
 							<Table.Cell>
 								{' '}
-								<Button circular icon='x' disabled />
+								{rdv.status ? (
+									<Button positive circular icon='check' disabled />
+								) : (
+									<Button negative circular icon='x' disabled />
+								)}
 							</Table.Cell>{' '}
 							<Table.Cell>
 								<Link to={`/app/${rdv._id}`}>
@@ -75,24 +75,6 @@ const AppTable = ({
 						</Table.Row>
 					))}{' '}
 				</Table.Body>{' '}
-				<Table.Footer>
-					<Table.Row>
-						<Table.HeaderCell colSpan='6'>
-							<Menu floated='right' pagination>
-								<Menu.Item as='a' icon>
-									<Icon name='chevron left' />
-								</Menu.Item>{' '}
-								<Menu.Item as='a'> 1 </Menu.Item>{' '}
-								<Menu.Item as='a'> 2 </Menu.Item>{' '}
-								<Menu.Item as='a'> 3 </Menu.Item>{' '}
-								<Menu.Item as='a'> 4 </Menu.Item>{' '}
-								<Menu.Item as='a' icon>
-									<Icon name='chevron right' />
-								</Menu.Item>{' '}
-							</Menu>{' '}
-						</Table.HeaderCell>{' '}
-					</Table.Row>{' '}
-				</Table.Footer>{' '}
 			</Table>{' '}
 		</Fragment>
 	);

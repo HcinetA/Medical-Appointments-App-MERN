@@ -24,7 +24,6 @@ const initialState = {
 	doctor: '',
 	honoraire: '',
 	acte: '',
-	status: true,
 };
 
 const Consultation = ({
@@ -60,7 +59,6 @@ const Consultation = ({
 		notes_acte: '',
 
 		honoraire: '',
-		status: true,
 	});
 	const {
 		notes_acte,
@@ -79,7 +77,7 @@ const Consultation = ({
 
 			honoraire,
 			doctor: rdv.doctor._id,
-			status,
+			status: true,
 		});
 		console.log(formData);
 	};

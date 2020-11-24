@@ -84,6 +84,8 @@ const PatientAffectation = ({
 
 	const onSubmit = (e) => {
 		e.preventDefault();
+		setOpen(false);
+
 		uptPatient(rdv.patient._id, {
 			maladie,
 			allergie,
@@ -97,6 +99,7 @@ const PatientAffectation = ({
 
 	const onSubmit2 = (e2) => {
 		e2.preventDefault();
+
 		uptRdv(rdv._id, {
 			motif,
 			diagnostic,
