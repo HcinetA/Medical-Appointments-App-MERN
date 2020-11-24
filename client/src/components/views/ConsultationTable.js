@@ -65,7 +65,11 @@ const ConsultationTable = ({
 							<Table.Cell> DR. {rdv.doctor.firstName} </Table.Cell>{' '}
 							<Table.Cell>
 								{' '}
-								<Button circular icon='x' disabled />
+								{rdv.status ? (
+									<Button positive circular icon='check' disabled />
+								) : (
+									<Button negative circular icon='x' disabled />
+								)}
 							</Table.Cell>{' '}
 							<Table.Cell>
 								<Link to={`/consultation/${rdv._id}`}>
@@ -75,24 +79,6 @@ const ConsultationTable = ({
 						</Table.Row>
 					))}{' '}
 				</Table.Body>{' '}
-				<Table.Footer>
-					<Table.Row>
-						<Table.HeaderCell colSpan='6'>
-							<Menu floated='right' pagination>
-								<Menu.Item as='a' icon>
-									<Icon name='chevron left' />
-								</Menu.Item>{' '}
-								<Menu.Item as='a'> 1 </Menu.Item>{' '}
-								<Menu.Item as='a'> 2 </Menu.Item>{' '}
-								<Menu.Item as='a'> 3 </Menu.Item>{' '}
-								<Menu.Item as='a'> 4 </Menu.Item>{' '}
-								<Menu.Item as='a' icon>
-									<Icon name='chevron right' />
-								</Menu.Item>{' '}
-							</Menu>{' '}
-						</Table.HeaderCell>{' '}
-					</Table.Row>{' '}
-				</Table.Footer>{' '}
 			</Table>{' '}
 		</Fragment>
 	);

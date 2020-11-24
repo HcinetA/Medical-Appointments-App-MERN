@@ -19,6 +19,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addPatient, getPatients, getPatient } from '../../actions/patient';
 import { addRdv, getRdvs, getAptPatient } from '../../actions/rdv';
+import { getInvPatient } from '../../actions/payment';
+
 import { getDoctors } from '../../actions/doctor';
 
 const PatientProfile = ({
@@ -26,7 +28,10 @@ const PatientProfile = ({
 	patient: { patient, loading },
 	match,
 	getAptPatient,
+
 	rdv: { rdvs },
+	getInvPatient,
+	payment: { payments },
 }) => {
 	useEffect(() => {
 		getPatient(match.params.id);
@@ -34,6 +39,9 @@ const PatientProfile = ({
 	useEffect(() => {
 		getAptPatient(match.params.id);
 	}, [getAptPatient, match.params.id]);
+	useEffect(() => {
+		getInvPatient(match.params.id);
+	}, [getInvPatient, match.params.id]);
 	const panes = [
 		{
 			menuItem: { key: 'medical_info', icon: 'info', content: 'Medical Info' },
@@ -98,7 +106,11 @@ const PatientProfile = ({
 									</Table.Cell>
 									<Table.Cell>
 										{' '}
-										<Button circular icon='x' disabled />
+										{rdv.status ? (
+											<Button positive circular icon='check' disabled />
+										) : (
+											<Button negative circular icon='x' disabled />
+										)}
 									</Table.Cell>
 									<Table.Cell>
 										<Link to={`/consultation/${rdv._id}`}>
@@ -116,18 +128,25 @@ const PatientProfile = ({
 			menuItem: { key: 'History', icon: 'history', content: 'History' },
 			render: () => (
 				<Tab.Pane>
-					<Comment.Group>
-						<Comment>
-							<Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
-							<Comment.Content>
-								<Comment.Author as='a'>Amin</Comment.Author>
-								<Comment.Metadata>
-									<div>15/10/2020</div>
-								</Comment.Metadata>
-								<Comment.Text>Coiffage</Comment.Text>
-							</Comment.Content>
-						</Comment>
-					</Comment.Group>
+					{rdvs.map((rdv) => (
+						<Comment.Group>
+							<Comment>
+								<Comment.Avatar src={rdv.doctor.avatar} />
+								<Comment.Content>
+									<Comment.Author as='a'>
+										{' '}
+										Dr. {rdv.doctor.firstName} {rdv.doctor.lastName}
+									</Comment.Author>
+									<Comment.Metadata>
+										<div>
+											<Moment format='YYYY/MM/DD'>{rdv.updatedAt}</Moment>
+										</div>
+									</Comment.Metadata>
+									<Comment.Text>{rdv.acte}</Comment.Text>
+								</Comment.Content>
+							</Comment>
+						</Comment.Group>
+					))}{' '}
 				</Tab.Pane>
 			),
 		},
@@ -138,10 +157,12 @@ const PatientProfile = ({
 					<Table striped>
 						<Table.Header>
 							<Table.Row>
-								<Table.HeaderCell>#</Table.HeaderCell>
-								<Table.HeaderCell>Code</Table.HeaderCell>
+								<Table.HeaderCell> </Table.HeaderCell>
 
+								<Table.HeaderCell>Patient </Table.HeaderCell>
 								<Table.HeaderCell>Amount</Table.HeaderCell>
+								<Table.HeaderCell>Payé</Table.HeaderCell>
+								<Table.HeaderCell>Reste</Table.HeaderCell>
 								<Table.HeaderCell>Date</Table.HeaderCell>
 								<Table.HeaderCell>Status</Table.HeaderCell>
 								<Table.HeaderCell>Options</Table.HeaderCell>
@@ -149,20 +170,30 @@ const PatientProfile = ({
 						</Table.Header>
 
 						<Table.Body>
-							<Table.Row>
-								<Table.Cell>1</Table.Cell>
-								<Table.Cell>1X58DFS</Table.Cell>
+							{payments.map((payment) => (
+								<Table.Row>
+									<Table.Cell></Table.Cell>
+									<Table.Cell>{payment.patient.name}</Table.Cell>
+									<Table.Cell>{payment.total} DT</Table.Cell>
+									<Table.Cell>{payment.paid} DT</Table.Cell>
+									<Table.Cell>{payment.reste} DT</Table.Cell>
+									<Table.Cell>
+										<Moment format='YYYY/MM/DD'>{payment.updatedAt}</Moment>
+									</Table.Cell>
 
-								<Table.Cell>120 DT</Table.Cell>
-								<Table.Cell>15/10/2020</Table.Cell>
-
-								<Table.Cell>
-									<Button circular icon='x' disabled />
-								</Table.Cell>
-								<Table.Cell>
-									<Button primary>manage</Button>
-								</Table.Cell>
-							</Table.Row>
+									<Table.Cell>
+										{' '}
+										{payment.reste === 0 ? (
+											<Button positive circular icon='check' disabled />
+										) : (
+											<Button negative circular icon='x' disabled />
+										)}
+									</Table.Cell>
+									<Table.Cell>
+										<Button primary>manage</Button>
+									</Table.Cell>
+								</Table.Row>
+							))}{' '}
 						</Table.Body>
 					</Table>
 				</Tab.Pane>
@@ -174,19 +205,20 @@ const PatientProfile = ({
 		<Fragment>Loading</Fragment>
 	) : (
 		<Fragment>
-			<Button icon labelPosition='left'>
-				<Icon name='left arrow' />
-				Back to patients list
-			</Button>
+			<Link to={`/patients`}>
+				<Button icon labelPosition='left'>
+					<Icon name='left arrow' />
+					Back to patients list
+				</Button>
+			</Link>{' '}
 			<h1 className='large text-primary'>Patient Profile</h1>
-
 			<Segment raised>
 				<Grid>
 					<Grid.Row>
 						<Grid.Column width={4}>
 							<Card>
 								<Image
-									src='https://react.semantic-ui.com/images/avatar/large/matthew.png'
+									src='//www.gravatar.com/avatar/2636396c063b17c79ae89095730fc50d?s=200&r=pg&d=mm'
 									wrapped
 									ui={false}
 								/>
@@ -218,13 +250,16 @@ const PatientProfile = ({
 PatientProfile.propTypes = {
 	getPatient: PropTypes.func.isRequired,
 	getAptPatient: PropTypes.func.isRequired,
+	getInvPatient: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
 	patient: state.patient,
 	rdv: state.rdv,
+	payment: state.payment,
 });
 export default connect(mapStateToProps, {
 	getPatient,
 	getAptPatient,
+	getInvPatient,
 })(PatientProfile);

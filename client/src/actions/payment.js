@@ -6,6 +6,7 @@ import {
 	GET_PAYMENTS,
 	GET_PAYMENT,
 	UPT_PAYMENT,
+	GET_PATIENT_INV,
 } from './types';
 
 // add payment
@@ -83,4 +84,21 @@ export const uptPayment = (id, formData) => async (dispatch) => {
 			});
 		})
 		.catch((error) => console.log('catched error: \n', error));
+};
+
+// get invoices  by patient id
+
+export const getInvPatient = (id) => async (dispatch) => {
+	try {
+		const res = await axios.get(`/api/invoice/by_patient_id/${id}`);
+		dispatch({
+			type: GET_PATIENT_INV,
+			payload: res.data,
+		});
+	} catch (err) {
+		dispatch({
+			type: PAYMENTS_ERROR,
+			payload: { msg: err.response.statusText, status: err.response.status },
+		});
+	}
 };

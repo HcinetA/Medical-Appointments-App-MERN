@@ -4,6 +4,7 @@ import {
 	GET_PAYMENTS,
 	GET_PAYMENT,
 	UPT_PAYMENT,
+	GET_PATIENT_INV,
 } from '../actions/types';
 
 const initialState = {
@@ -46,7 +47,12 @@ export default function (state = initialState, action) {
 				payment: { ...state.payment, payload },
 				loading: false,
 			};
-
+		case GET_PATIENT_INV:
+			return {
+				...state,
+				payments: payload,
+				loading: false,
+			};
 		default:
 			return state;
 	}

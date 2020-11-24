@@ -24,7 +24,6 @@ const initialState = {
 	doctor: '',
 	honoraire: '',
 	acte: '',
-	status: true,
 };
 
 const Consultation = ({
@@ -36,6 +35,7 @@ const Consultation = ({
 	uptPatient,
 	getRdv,
 	rdv: { rdv, loading },
+	auth,
 }) => {
 	useEffect(() => {
 		getDoctors();
@@ -54,18 +54,15 @@ const Consultation = ({
 		}
 	}, [getRdv, match.params.id, loading]);
 	const [formData, setFormData] = useState({
-		doctor: '',
 		acte: '',
 
 		notes_acte: '',
 
 		honoraire: '',
-		status: true,
 	});
 	const {
 		notes_acte,
 
-		doctor,
 		acte,
 		honoraire,
 		status,
@@ -79,8 +76,8 @@ const Consultation = ({
 			acte,
 
 			honoraire,
-			doctor,
-			status,
+			doctor: rdv.doctor._id,
+			status: true,
 		});
 		console.log(formData);
 	};
@@ -101,18 +98,8 @@ const Consultation = ({
 						<Grid.Column>
 							<Segment color='red'>
 								{' '}
-								<Header as='h3'>Consultation</Header>
+								<Header as='h3'>Consultation {auth.user._id}</Header>
 								<Form onSubmit={(e) => onSubmit(e)}>
-									<Form.Field
-										control={Input}
-										label='Doctor Name'
-										placeholder='Doctor'
-										name='doctor'
-										required
-										hidden
-										readOnly
-										value={rdv.doctor._id}
-									/>
 									<Form.Field
 										id='form-textarea-control-opinion'
 										control={TextArea}
@@ -340,6 +327,7 @@ Consultation.propTypes = {
 const mapStateToProps = (state) => ({
 	doctor: state.doctor,
 	rdv: state.rdv,
+	auth: state.auth,
 });
 
 export default connect(mapStateToProps, {

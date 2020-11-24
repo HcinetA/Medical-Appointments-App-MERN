@@ -25,29 +25,26 @@ export const getRdvs = () => async (dispatch) => {
 		.catch((error) => console.log('catched error: \n', error));
 };
 
-// add  rdvs
+// add  rdv
 
-export const addRdv = (formData) => async (dispatch) => {
+export const addRdv = (formData, history) => async (dispatch) => {
 	const config = {
 		headers: {
 			'Content-Type': 'application/json',
 		},
 	};
-	try {
-		const res = await axios.post('/api/appointment/', formData, config);
+	const res = await axios
+		.post('/api/appointment/', formData, config)
+		.then((res) => {
+			dispatch(setAlert('RDV Created ', 'success'));
 
-		dispatch({
-			type: ADD_RDV,
-			payload: res.data,
-		});
+			dispatch({
+				type: ADD_RDV,
+				payload: res.data.updated_element,
+			});
+		})
 
-		dispatch(setAlert('RDV Created ', 'success'));
-	} catch (err) {
-		dispatch({
-			type: RDV_ERROR,
-			payload: { msg: err.response.statusText, status: err.response.status },
-		});
-	}
+		.catch((error) => console.log('catched error: \n', error));
 };
 
 // get rdv
