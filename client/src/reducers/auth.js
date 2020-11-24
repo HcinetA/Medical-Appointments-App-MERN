@@ -25,6 +25,7 @@ export default function (state = initialState, action) {
 				isAuthenticated: true,
 				user: payload,
 				role_secure: payload.role,
+				loading: false,
 			};
 		case REGISTER_SUCCESS:
 		case LOGIN_SUCCESS:
