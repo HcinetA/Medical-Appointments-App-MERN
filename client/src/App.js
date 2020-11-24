@@ -10,7 +10,7 @@ import NewPatientRdv from './components/views/NewPatientRdv';
 import AppointmentTable from './components/views/AppointmentTable';
 import ConsultationTable from './components/views/ConsultationTable';
 import AppTable from './components/views/AppTable';
-
+import MakePayment from './components/views/MakePayment';
 import PatientAffectation from './components/views/PatientAffectation';
 import Consultation from './components/views/Consultation';
 import Aconsultation from './components/views/Aconsultation';
@@ -56,6 +56,7 @@ const App = () => {
 								path='/appointment/:id'
 								component={PatientAffectation}
 							/>
+							<Route exact path='/payment/:id' component={MakePayment} />
 							<Route exact path='/consultation/:id' component={Consultation} />
 							<Route exact path='/app/:id' component={Aconsultation} />
 							<Route exact path='/patient/:id' component={PatientProfile} />

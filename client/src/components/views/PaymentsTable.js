@@ -57,7 +57,9 @@ const PaymentsTable = ({ getPayments, payment: { payments, loading } }) => {
 								)}
 							</Table.Cell>
 							<Table.Cell>
-								<Button primary>manage</Button>
+								<Link to={`/payment/${payment._id}`}>
+									<Button primary>manage</Button>
+								</Link>{' '}
 							</Table.Cell>
 						</Table.Row>
 					))}{' '}

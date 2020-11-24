@@ -17,21 +17,23 @@ import { setAlert } from '../../actions/alert';
 
 import { addPatient, getPatients, uptPatient } from '../../actions/patient';
 import { addRdv, getRdvs, getRdv, uptRdv } from '../../actions/rdv';
-import { addPayment } from '../../actions/payment';
+import { addPayment, uptPayment, getPayment } from '../../actions/payment';
 
 import { getDoctors } from '../../actions/doctor';
 
-const Aconsultation = ({
+const MakePayment = ({
 	match,
 	getDoctors,
 	doctor: { doctors, dloading },
-	uptRdv,
+
 	addRdv,
 	setAlert,
-	uptPatient,
 	getRdv,
-	rdv: { rdv, loading },
+	rdv: { rdv },
 	addPayment,
+	getPayment,
+	payment: { payment, loading },
+	uptPayment,
 }) => {
 	const [open, setOpen] = React.useState(false);
 
@@ -42,6 +44,9 @@ const Aconsultation = ({
 	useEffect(() => {
 		getRdv(match.params.id);
 	}, [getRdv, match.params.id]);
+	useEffect(() => {
+		getPayment(match.params.id);
+	}, [getPayment, match.params.id]);
 	const [formData, setFormData] = useState({
 		paid: '',
 		note_assistante: '',
@@ -59,7 +64,6 @@ const Aconsultation = ({
 			note_assistante,
 			patient: rdv.patient._id,
 			total: rdv.honoraire,
-			acte: rdv.acte,
 		});
 
 		console.log(formData);
@@ -84,58 +88,12 @@ const Aconsultation = ({
 		setOpen(false);
 		addRdv({ doctor, date, time, patient: rdv.patient._id });
 	};
-	return loading || rdv === null ? (
+	return loading || payment === null ? (
 		<Fragment>Loading</Fragment>
 	) : (
 		<Fragment>
 			<h1 className='large text-primary'>Payment</h1>
-			<Segment basic textAlign='right'>
-				<Modal
-					onClose={() => setOpen(false)}
-					onOpen={() => setOpen(true)}
-					open={open}
-					trigger={<Button positive icon='plus' content='New Rdv' />}
-				>
-					<Modal.Header>Next Rdv</Modal.Header>
-					<Modal.Content>
-						<Form onSubmit={(e2) => onSubmit2(e2)}>
-							<Form.Field
-								label='Select Doctor'
-								control='select'
-								name='doctor'
-								required
-								onChange={(e2) => onChange2(e2)}
-							>
-								{doctors.map((doctor) => (
-									<option value={doctor._id}>DR.{doctor.firstName}</option>
-								))}
-							</Form.Field>
 
-							<Form.Input
-								label=' Select Date'
-								type='date'
-								name='date'
-								value={date}
-								required
-								onChange={(e2) => onChange2(e2)}
-							/>
-
-							<Form.Input
-								label=' Select Time'
-								type='time'
-								name='time'
-								value={time}
-								required
-								onChange={(e2) => onChange2(e2)}
-							/>
-
-							<Button positive type='submit'>
-								Submit{' '}
-							</Button>
-						</Form>
-					</Modal.Content>
-				</Modal>
-			</Segment>
 			<Segment raised>
 				<Grid columns='equal' stackable>
 					<Grid.Row>
@@ -173,39 +131,11 @@ const Aconsultation = ({
 
 						<Grid.Column>
 							<Segment>
-								<Header as='h3'>Informations</Header>
-								<Form>
-									<Header as='h5'>Patient Name</Header>
-									<Label size='large'>Mr. {rdv.patient.name}</Label>
-
-									<Header as='h5'>Doctor Name</Header>
-									<Label size='large'>
-										Dr. {rdv.doctor.lastName} {rdv.doctor.firstName}
-									</Label>
-									<Header as='h5'>Acte</Header>
-
-									<Form.Field
-										id='form-textarea-control-opinion'
-										control={TextArea}
-										readOnly
-										placeholder='Acte'
-										value={rdv.acte}
-									/>
-
-									<Header as='h5'>Notes Docteur </Header>
-
-									<Form.Field
-										id='form-textarea-control-opinion'
-										control={TextArea}
-										readOnly
-										placeholder='Notes'
-										value={rdv.notes_acte}
-									/>
-									<Header as='h4'>Honoraire</Header>
-									<Label tag size='big'>
-										{rdv.honoraire} Dt
-									</Label>
-								</Form>
+								<Header as='h4'>Total {payment.total}</Header>
+								<Header as='h4'>Paid {payment.paid}</Header>
+								<Header as='h4'> Rest {payment.reste}</Header>
+								<Header as='h4'>Notes {payment.note_assistante}</Header>
+								<Header as='h4'>Acte {payment.note_assistante}</Header>
 							</Segment>
 						</Grid.Column>
 					</Grid.Row>
@@ -215,7 +145,7 @@ const Aconsultation = ({
 	);
 };
 
-Aconsultation.propTypes = {
+MakePayment.propTypes = {
 	setAlert: PropTypes.func.isRequired,
 	getRdv: PropTypes.func.isRequired,
 	getDoctors: PropTypes.func.isRequired,
@@ -225,12 +155,15 @@ Aconsultation.propTypes = {
 	uptPatient: PropTypes.func.isRequired,
 	addPayment: PropTypes.func.isRequired,
 	addRdv: PropTypes.func.isRequired,
+	getPayment: PropTypes.func.isRequired,
+	payment: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
 	doctor: state.doctor,
 	rdv: state.rdv,
 	patient: state.patient,
+	payment: state.payment,
 });
 
 export default connect(mapStateToProps, {
@@ -241,4 +174,6 @@ export default connect(mapStateToProps, {
 	uptPatient,
 	addPayment,
 	addRdv,
-})(Aconsultation);
+	uptPayment,
+	getPayment,
+})(MakePayment);
