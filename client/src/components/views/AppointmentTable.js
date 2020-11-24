@@ -53,7 +53,7 @@ const AppointmentTable = ({
 			<Table striped>
 				<Table.Header>
 					<Table.Row>
-						<Table.HeaderCell> # </Table.HeaderCell>{' '}
+						<Table.HeaderCell> </Table.HeaderCell>{' '}
 						<Table.HeaderCell> Name </Table.HeaderCell>{' '}
 						<Table.HeaderCell> Date </Table.HeaderCell>{' '}
 						<Table.HeaderCell> Doctor </Table.HeaderCell>{' '}
@@ -65,7 +65,7 @@ const AppointmentTable = ({
 					{' '}
 					{rdvs.map((rdv) => (
 						<Table.Row>
-							<Table.Cell> 1 </Table.Cell>{' '}
+							<Table.Cell> </Table.Cell>{' '}
 							<Table.Cell> {rdv.patient.name} </Table.Cell>{' '}
 							<Table.Cell>
 								<Moment format='YYYY/MM/DD'>{rdv.date}</Moment> | {rdv.time}{' '}
