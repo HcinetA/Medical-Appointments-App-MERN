@@ -24,6 +24,17 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+router.get('/by_patient_id/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const invoice = await Invoice.find({ patient: id }).populate('patient');
+        res.json(invoice);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(error);
+    }
+});
+
 router.post('/', async (req, res) => {
     try {
         const patient_id = req.body.patient;
@@ -98,5 +109,6 @@ router.delete('/', async (req, res) => {
         res.status(500).send(error);
     }
 });
+
 
 module.exports = router;
