@@ -17,9 +17,9 @@ const Dashboard = ({ getRdvs, rdv: { rdvs, loading } }) => {
 
 	if (rdvs) {
 		events = rdvs.map((e) => ({
-			title: 'zeb',
+			title: e.patient.name,
 			start: e.date,
-			color: 'purple', // override!
+			//	color: 'e.doctor.color', // override!
 			url: `/appointment/${e._id}`,
 		}));
 	}
@@ -35,6 +35,7 @@ const Dashboard = ({ getRdvs, rdv: { rdvs, loading } }) => {
 			}}
 			initialView='dayGridMonth'
 			editable={true}
+			nowIndicator={true}
 			selectable={true}
 			selectMirror={true}
 			dayMaxEvents={true}

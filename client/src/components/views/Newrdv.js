@@ -143,6 +143,7 @@ const Newrdv = ({
 							required
 							onChange={(e) => onChange(e)}
 						>
+							<option></option>
 							{patients.map((patient) => (
 								<option value={patient._id}>{patient.name}</option>
 							))}
@@ -155,6 +156,7 @@ const Newrdv = ({
 							required
 							onChange={(e) => onChange(e)}
 						>
+							<option></option>
 							{doctors.map((doctor) => (
 								<option value={doctor._id}>DR.{doctor.firstName}</option>
 							))}
