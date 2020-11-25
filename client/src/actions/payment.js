@@ -11,27 +11,25 @@ import {
 
 // add payment
 
-export const addPayment = (formData) => async (dispatch) => {
+export const addPayment = (formData, browserHistory) => async (dispatch) => {
 	const config = {
 		headers: {
 			'Content-Type': 'application/json',
 		},
 	};
-	try {
-		const res = await axios.post('/api/invoice/', formData, config);
+	const res = await axios
+		.post('/api/invoice/', formData, config)
+		.then((res) => {
+			dispatch({
+				type: ADD_PAYMENT,
+				payload: res.data,
+			});
+			dispatch(setAlert('Payment Created ', 'success'));
 
-		dispatch({
-			type: ADD_PAYMENT,
-			payload: res.data,
-		});
+			browserHistory.push('/payments');
+		})
 
-		dispatch(setAlert('Payment Created ', 'success'));
-	} catch (err) {
-		dispatch({
-			type: PAYMENTS_ERROR,
-			payload: { msg: err.response.statusText, status: err.response.status },
-		});
-	}
+		.catch((error) => console.log('catched error: \n', error));
 };
 
 // get payments

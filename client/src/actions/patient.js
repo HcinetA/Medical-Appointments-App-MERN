@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { setAlert } from './alert';
+import { browserHistory } from 'react-router';
+
 import {
 	ADD_PATIENT,
 	PATIENTS_ERROR,
