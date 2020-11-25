@@ -49,23 +49,14 @@ const PatientAffectation = ({
 	useEffect(() => {
 		getRdv(match.params.id);
 		setFormData2({
-			motif: loading || !rdv.motif ? '' : rdv.motif,
-			diagnostic: loading || !rdv.diagnostic ? '' : rdv.diagnostic,
-			analyses: loading || !rdv.analyses ? '' : rdv.analyses,
-			doctor: loading || !rdv.doctor._id ? '' : rdv.doctor._id,
+			motif: rdv === null || !rdv.motif ? '' : rdv.motif,
+			diagnostic: rdv === null || !rdv.diagnostic ? '' : rdv.diagnostic,
+			analyses: rdv === null || !rdv.analyses ? '' : rdv.analyses,
+			doctor: rdv === null || !rdv.doctor._id ? '' : rdv.doctor._id,
 			notes_consultation:
-				loading || !rdv.notes_consultation ? '' : rdv.notes_consultation,
+				rdv === null || !rdv.notes_consultation ? '' : rdv.notes_consultation,
 		});
-	}, [
-		getRdv,
-		match.params.id,
-		loading,
-		rdv.motif,
-		rdv.diagnostic,
-		rdv.analyses,
-		rdv.doctor._id,
-		rdv.notes_consultation,
-	]);
+	}, [getRdv, match.params.id, rdv === null]);
 
 	const { motif, diagnostic, analyses, notes_consultation, doctor } = formData2;
 

@@ -46,18 +46,11 @@ const Consultation = ({
 	useEffect(() => {
 		getRdv(match.params.id);
 		setFormData({
-			acte: loading || !rdv.acte ? '' : rdv.acte,
-			notes_acte: loading || !rdv.notes_acte ? '' : rdv.notes_acte,
-			honoraire: loading || !rdv.honoraire ? '' : rdv.honoraire,
+			acte: rdv === null || !rdv.acte ? '' : rdv.acte,
+			notes_acte: rdv === null || !rdv.notes_acte ? '' : rdv.notes_acte,
+			honoraire: rdv === null || !rdv.honoraire ? '' : rdv.honoraire,
 		});
-	}, [
-		getRdv,
-		match.params.id,
-		loading,
-		rdv.acte,
-		rdv.notes_acte,
-		rdv.honoraire,
-	]);
+	}, [getRdv, match.params.id, rdv === null]);
 
 	const {
 		notes_acte,
