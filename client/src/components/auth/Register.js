@@ -85,6 +85,7 @@ const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 							required
 							onChange={(e) => onChange(e)}
 						>
+							<option></option>
 							<option value='male'>Male</option>
 							<option value='female'>Female</option>
 						</Form.Field>
@@ -97,6 +98,7 @@ const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 							required
 							onChange={(e) => onChange(e)}
 						>
+							<option></option>
 							<option value='doctor'>Doctor</option>
 							<option value='doctor2'>Doctor consultation</option>
 							<option value='assistante'>Assistante</option>
@@ -109,6 +111,7 @@ const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 							required
 							onChange={(e) => onChange(e)}
 						>
+							<option></option>
 							<option value='#18dcff'>Bleu</option>
 							<option value='#4b4b4b'>Gris</option>
 							<option value='#ff4d4d'>Rouge</option>

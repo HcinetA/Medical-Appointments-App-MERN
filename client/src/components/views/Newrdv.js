@@ -38,18 +38,17 @@ const Newrdv = ({
 		patient: '',
 		doctor: '',
 		date: '',
-		time: '',
 		notes: '',
 		status: 'false',
 	});
 
-	const { patient, doctor, date, time, notes, status } = formData;
+	const { patient, doctor, date, notes, status } = formData;
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	const onSubmit = (e) => {
 		e.preventDefault();
 		console.log(formData);
-		addRdv({ patient, doctor, date, time, notes, status });
+		addRdv({ patient, doctor, date, notes, status });
 	};
 
 	const [formData2, setFormData2] = useState({
@@ -164,19 +163,10 @@ const Newrdv = ({
 
 					<Form.Group widths='equal'>
 						<Form.Input
-							label=' Select Date'
-							type='date'
+							label=' Select Date & Time'
+							type='datetime-local'
 							name='date'
 							value={date}
-							required
-							onChange={(e) => onChange(e)}
-						/>
-
-						<Form.Input
-							label=' Select Time'
-							type='time'
-							name='time'
-							value={time}
 							required
 							onChange={(e) => onChange(e)}
 						/>
