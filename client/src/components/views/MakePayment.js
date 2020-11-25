@@ -17,6 +17,7 @@ import {
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
+import { Link, withRouter } from 'react-router-dom';
 
 import { addPatient, getPatients, uptPatient } from '../../actions/patient';
 import { addRdv, getRdvs, getRdv, uptRdv } from '../../actions/rdv';
@@ -37,6 +38,7 @@ const MakePayment = ({
 	getPayment,
 	payment: { payment, loading },
 	uptPayment,
+	history,
 }) => {
 	const [open, setOpen] = React.useState(false);
 
@@ -62,13 +64,17 @@ const MakePayment = ({
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		uptPayment(payment._id, {
-			paid: +paid2 + +payment.paid,
-			reste: payment.reste - paid2,
-			note_assistante,
-			patient: payment.patient._id,
-			total: payment.total,
-		});
+		uptPayment(
+			payment._id,
+			{
+				paid: +paid2 + +payment.paid,
+				reste: payment.reste - paid2,
+				note_assistante,
+				patient: payment.patient._id,
+				total: payment.total,
+			},
+			history
+		);
 
 		console.log(formData);
 	};
@@ -239,4 +245,4 @@ export default connect(mapStateToProps, {
 	addRdv,
 	uptPayment,
 	getPayment,
-})(MakePayment);
+})(withRouter(MakePayment));

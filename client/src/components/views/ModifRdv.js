@@ -15,7 +15,7 @@ import { addPatient, getPatients } from '../../actions/patient';
 import { addRdv, getRdvs } from '../../actions/rdv';
 import { getDoctors } from '../../actions/doctor';
 
-const Newrdv = ({
+const ModifRdv = ({
 	getDoctors,
 	doctor: { doctors, loading },
 	getPatients,
@@ -54,88 +54,13 @@ const Newrdv = ({
 		addRdv({ patient, doctor, date, notes, status }, history);
 	};
 
-	const [formData2, setFormData2] = useState({
-		name: '',
-
-		date_of_birth: '',
-
-		phone: '',
-
-		age: '',
-	});
-
-	const { name, date_of_birth, phone } = formData2;
-	const onChange2 = (e2) =>
-		setFormData2({ ...formData2, [e2.target.name]: e2.target.value });
-	var ageCalculator = require('age-calculator');
-	let { AgeFromDateString } = require('age-calculator');
-
-	const age = new AgeFromDateString(date_of_birth).age;
-
-	const onSubmit2 = (e2) => {
-		e2.preventDefault();
-		setOpen(false);
-		addPatient({ name, date_of_birth, phone, age });
-		console.log({ name, date_of_birth, phone, age });
-	};
 	return (
 		<Fragment>
 			<h1 className='large text-primary'>New rdv</h1>
 			<p className='lead'>
 				<i className='fas fa-user'></i> Create an appointment
 			</p>
-			<Segment basic textAlign='right'>
-				<Modal
-					onClose={() => setOpen(false)}
-					onOpen={() => setOpen(true)}
-					open={open}
-					trigger={<Button positive icon='plus' content='New Patient' />}
-				>
-					<Modal.Header>Create Patient</Modal.Header>
-					<Modal.Content>
-						<Form onSubmit={(e2) => onSubmit2(e2)}>
-							<Form.Field
-								control={Input}
-								label='Patient Name'
-								placeholder='Name'
-								name='name'
-								required
-								value={name}
-								onChange={(e2) => onChange2(e2)}
-							/>
-							<Form.Field
-								control={Input}
-								label='Phone Number'
-								placeholder='phone'
-								name='phone'
-								required
-								value={phone}
-								onChange={(e2) => onChange2(e2)}
-							/>
 
-							<Form.Input
-								label=' Date de naissance'
-								type='date'
-								name='date_of_birth'
-								value={date_of_birth}
-								required
-								onChange={(e2) => onChange2(e2)}
-							/>
-							<Form.Field
-								control={Input}
-								type='hidden'
-								name='age'
-								required
-								value={age}
-								onChange={(e2) => onChange2(e2)}
-							/>
-							<Button positive type='submit'>
-								Submit{' '}
-							</Button>
-						</Form>
-					</Modal.Content>
-				</Modal>
-			</Segment>
 			<Segment raised>
 				<Form onSubmit={(e) => onSubmit(e)}>
 					<Form.Group widths='equal'>
@@ -193,7 +118,7 @@ const Newrdv = ({
 		</Fragment>
 	);
 };
-Newrdv.propTypes = {
+ModifRdv.propTypes = {
 	addPatient: PropTypes.func.isRequired,
 	getDoctors: PropTypes.func.isRequired,
 	doctor: PropTypes.object.isRequired,
@@ -215,4 +140,4 @@ export default connect(mapStateToProps, {
 	getPatients,
 	getRdvs,
 	addRdv,
-})(withRouter(Newrdv));
+})(withRouter(ModifRdv));

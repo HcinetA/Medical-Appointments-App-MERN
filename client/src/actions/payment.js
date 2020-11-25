@@ -11,7 +11,7 @@ import {
 
 // add payment
 
-export const addPayment = (formData, browserHistory) => async (dispatch) => {
+export const addPayment = (formData, history) => async (dispatch) => {
 	const config = {
 		headers: {
 			'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ export const addPayment = (formData, browserHistory) => async (dispatch) => {
 			});
 			dispatch(setAlert('Payment Created ', 'success'));
 
-			browserHistory.push('/payments');
+			history.push('/payments');
 		})
 
 		.catch((error) => console.log('catched error: \n', error));
@@ -65,7 +65,7 @@ export const getPayment = (id) => async (dispatch) => {
 
 // uptade  payment
 
-export const uptPayment = (id, formData) => async (dispatch) => {
+export const uptPayment = (id, formData, history) => async (dispatch) => {
 	const config = {
 		headers: {
 			'Content-Type': 'application/json',
@@ -80,6 +80,7 @@ export const uptPayment = (id, formData) => async (dispatch) => {
 				type: UPT_PAYMENT,
 				payload: res.data.updated_element,
 			});
+			history.push('/payments');
 		})
 		.catch((error) => console.log('catched error: \n', error));
 };

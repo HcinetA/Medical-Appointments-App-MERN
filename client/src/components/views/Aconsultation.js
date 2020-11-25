@@ -12,6 +12,7 @@ import {
 	Modal,
 	Loader,
 } from 'semantic-ui-react';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
@@ -33,6 +34,7 @@ const Aconsultation = ({
 	getRdv,
 	rdv: { rdv, loading },
 	addPayment,
+	history,
 }) => {
 	const [open, setOpen] = React.useState(false);
 
@@ -54,14 +56,17 @@ const Aconsultation = ({
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		addPayment({
-			paid,
-			reste: rdv.honoraire - paid,
-			note_assistante,
-			patient: rdv.patient._id,
-			total: rdv.honoraire,
-			acte: rdv.acte,
-		});
+		addPayment(
+			{
+				paid,
+				reste: rdv.honoraire - paid,
+				note_assistante,
+				patient: rdv.patient._id,
+				total: rdv.honoraire,
+				acte: rdv.acte,
+			},
+			history
+		);
 
 		console.log(formData);
 	};
@@ -242,4 +247,4 @@ export default connect(mapStateToProps, {
 	uptPatient,
 	addPayment,
 	addRdv,
-})(Aconsultation);
+})(withRouter(Aconsultation));

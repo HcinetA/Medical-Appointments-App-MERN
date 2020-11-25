@@ -11,12 +11,14 @@ import {
 	Modal,
 	Loader,
 } from 'semantic-ui-react';
+import { Link, withRouter } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 
 import { addPatient, getPatients, uptPatient } from '../../actions/patient';
-import { addRdv, getRdvs, getRdv, uptRdv } from '../../actions/rdv';
+import { addRdv, getRdvs, getRdv, uptRdv2 } from '../../actions/rdv';
 import { getDoctors } from '../../actions/doctor';
 
 const initialState = {
@@ -32,11 +34,12 @@ const PatientAffectation = ({
 	match,
 	getDoctors,
 	doctor: { doctors, dloading },
-	uptRdv,
+	uptRdv2,
 	setAlert,
 	uptPatient,
 	getRdv,
 	rdv: { rdv, loading },
+	history,
 }) => {
 	const [open, setOpen] = React.useState(false);
 	const [formData2, setFormData2] = useState(initialState);
@@ -101,13 +104,17 @@ const PatientAffectation = ({
 	const onSubmit2 = (e2) => {
 		e2.preventDefault();
 
-		uptRdv(rdv._id, {
-			motif,
-			diagnostic,
-			analyses,
-			notes_consultation,
-			doctor,
-		});
+		uptRdv2(
+			rdv._id,
+			{
+				motif,
+				diagnostic,
+				analyses,
+				notes_consultation,
+				doctor,
+			},
+			history
+		);
 	};
 
 	return loading || rdv === null ? (
@@ -346,7 +353,7 @@ PatientAffectation.propTypes = {
 	getDoctors: PropTypes.func.isRequired,
 	rdv: PropTypes.object.isRequired,
 	doctor: PropTypes.object.isRequired,
-	uptRdv: PropTypes.func.isRequired,
+	uptRdv2: PropTypes.func.isRequired,
 	uptPatient: PropTypes.func.isRequired,
 };
 
@@ -358,7 +365,7 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
 	getRdv,
 	setAlert,
-	uptRdv,
+	uptRdv2,
 	getDoctors,
 	uptPatient,
-})(PatientAffectation);
+})(withRouter(PatientAffectation));

@@ -61,10 +61,10 @@ const AppTable = ({
 				<Table.Body>
 					{' '}
 					{rdvs.map((rdv) => (
-						<Table.Row key={rdv.id} rdv={rdv}>
+						<Table.Row key={rdv._id} rdv={rdv}>
 							<Table.Cell> {rdv.patient.name} </Table.Cell>{' '}
 							<Table.Cell>
-								<Moment format='YYYY/MM/DD'>{rdv.date}</Moment> | {rdv.time}{' '}
+								<Moment format='YYYY/MM/DD | hh:mm'>{rdv.date}</Moment>{' '}
 							</Table.Cell>{' '}
 							<Table.Cell> DR. {rdv.doctor.firstName} </Table.Cell>{' '}
 							<Table.Cell>
@@ -77,7 +77,16 @@ const AppTable = ({
 							</Table.Cell>{' '}
 							<Table.Cell>
 								<Link to={`/app/${rdv._id}`}>
-									<Button primary> Manage </Button>{' '}
+									<Button basic color='green'>
+										{' '}
+										Payment{' '}
+									</Button>{' '}
+								</Link>{' '}
+								<Link to={`/modifrdv/${rdv._id}`}>
+									<Button basic color='blue'>
+										{' '}
+										Modifier{' '}
+									</Button>{' '}
 								</Link>{' '}
 							</Table.Cell>{' '}
 						</Table.Row>

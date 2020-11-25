@@ -42,6 +42,7 @@ export const addRdv = (formData, history) => async (dispatch) => {
 				type: ADD_RDV,
 				payload: res.data.updated_element,
 			});
+			history.push('/apps');
 		})
 
 		.catch((error) => console.log('catched error: \n', error));
@@ -64,9 +65,32 @@ export const getRdv = (id) => async (dispatch) => {
 	}
 };
 
-// uptade  rdvs
+// uptade  rdvs by doc1
 
-export const uptRdv = (id, formData) => async (dispatch) => {
+export const uptRdv = (id, formData, history) => async (dispatch) => {
+	const config = {
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	};
+	// try {
+	const res = await axios
+		.put(`/api/appointment/${id}`, formData, config)
+		.then((res) => {
+			dispatch(setAlert('RDV Created ', 'success'));
+
+			dispatch({
+				type: UPT_RDV,
+				payload: res.data.updated_element,
+			});
+			history.push('/consultations');
+		})
+		.catch((error) => console.log('catched error: \n', error));
+};
+
+// uptade  rdvs by doctor2
+
+export const uptRdv2 = (id, formData, history) => async (dispatch) => {
 	const config = {
 		headers: {
 			'Content-Type': 'application/json',
@@ -81,6 +105,7 @@ export const uptRdv = (id, formData) => async (dispatch) => {
 				type: UPT_RDV,
 				payload: res.data.updated_element,
 			});
+			history.push('/appointments');
 		})
 		.catch((error) => console.log('catched error: \n', error));
 };

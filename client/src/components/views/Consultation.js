@@ -12,6 +12,7 @@ import {
 	Loader,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import { Link, withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
@@ -37,6 +38,7 @@ const Consultation = ({
 	getRdv,
 	rdv: { rdv, loading },
 	auth,
+	history,
 }) => {
 	useEffect(() => {
 		getDoctors();
@@ -72,14 +74,18 @@ const Consultation = ({
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	const onSubmit = (e) => {
 		e.preventDefault();
-		uptRdv(rdv._id, {
-			notes_acte,
-			acte,
+		uptRdv(
+			rdv._id,
+			{
+				notes_acte,
+				acte,
 
-			honoraire,
-			doctor: rdv.doctor._id,
-			status: true,
-		});
+				honoraire,
+				doctor: rdv.doctor._id,
+				status: true,
+			},
+			history
+		);
 		console.log(formData);
 	};
 
@@ -337,4 +343,4 @@ export default connect(mapStateToProps, {
 	uptRdv,
 	getDoctors,
 	uptPatient,
-})(Consultation);
+})(withRouter(Consultation));
