@@ -6,6 +6,7 @@ import {
 	Segment,
 	Modal,
 	Input,
+	Icon,
 } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 
@@ -67,7 +68,7 @@ const Newrdv = ({
 	const { name, date_of_birth, phone } = formData2;
 	const onChange2 = (e2) =>
 		setFormData2({ ...formData2, [e2.target.name]: e2.target.value });
-	var ageCalculator = require('age-calculator');
+	require('age-calculator');
 	let { AgeFromDateString } = require('age-calculator');
 
 	const age = new AgeFromDateString(date_of_birth).age;
@@ -80,10 +81,14 @@ const Newrdv = ({
 	};
 	return (
 		<Fragment>
-			<h1 className='large text-primary'>New rdv</h1>
-			<p className='lead'>
-				<i className='fas fa-user'></i> Create an appointment
-			</p>
+			<Link to={'/apps'}>
+				<Button icon labelPosition='left'>
+					<Icon name='left arrow' />
+					Retour à la Liste des Rendez-Vous
+				</Button>
+			</Link>
+			<h1 className='large text-primary'>Nouveau Rendez-vous</h1>
+
 			<Segment basic textAlign='right'>
 				<Modal
 					onClose={() => setOpen(false)}

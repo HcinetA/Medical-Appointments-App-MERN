@@ -7,20 +7,18 @@ import {
 	Form,
 	Header,
 	Button,
-	Comment,
 	Label,
-	Modal,
-	Image,
 	Message,
 	Loader,
+	Icon,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 import { Link, withRouter } from 'react-router-dom';
 
-import { addPatient, getPatients, uptPatient } from '../../actions/patient';
-import { addRdv, getRdvs, getRdv, uptRdv } from '../../actions/rdv';
+import { uptPatient } from '../../actions/patient';
+import { addRdv, getRdv, uptRdv } from '../../actions/rdv';
 import { addPayment, uptPayment, getPayment } from '../../actions/payment';
 
 import { getDoctors } from '../../actions/doctor';
@@ -31,17 +29,15 @@ const MakePayment = ({
 	doctor: { doctors, dloading },
 
 	addRdv,
-	setAlert,
+
 	getRdv,
 	rdv: { rdv },
-	addPayment,
+
 	getPayment,
 	payment: { payment, loading },
 	uptPayment,
 	history,
 }) => {
-	const [open, setOpen] = React.useState(false);
-
 	useEffect(() => {
 		getDoctors();
 	}, [getDoctors]);
@@ -79,30 +75,17 @@ const MakePayment = ({
 		console.log(formData);
 	};
 
-	const [formData2, setFormData2] = useState({
-		doctor: '',
-
-		date: '',
-
-		time: '',
-
-		patient: '',
-	});
-
-	const { doctor, date, time, patient } = formData2;
-	const onChange2 = (e2) =>
-		setFormData2({ ...formData2, [e2.target.name]: e2.target.value });
-
-	const onSubmit2 = (e2) => {
-		e2.preventDefault();
-		setOpen(false);
-		addRdv({ doctor, date, time, patient: rdv.patient._id });
-	};
 	return loading || payment === null ? (
 		<Loader active />
 	) : (
 		<Fragment>
-			<h1 className='large text-primary'>Make Payment</h1>
+			<Link to={'/payments'}>
+				<Button icon labelPosition='left'>
+					<Icon name='left arrow' />
+					Retour à la liste des paiements{' '}
+				</Button>
+			</Link>
+			<h1 className='large text-primary'>Effectuer Un Payment</h1>
 
 			<Segment raised>
 				<Grid columns='equal' stackable>

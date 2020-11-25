@@ -4,39 +4,29 @@ import {
 	TextArea,
 	Button,
 	Segment,
-	Modal,
-	Input,
+	Loader,
+	Icon,
 } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addPatient, getPatients } from '../../actions/patient';
-import { addRdv, getRdvs } from '../../actions/rdv';
+import { modifRdv, getRdv } from '../../actions/rdv';
 import { getDoctors } from '../../actions/doctor';
 
 const ModifRdv = ({
 	getDoctors,
-	doctor: { doctors, loading },
+	doctor: { doctors },
 	getPatients,
 	patient: { patients },
-	addPatient,
-	getRdvs,
-	rdv: { rdvs },
-	addRdv,
+
+	rdv: { rdv, loading },
+	modifRdv,
+	getRdv,
+	match,
 	history,
 }) => {
-	useEffect(() => {
-		getDoctors();
-	}, [getDoctors]);
-	useEffect(() => {
-		getPatients();
-	}, [getPatients]);
-	useEffect(() => {
-		getRdvs();
-	}, [getRdvs]);
-	const [open, setOpen] = React.useState(false);
-
 	const [formData, setFormData] = useState({
 		patient: '',
 		doctor: '',
@@ -45,38 +35,46 @@ const ModifRdv = ({
 		status: 'false',
 	});
 
-	const { patient, doctor, date, notes, status } = formData;
+	useEffect(() => {
+		getDoctors();
+	}, [getDoctors]);
+	useEffect(() => {
+		getPatients();
+	}, [getPatients]);
+
+	useEffect(() => {
+		getRdv(match.params.id);
+		setFormData({
+			doctor: loading || !rdv.doctor._id ? '' : rdv.doctor._id,
+			date: loading || !rdv.date ? '' : rdv.date,
+			notes: loading || !rdv.notes ? '' : rdv.notes,
+		});
+	}, [getRdv, match.params.id, loading, rdv.doctor._id, rdv.date, rdv.notes]);
+
+	const { doctor, date, notes, status } = formData;
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	const onSubmit = (e) => {
 		e.preventDefault();
 		console.log(formData);
-		addRdv({ patient, doctor, date, notes, status }, history);
+		modifRdv(rdv._id, { doctor, date, notes, status }, history);
 	};
 
-	return (
+	return loading || rdv === null ? (
+		<Loader active />
+	) : (
 		<Fragment>
-			<h1 className='large text-primary'>New rdv</h1>
-			<p className='lead'>
-				<i className='fas fa-user'></i> Create an appointment
-			</p>
+			<Link to={'/apps'}>
+				<Button icon labelPosition='left'>
+					<Icon name='left arrow' />
+					Retour à la Liste des Rendez-Vous
+				</Button>
+			</Link>
+			<h1 className='large text-primary'>Mettre à Jour RDV</h1>
 
 			<Segment raised>
 				<Form onSubmit={(e) => onSubmit(e)}>
 					<Form.Group widths='equal'>
-						<Form.Field
-							label='Select Patient'
-							control='select'
-							name='patient'
-							required
-							onChange={(e) => onChange(e)}
-						>
-							<option></option>
-							{patients.map((patient) => (
-								<option value={patient._id}>{patient.name}</option>
-							))}
-						</Form.Field>
-
 						<Form.Field
 							label='Select Doctor'
 							control='select'
@@ -124,9 +122,9 @@ ModifRdv.propTypes = {
 	doctor: PropTypes.object.isRequired,
 	getPatients: PropTypes.func.isRequired,
 	patient: PropTypes.object.isRequired,
-	getRdvs: PropTypes.func.isRequired,
+	modifRdv: PropTypes.func.isRequired,
 	rdv: PropTypes.object.isRequired,
-	addRdv: PropTypes.func.isRequired,
+	getRdv: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -138,6 +136,6 @@ export default connect(mapStateToProps, {
 	addPatient,
 	getDoctors,
 	getPatients,
-	getRdvs,
-	addRdv,
+	modifRdv,
+	getRdv,
 })(withRouter(ModifRdv));

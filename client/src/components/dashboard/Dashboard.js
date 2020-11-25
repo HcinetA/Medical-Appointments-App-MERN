@@ -1,10 +1,9 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { Loader } from 'semantic-ui-react';
-import Moment from 'react-moment';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getRdvs } from '../../actions/rdv';
@@ -44,14 +43,7 @@ const Dashboard = ({ getRdvs, rdv: { rdvs, loading } }) => {
 		/>
 	);
 };
-function renderEventContent(eventInfo) {
-	return (
-		<>
-			<b>{eventInfo.timeText}</b>
-			<i>{eventInfo.event.title}</i>
-		</>
-	);
-}
+
 Dashboard.propTypes = {
 	getRdvs: PropTypes.func.isRequired,
 	rdv: PropTypes.object.isRequired,

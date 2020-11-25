@@ -17,7 +17,7 @@ export const addPayment = (formData, history) => async (dispatch) => {
 			'Content-Type': 'application/json',
 		},
 	};
-	const res = await axios
+	await axios
 		.post('/api/invoice/', formData, config)
 		.then((res) => {
 			dispatch({
@@ -35,7 +35,7 @@ export const addPayment = (formData, history) => async (dispatch) => {
 // get payments
 
 export const getPayments = () => async (dispatch) => {
-	const res = await axios
+	await axios
 		.get('/api/invoice/')
 		.then((res) => {
 			dispatch({
@@ -72,7 +72,7 @@ export const uptPayment = (id, formData, history) => async (dispatch) => {
 		},
 	};
 	// try {
-	const res = await axios
+	await axios
 		.put(`/api/invoice/${id}`, formData, config)
 		.then((res) => {
 			dispatch(setAlert('Payment Updated ', 'success'));

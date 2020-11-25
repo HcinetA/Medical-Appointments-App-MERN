@@ -7,14 +7,13 @@ import {
 	RDV_ERROR,
 	GET_RDV,
 	UPT_RDV,
-	UPTRDV_ERROR,
 	GET_PATIENT_APT,
 } from './types';
 
 // get rddvs
 
 export const getRdvs = () => async (dispatch) => {
-	const res = await axios
+	await axios
 		.get('/api/appointment/')
 		.then((res) => {
 			dispatch({
@@ -33,7 +32,7 @@ export const addRdv = (formData, history) => async (dispatch) => {
 			'Content-Type': 'application/json',
 		},
 	};
-	const res = await axios
+	await axios
 		.post('/api/appointment/', formData, config)
 		.then((res) => {
 			dispatch(setAlert('RDV Created ', 'success'));
@@ -67,6 +66,29 @@ export const getRdv = (id) => async (dispatch) => {
 
 // uptade  rdvs by doc1
 
+export const modifRdv = (id, formData, history) => async (dispatch) => {
+	const config = {
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	};
+	// try {
+	await axios
+		.put(`/api/appointment/${id}`, formData, config)
+		.then((res) => {
+			dispatch(setAlert('RDV Created ', 'success'));
+
+			dispatch({
+				type: UPT_RDV,
+				payload: res.data.updated_element,
+			});
+			history.push('/apps');
+		})
+		.catch((error) => console.log('catched error: \n', error));
+};
+
+// uptade  rdvs by doc1
+
 export const uptRdv = (id, formData, history) => async (dispatch) => {
 	const config = {
 		headers: {
@@ -74,7 +96,7 @@ export const uptRdv = (id, formData, history) => async (dispatch) => {
 		},
 	};
 	// try {
-	const res = await axios
+	await axios
 		.put(`/api/appointment/${id}`, formData, config)
 		.then((res) => {
 			dispatch(setAlert('RDV Created ', 'success'));
@@ -97,7 +119,7 @@ export const uptRdv2 = (id, formData, history) => async (dispatch) => {
 		},
 	};
 	// try {
-	const res = await axios
+	await axios
 		.put(`/api/appointment/${id}`, formData, config)
 		.then((res) => {
 			dispatch(setAlert('RDV Created ', 'success'));

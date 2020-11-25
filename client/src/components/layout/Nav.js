@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Menu, Button, Dropdown } from 'semantic-ui-react';
+import { Menu, Button } from 'semantic-ui-react';
 
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -14,7 +14,7 @@ export const Nav = ({
 		<Menu stackable inverted>
 			<Link to='/assistantedashboard'>
 				<Menu.Item>
-					<img src='https://react.semantic-ui.com/logo.png' />
+					<img alt='' src='https://react.semantic-ui.com/logo.png' />
 				</Menu.Item>{' '}
 			</Link>
 			<Menu.Item name='features' link='/apps'>
@@ -43,7 +43,7 @@ export const Nav = ({
 		<Menu stackable inverted>
 			<Link to='/doctordashboard'>
 				<Menu.Item>
-					<img src='https://react.semantic-ui.com/logo.png' />
+					<img alt='' src='https://react.semantic-ui.com/logo.png' />
 				</Menu.Item>{' '}
 			</Link>
 			<Menu.Item name='features' link='/apps'>
@@ -68,7 +68,7 @@ export const Nav = ({
 		<Menu stackable inverted>
 			<Link to='/cdoctordashboard'>
 				<Menu.Item>
-					<img src='https://react.semantic-ui.com/logo.png' />
+					<img alt='' src='https://react.semantic-ui.com/logo.png' />
 				</Menu.Item>{' '}
 			</Link>
 			<Menu.Item name='features' link='/apps'>
@@ -93,7 +93,7 @@ export const Nav = ({
 		<Menu stackable inverted>
 			<Link to='/'>
 				<Menu.Item>
-					<img src='https://react.semantic-ui.com/logo.png' />
+					<img alt='' src='https://react.semantic-ui.com/logo.png' />
 				</Menu.Item>{' '}
 			</Link>
 			<Menu.Menu position='right'>
@@ -113,11 +113,11 @@ export const Nav = ({
 	return (
 		<Fragment>
 			{' '}
-			{isAuthenticated && role_secure == 'assistante'
+			{isAuthenticated && role_secure === 'assistante'
 				? authLinks
-				: isAuthenticated && role_secure == 'doctor'
+				: isAuthenticated && role_secure === 'doctor'
 				? docLinks
-				: isAuthenticated && role_secure == 'assistante'
+				: isAuthenticated && role_secure === 'assistante'
 				? doc2Links
 				: guestLinks}
 		</Fragment>

@@ -10,6 +10,7 @@ import {
 	Comment,
 	Modal,
 	Loader,
+	Icon,
 } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 
@@ -17,49 +18,54 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 
-import { addPatient, getPatients, uptPatient } from '../../actions/patient';
-import { addRdv, getRdvs, getRdv, uptRdv2 } from '../../actions/rdv';
+import { uptPatient } from '../../actions/patient';
+import { getRdv, uptRdv2 } from '../../actions/rdv';
 import { getDoctors } from '../../actions/doctor';
-
-const initialState = {
-	motif: '',
-	diagnostic: '',
-	analyses: '',
-	notes_consultation: '',
-	doctor: '',
-	status: true,
-};
 
 const PatientAffectation = ({
 	match,
 	getDoctors,
 	doctor: { doctors, dloading },
 	uptRdv2,
-	setAlert,
+
 	uptPatient,
 	getRdv,
 	rdv: { rdv, loading },
 	history,
 }) => {
+	const [formData2, setFormData2] = useState({
+		motif: '',
+		diagnostic: '',
+		analyses: '',
+		notes_consultation: '',
+		doctor: '',
+	});
 	const [open, setOpen] = React.useState(false);
-	const [formData2, setFormData2] = useState(initialState);
 
 	useEffect(() => {
 		getDoctors();
 	}, [getDoctors]);
 
 	useEffect(() => {
-		if (rdv === null) {
-			getRdv(match.params.id);
-		}
-		if (!loading && rdv === null) {
-			const rdvData = { ...initialState };
-			setFormData2(rdvData);
-		} else {
-			const rdvData = { ...rdv };
-			setFormData2(rdvData);
-		}
-	}, [getRdv, match.params.id, loading]);
+		getRdv(match.params.id);
+		setFormData2({
+			motif: loading || !rdv.motif ? '' : rdv.motif,
+			diagnostic: loading || !rdv.diagnostic ? '' : rdv.diagnostic,
+			analyses: loading || !rdv.analyses ? '' : rdv.analyses,
+			doctor: loading || !rdv.doctor._id ? '' : rdv.doctor._id,
+			notes_consultation:
+				loading || !rdv.notes_consultation ? '' : rdv.notes_consultation,
+		});
+	}, [
+		getRdv,
+		match.params.id,
+		loading,
+		rdv.motif,
+		rdv.diagnostic,
+		rdv.analyses,
+		rdv.doctor._id,
+		rdv.notes_consultation,
+	]);
 
 	const { motif, diagnostic, analyses, notes_consultation, doctor } = formData2;
 
@@ -121,10 +127,14 @@ const PatientAffectation = ({
 		<Loader active />
 	) : (
 		<Fragment>
-			<h1 className='large text-primary'>New rdv</h1>
-			<p className='lead'>
-				<i className='fas fa-user'></i> Create an appointment
-			</p>
+			<Link to={'/appointments'}>
+				<Button icon labelPosition='left'>
+					<Icon name='left arrow' />
+					Back to Appointment list
+				</Button>
+			</Link>
+			<h1 className='large text-primary'>Consultation Externe</h1>
+
 			<Segment raised>
 				<Grid columns='equal' stackable>
 					<Grid.Row>
@@ -349,12 +359,12 @@ const PatientAffectation = ({
 PatientAffectation.propTypes = {
 	setAlert: PropTypes.func.isRequired,
 
-	getRdv: PropTypes.func.isRequired,
 	getDoctors: PropTypes.func.isRequired,
-	rdv: PropTypes.object.isRequired,
 	doctor: PropTypes.object.isRequired,
 	uptRdv2: PropTypes.func.isRequired,
 	uptPatient: PropTypes.func.isRequired,
+	getRdv: PropTypes.func.isRequired,
+	rdv: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -363,9 +373,9 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-	getRdv,
 	setAlert,
 	uptRdv2,
 	getDoctors,
 	uptPatient,
+	getRdv,
 })(withRouter(PatientAffectation));

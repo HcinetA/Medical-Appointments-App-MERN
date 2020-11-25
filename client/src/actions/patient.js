@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { setAlert } from './alert';
-import { browserHistory } from 'react-router';
 
 import {
 	ADD_PATIENT,
@@ -9,7 +8,6 @@ import {
 	PATIENT_ERROR,
 	UPT_PATIENT,
 	GET_PATIENT,
-	GET_PATIENT_APT,
 } from './types';
 
 // get patients

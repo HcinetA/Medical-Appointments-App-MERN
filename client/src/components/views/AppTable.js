@@ -1,13 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
-import {
-	Table,
-	Button,
-	Menu,
-	Icon,
-	Segment,
-	Input,
-	Loader,
-} from 'semantic-ui-react';
+import { Table, Button, Segment, Input, Loader } from 'semantic-ui-react';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -39,7 +31,7 @@ const AppTable = ({
 		<Loader active />
 	) : (
 		<Fragment>
-			<h1 className='large text-primary'> Liste De RDVS </h1>
+			<h1 className='large text-primary'> Liste des rendez-vous</h1>
 			<Segment basic textAlign='right'>
 				<Input
 					action={{ color: 'blue', content: 'Search' }}

@@ -18,11 +18,9 @@ import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addPatient, getPatients, getPatient } from '../../actions/patient';
-import { addRdv, getRdvs, getAptPatient } from '../../actions/rdv';
+import { getPatient } from '../../actions/patient';
+import { getAptPatient } from '../../actions/rdv';
 import { getInvPatient } from '../../actions/payment';
-
-import { getDoctors } from '../../actions/doctor';
 
 const PatientProfile = ({
 	getPatient,
