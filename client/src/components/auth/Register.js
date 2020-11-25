@@ -16,6 +16,7 @@ const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 		password: '',
 		password2: '',
 		role: '',
+		color: '',
 	});
 	const {
 		first_name,
@@ -25,6 +26,7 @@ const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 		password,
 		password2,
 		role,
+		color,
 	} = formData;
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -33,7 +35,7 @@ const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 		if (password !== password2) {
 			setAlert('password do not match', 'danger');
 		} else {
-			register({ first_name, last_name, gender, email, password, role });
+			register({ first_name, last_name, gender, email, password, role, color });
 		}
 	};
 	// REDIRECT
@@ -86,6 +88,7 @@ const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 							<option value='male'>Male</option>
 							<option value='female'>Female</option>
 						</Form.Field>
+
 						<Form.Field
 							label='Role'
 							control='select'
@@ -97,6 +100,20 @@ const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 							<option value='doctor'>Doctor</option>
 							<option value='doctor2'>Doctor consultation</option>
 							<option value='assistante'>Assistante</option>
+						</Form.Field>
+						<Form.Field
+							label='Code Couleur'
+							control='select'
+							name='color'
+							value={color}
+							required
+							onChange={(e) => onChange(e)}
+						>
+							<option value='#18dcff'>Bleu</option>
+							<option value='#4b4b4b'>Gris</option>
+							<option value='#ff4d4d'>Rouge</option>
+							<option value='#fff200'>Jaune</option>
+							<option value='#cd84f1'>Violet</option>
 						</Form.Field>
 					</Form.Group>
 					<Form.Input
