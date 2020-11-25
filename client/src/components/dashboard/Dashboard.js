@@ -19,7 +19,7 @@ const Dashboard = ({ getRdvs, rdv: { rdvs, loading } }) => {
 		events = rdvs.map((e) => ({
 			title: e.patient.name,
 			start: e.date,
-			//	color: 'e.doctor.color', // override!
+			color: e.doctor.color, // override!
 			url: `/appointment/${e._id}`,
 		}));
 	}

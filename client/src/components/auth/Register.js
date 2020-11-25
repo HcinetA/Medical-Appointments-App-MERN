@@ -146,13 +146,8 @@ const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 							onChange={(e) => onChange(e)}
 						/>
 					</Form.Group>
-					<Form.Field>
-						<Checkbox label='I agree to the Terms and Conditions' />
-					</Form.Field>
+
 					<Button type='submit'>Submit</Button>
-					<p className='my-1'>
-						Don't have an account? <a href='register.html'>Sign in</a>
-					</p>
 				</Form>
 			</Segment>
 		</Fragment>

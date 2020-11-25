@@ -7,6 +7,7 @@ import {
 	Header,
 	Message,
 	Segment,
+	Image,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -32,10 +33,11 @@ const Login = ({ login, isAuthenticated, role_secure }) => {
 		return <Redirect to='/assistantedashboard' />;
 	}
 	return (
-		<Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+		<Grid textAlign='center' style={{ height: '60vh' }} verticalAlign='middle'>
 			<Grid.Column style={{ maxWidth: 450 }}>
 				<Header as='h2' color='teal' textAlign='center'>
-					Log-in to your account
+					<Image src='https://react.semantic-ui.com/logo.png' /> Log-in to your
+					account
 				</Header>
 				<Form size='large' onSubmit={(e) => onSubmit(e)}>
 					<Segment stacked>
@@ -65,7 +67,7 @@ const Login = ({ login, isAuthenticated, role_secure }) => {
 					</Segment>
 				</Form>
 				<Message>
-					New to us? <a href='#'>Sign Up</a>
+					New to us? <Link to='register'>Sign Up</Link>
 				</Message>
 			</Grid.Column>
 		</Grid>
