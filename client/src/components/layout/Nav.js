@@ -17,7 +17,7 @@ export const Nav = ({
 					<img alt='' src='https://react.semantic-ui.com/logo.png' />
 				</Menu.Item>{' '}
 			</Link>
-			<Menu.Item name='features' link='/apps'>
+			<Menu.Item name='features' link={true}>
 				<Link to='/apps'>Les Rdvs</Link>
 			</Menu.Item>{' '}
 			<Menu.Item name='features'>
@@ -26,7 +26,7 @@ export const Nav = ({
 			<Menu.Item name='features'>
 				<Link to='/patients'>Patients</Link>
 			</Menu.Item>
-			<Menu.Item name='features' link='newrdv'>
+			<Menu.Item name='features' link={true}>
 				{' '}
 				<Link to='/newrdv'>Nouveua rdv</Link>
 			</Menu.Item>
@@ -46,7 +46,7 @@ export const Nav = ({
 					<img alt='' src='https://react.semantic-ui.com/logo.png' />
 				</Menu.Item>{' '}
 			</Link>
-			<Menu.Item name='features' link='/apps'>
+			<Menu.Item name='features' link={true}>
 				<Link to='/consultations'>Les Rdvs</Link>
 			</Menu.Item>{' '}
 			<Menu.Item name='features'>
@@ -71,7 +71,7 @@ export const Nav = ({
 					<img alt='' src='https://react.semantic-ui.com/logo.png' />
 				</Menu.Item>{' '}
 			</Link>
-			<Menu.Item name='features' link='/apps'>
+			<Menu.Item name='features' link={true}>
 				<Link to='/appointments'>Les Rdvs</Link>
 			</Menu.Item>{' '}
 			<Menu.Item name='features'>

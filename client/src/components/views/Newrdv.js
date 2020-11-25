@@ -13,7 +13,7 @@ import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addPatient, getPatients } from '../../actions/patient';
-import { addRdv, getRdvs } from '../../actions/rdv';
+import { addRdv } from '../../actions/rdv';
 import { getDoctors } from '../../actions/doctor';
 
 const Newrdv = ({
@@ -21,9 +21,7 @@ const Newrdv = ({
 	doctor: { doctors, loading },
 	getPatients,
 	patient: { patients },
-	addPatient,
-	getRdvs,
-	rdv: { rdvs },
+
 	addRdv,
 	history,
 }) => {
@@ -33,9 +31,7 @@ const Newrdv = ({
 	useEffect(() => {
 		getPatients();
 	}, [getPatients]);
-	useEffect(() => {
-		getRdvs();
-	}, [getRdvs]);
+
 	const [open, setOpen] = React.useState(false);
 
 	const [formData, setFormData] = useState({
@@ -204,20 +200,19 @@ Newrdv.propTypes = {
 	doctor: PropTypes.object.isRequired,
 	getPatients: PropTypes.func.isRequired,
 	patient: PropTypes.object.isRequired,
-	getRdvs: PropTypes.func.isRequired,
-	rdv: PropTypes.object.isRequired,
+
 	addRdv: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
 	doctor: state.doctor,
-	rdv: state.rdv,
+
 	patient: state.patient,
 });
 export default connect(mapStateToProps, {
 	addPatient,
 	getDoctors,
 	getPatients,
-	getRdvs,
+
 	addRdv,
 })(withRouter(Newrdv));

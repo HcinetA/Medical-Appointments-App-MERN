@@ -45,11 +45,10 @@ const ModifRdv = ({
 	useEffect(() => {
 		getRdv(match.params.id);
 		setFormData({
-			doctor: loading || !rdv.doctor._id ? '' : rdv.doctor._id,
 			date: loading || !rdv.date ? '' : rdv.date,
 			notes: loading || !rdv.notes ? '' : rdv.notes,
 		});
-	}, [getRdv, match.params.id, loading, rdv.doctor._id, rdv.date, rdv.notes]);
+	}, [getRdv, loading]);
 
 	const { doctor, date, notes, status } = formData;
 	const onChange = (e) =>

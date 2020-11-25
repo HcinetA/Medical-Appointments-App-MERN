@@ -39,7 +39,7 @@ export const addRdv = (formData, history) => async (dispatch) => {
 
 			dispatch({
 				type: ADD_RDV,
-				payload: res.data.updated_element,
+				payload: res.data,
 			});
 			history.push('/apps');
 		})
@@ -80,7 +80,7 @@ export const modifRdv = (id, formData, history) => async (dispatch) => {
 
 			dispatch({
 				type: UPT_RDV,
-				payload: res.data.updated_element,
+				payload: res.data,
 			});
 			history.push('/apps');
 		})
@@ -103,7 +103,7 @@ export const uptRdv = (id, formData, history) => async (dispatch) => {
 
 			dispatch({
 				type: UPT_RDV,
-				payload: res.data.updated_element,
+				payload: res.data,
 			});
 			history.push('/consultations');
 		})
@@ -125,7 +125,7 @@ export const uptRdv2 = (id, formData, history) => async (dispatch) => {
 			dispatch(setAlert('RDV Created ', 'success'));
 			dispatch({
 				type: UPT_RDV,
-				payload: res.data.updated_element,
+				payload: res.data,
 			});
 			history.push('/appointments');
 		})

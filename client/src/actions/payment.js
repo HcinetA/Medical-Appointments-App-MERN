@@ -78,7 +78,7 @@ export const uptPayment = (id, formData, history) => async (dispatch) => {
 			dispatch(setAlert('Payment Updated ', 'success'));
 			dispatch({
 				type: UPT_PAYMENT,
-				payload: res.data.updated_element,
+				payload: res.data,
 			});
 			history.push('/payments');
 		})
