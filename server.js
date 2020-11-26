@@ -1,5 +1,7 @@
 const express = require('express');
 const connectDB = require('./config/db');
+const path = require('path');
+
 var morgan = require('morgan');
 var cors = require('cors');
 var bodyParser = require('body-parser');
@@ -15,7 +17,6 @@ app.set('view engine', 'jade');
 app.use(express.static('public/apidoc'));
 app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'html');
-const path = require('path');
 app.use(express.json());
 
 // connect db
@@ -41,15 +42,11 @@ app.use('/forgot', require('./api/routes/forgot.route'));
 app.use('/api/user', require('./api/routes/auth.route'));
 app.use(require('./api/routes/role.route'));
 app.use('/api/user', auth, require('./api/routes/user.route'));
-app.use((req, res) => {
-	res.redirect('/');
-});
 
-// serve static assetts in prodctuin
+// serve static assets in production
 if (process.env.NODE_ENV === 'production') {
-	//set static folder
+	// set static folder
 	app.use(express.static('client/build'));
-
 	app.get('*', (req, res) => {
 		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 	});
