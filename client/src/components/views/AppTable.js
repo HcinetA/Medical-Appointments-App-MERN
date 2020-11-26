@@ -1,26 +1,26 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { Table, Button, Segment, Loader, Input } from 'semantic-ui-react';
+import React, { Fragment, useEffect } from 'react';
+import { Table, Button, Loader } from 'semantic-ui-react';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getRdvs, deleteRdv } from '../../actions/rdv';
 
-const searchData = {
-	search: '',
-};
+// const searchData = {
+// 	search: '',
+// };
 
 const AppTable = ({ getRdvs, rdv: { rdvs }, deleteRdv }) => {
 	useEffect(() => {
 		getRdvs();
 	}, [getRdvs]);
 
-	const [editing, setEditing] = useState(searchData);
+	// const [editing, setEditing] = useState(searchData);
 
-	function handleSearch(e) {
-		let search = e.target.value;
-		setEditing({ ...editing, search });
-	}
+	// function handleSearch(e) {
+	// 	let search = e.target.value;
+	// 	setEditing({ ...editing, search });
+	// }
 	return (
 		<Fragment>
 			<h1 className='large text-primary'> Liste des rendez-vous</h1>

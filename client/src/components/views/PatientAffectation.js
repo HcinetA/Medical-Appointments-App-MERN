@@ -7,7 +7,6 @@ import {
 	Form,
 	Header,
 	Button,
-	Comment,
 	Modal,
 	Loader,
 	Icon,

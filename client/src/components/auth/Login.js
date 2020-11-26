@@ -1,14 +1,6 @@
 import React, { useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import {
-	Button,
-	Form,
-	Grid,
-	Header,
-	Message,
-	Segment,
-	Image,
-} from 'semantic-ui-react';
+import { Redirect } from 'react-router-dom';
+import { Button, Form, Grid, Header, Segment, Image } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
