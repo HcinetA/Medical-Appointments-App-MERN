@@ -7,6 +7,7 @@ import {
 	Modal,
 	Input,
 	Icon,
+	Loader,
 } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 import FullCalendar from '@fullcalendar/react';
@@ -23,6 +24,7 @@ import { addRdv, getRdvs } from '../../actions/rdv';
 import { getDoctors } from '../../actions/doctor';
 
 const Newrdv = ({
+	addPatient,
 	getDoctors,
 	doctor: { doctors, loading },
 	getPatients,
@@ -42,6 +44,15 @@ const Newrdv = ({
 		getRdvs();
 	}, [getRdvs]);
 
+	var events = [];
+
+	if (rdvs && patients !== null) {
+		events = rdvs.map((sc) => ({
+			title: sc.patient.name,
+			date: sc.date,
+			color: sc.doctor.color,
+		}));
+	}
 	const [open, setOpen] = React.useState(false);
 	const [open2, setOpen2] = React.useState(false);
 
@@ -58,7 +69,6 @@ const Newrdv = ({
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	const onSubmit = (e) => {
 		e.preventDefault();
-		console.log(formData);
 		addRdv({ patient, doctor, date, notes, status }, history);
 	};
 
@@ -68,8 +78,6 @@ const Newrdv = ({
 		date_of_birth: '',
 
 		phone: '',
-
-		age: '',
 	});
 
 	const { name, date_of_birth, phone } = formData2;
@@ -82,20 +90,14 @@ const Newrdv = ({
 
 	const onSubmit2 = (e2) => {
 		e2.preventDefault();
+		addPatient(formData2);
+		console.log(formData2);
 		setOpen(false);
-		addPatient({ name, date_of_birth, phone, age });
-		console.log({ name, date_of_birth, phone, age });
 	};
-	var events = [];
 
-	if (rdvs) {
-		events = rdvs.map((e) => ({
-			title: e.patient.name,
-			date: e.date,
-			color: e.doctor.color,
-		}));
-	}
-	return (
+	return loading || rdvs === null ? (
+		<Loader active />
+	) : (
 		<Fragment>
 			<Link to={'/apps'}>
 				<Button icon labelPosition='left'>
@@ -151,9 +153,7 @@ const Newrdv = ({
 								onChange={(e2) => onChange2(e2)}
 							/>
 
-							<Button positive type='submit'>
-								Submit{' '}
-							</Button>
+							<Button type='submit'>Submit</Button>
 						</Form>
 					</Modal.Content>
 				</Modal>

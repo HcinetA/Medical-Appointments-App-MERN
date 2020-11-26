@@ -5,6 +5,8 @@ import {
 	PATIENT_ERROR,
 	UPT_PATIENT,
 	GET_PATIENT,
+	DELETE_PATIENT,
+	GET_PATIENT_PHONE,
 } from '../actions/types';
 
 const initialState = {
@@ -49,7 +51,19 @@ export default function (state = initialState, action) {
 				patient: { ...state.patient, payload },
 				loading: false,
 			};
+		case DELETE_PATIENT:
+			return {
+				...state,
+				patients: state.patients.filter((patient) => patient._id !== payload),
+				loading: false,
+			};
 
+		case GET_PATIENT_PHONE:
+			return {
+				...state,
+				patients: payload,
+				loading: false,
+			};
 		default:
 			return state;
 	}

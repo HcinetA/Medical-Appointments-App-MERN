@@ -35,9 +35,12 @@ const Login = ({ login, isAuthenticated, role_secure }) => {
 	return (
 		<Grid textAlign='center' style={{ height: '60vh' }} verticalAlign='middle'>
 			<Grid.Column style={{ maxWidth: 450 }}>
+				<Header as='h1' color='teal' textAlign='center'>
+					<Image src='https://i.imgur.com/ZUJQckW.png' />{' '}
+				</Header>
+
 				<Header as='h2' color='teal' textAlign='center'>
-					<Image src='https://react.semantic-ui.com/logo.png' /> Log-in to your
-					account
+					Log-in to your account
 				</Header>
 				<Form size='large' onSubmit={(e) => onSubmit(e)}>
 					<Segment stacked>

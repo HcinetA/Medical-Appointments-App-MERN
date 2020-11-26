@@ -4,13 +4,13 @@ import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getRdvs } from '../../actions/rdv';
+import { getRdvs, deleteRdv } from '../../actions/rdv';
 
 const searchData = {
 	search: '',
 };
 
-const AppTable = ({ getRdvs, rdv: { rdvs } }) => {
+const AppTable = ({ getRdvs, rdv: { rdvs }, deleteRdv }) => {
 	useEffect(() => {
 		getRdvs();
 	}, [getRdvs]);
@@ -77,7 +77,6 @@ const AppTable = ({ getRdvs, rdv: { rdvs } }) => {
 													Modifier
 												</Button>
 											</Link>
-											<Button negative icon='x' />
 										</Table.Cell>
 									</Table.Row>
 								))}
@@ -94,6 +93,7 @@ AppTable.propTypes = {
 	rdv: PropTypes.object.isRequired,
 
 	getRdvs: PropTypes.func.isRequired,
+	deleteRdv: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -101,4 +101,5 @@ const mapStateToProps = (state) => ({
 });
 export default connect(mapStateToProps, {
 	getRdvs,
+	deleteRdv,
 })(AppTable);

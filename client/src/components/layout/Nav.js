@@ -11,7 +11,7 @@ export const Nav = ({ auth: { isAuthenticated, role_secure }, logout }) => {
 		<Menu stackable inverted>
 			<Link to='/assistantedashboard'>
 				<Menu.Item>
-					<img alt='' src='https://react.semantic-ui.com/logo.png' />
+					<img alt='' src='https://i.imgur.com/ZUJQckW.png' />
 				</Menu.Item>{' '}
 			</Link>
 			<Menu.Item name='features' link={true}>
@@ -40,7 +40,7 @@ export const Nav = ({ auth: { isAuthenticated, role_secure }, logout }) => {
 		<Menu stackable inverted>
 			<Link to='/doctordashboard'>
 				<Menu.Item>
-					<img alt='' src='https://react.semantic-ui.com/logo.png' />
+					<img alt='' src='https://i.imgur.com/ZUJQckW.png' />
 				</Menu.Item>{' '}
 			</Link>
 			<Menu.Item name='features' link={true}>
@@ -65,7 +65,7 @@ export const Nav = ({ auth: { isAuthenticated, role_secure }, logout }) => {
 		<Menu stackable inverted>
 			<Link to='/cdoctordashboard'>
 				<Menu.Item>
-					<img alt='' src='https://react.semantic-ui.com/logo.png' />
+					<img alt='' src='https://i.imgur.com/ZUJQckW.png' />
 				</Menu.Item>{' '}
 			</Link>
 			<Menu.Item name='features' link={true}>
@@ -90,7 +90,7 @@ export const Nav = ({ auth: { isAuthenticated, role_secure }, logout }) => {
 		<Menu stackable inverted>
 			<Link to='/'>
 				<Menu.Item>
-					<img alt='' src='https://react.semantic-ui.com/logo.png' />
+					<img alt='' src='https://i.imgur.com/ZUJQckW.png' />
 				</Menu.Item>{' '}
 			</Link>
 			<Menu.Menu position='right'>

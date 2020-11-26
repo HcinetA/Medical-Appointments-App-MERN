@@ -9,6 +9,7 @@ import {
 	UPT_RDV,
 	GET_PATIENT_APT,
 	GET_DOCTOR_APT,
+	DELETE_RDV,
 } from './types';
 
 // get rddvs
@@ -159,6 +160,25 @@ export const getRdvsd = (id) => async (dispatch) => {
 			type: GET_DOCTOR_APT,
 			payload: res.data,
 		});
+	} catch (err) {
+		dispatch({
+			type: RDVS_ERROR,
+			payload: { msg: err.response.statusText, status: err.response.status },
+		});
+	}
+};
+
+// DELETE Rdv
+
+export const deleteRdv = (id) => async (dispatch) => {
+	try {
+		await axios.delete(`/api/appointment/${id}`);
+
+		dispatch({
+			type: DELETE_RDV,
+			payload: id,
+		});
+		dispatch(setAlert('RDV Delted', 'success'));
 	} catch (err) {
 		dispatch({
 			type: RDVS_ERROR,

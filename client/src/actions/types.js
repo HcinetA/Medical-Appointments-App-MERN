@@ -30,3 +30,6 @@ export const UPT_PAYMENT = 'UPT_PAYMENT';
 export const GET_PATIENT_APT = 'GET_PATIENT_APT';
 export const GET_PATIENT_INV = 'GET_PATIENT_INV';
 export const GET_DOCTOR_APT = 'GET_DOCTOR_APT';
+export const DELETE_RDV = 'DELETE_RDV';
+export const DELETE_PATIENT = 'DELETE_PATIENT';
+export const GET_PATIENT_PHONE = 'GET_PATIENT_PHONE';

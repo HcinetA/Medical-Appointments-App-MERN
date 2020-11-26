@@ -8,6 +8,7 @@ import {
 	UPTRDV_ERROR,
 	GET_PATIENT_APT,
 	GET_DOCTOR_APT,
+	DELETE_RDV,
 } from '../actions/types';
 
 const initialState = {
@@ -66,6 +67,14 @@ export default function (state = initialState, action) {
 				error: payload,
 				loading: false,
 			};
+
+		case DELETE_RDV:
+			return {
+				...state,
+				rdvs: state.rdvs.filter((rdv) => rdv._id !== payload),
+				loading: false,
+			};
+
 		default:
 			return state;
 	}

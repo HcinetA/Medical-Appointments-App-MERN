@@ -37,12 +37,12 @@ const ConsultationTable = ({
 				<Link to={`/aptd/${auth.user._id}`}>
 					<Button positive icon='filter' content='Mes Rendez-vous' />
 				</Link>
-				<Input
+				{/* <Input
 					action={{ color: 'blue', content: 'Search' }}
 					icon='search'
 					iconPosition='left'
 					placeholder='Patient Name'
-				/>
+				/> */}
 			</Segment>{' '}
 			<Table striped>
 				<Table.Header>
@@ -62,7 +62,7 @@ const ConsultationTable = ({
 							<Table.Cell> 1 </Table.Cell>{' '}
 							<Table.Cell> {rdv.patient.name} </Table.Cell>{' '}
 							<Table.Cell>
-								<Moment format='YYYY/MM/DD'>{rdv.date}</Moment> | {rdv.time}{' '}
+								<Moment format='YYYY/MM/DD | hh:mm'>{rdv.date}</Moment>
 							</Table.Cell>{' '}
 							<Table.Cell> DR. {rdv.doctor.firstName} </Table.Cell>{' '}
 							<Table.Cell>

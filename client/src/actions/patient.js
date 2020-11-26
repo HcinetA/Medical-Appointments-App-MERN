@@ -8,6 +8,8 @@ import {
 	PATIENT_ERROR,
 	UPT_PATIENT,
 	GET_PATIENT,
+	DELETE_PATIENT,
+	GET_PATIENT_PHONE,
 } from './types';
 
 // get patients
@@ -29,14 +31,15 @@ export const getPatients = () => async (dispatch) => {
 
 // add  patient
 
-export const addPatient = (formData2) => async (dispatch) => {
+export const addPatient = (formData) => async (dispatch) => {
 	const config = {
 		headers: {
 			'Content-Type': 'application/json',
 		},
 	};
 	try {
-		const res = await axios.post('/api/patient/', formData2, config);
+		console.log(formData);
+		const res = await axios.post('/api/patient/', formData, config);
 
 		dispatch({
 			type: ADD_PATIENT,
@@ -86,6 +89,41 @@ export const uptPatient = (id, formData) => async (dispatch) => {
 		});
 
 		dispatch(setAlert('RDV Created ', 'success'));
+	} catch (err) {
+		dispatch({
+			type: PATIENT_ERROR,
+			payload: { msg: err.response.statusText, status: err.response.status },
+		});
+	}
+};
+// DELETE patient
+
+export const deletePatient = (id) => async (dispatch) => {
+	try {
+		await axios.delete(`/api/patient/${id}`);
+
+		dispatch({
+			type: DELETE_PATIENT,
+			payload: id,
+		});
+		dispatch(setAlert('Patient Delted', 'success'));
+	} catch (err) {
+		dispatch({
+			type: PATIENT_ERROR,
+			payload: { msg: err.response.statusText, status: err.response.status },
+		});
+	}
+};
+
+// get patient by phone
+
+export const getPatientByPhone = (phone) => async (dispatch) => {
+	try {
+		const res = await axios.get(`/api/patient/by_phone_number/${phone}`);
+		dispatch({
+			type: GET_PATIENT_PHONE,
+			payload: res.data,
+		});
 	} catch (err) {
 		dispatch({
 			type: PATIENT_ERROR,

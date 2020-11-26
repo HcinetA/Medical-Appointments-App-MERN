@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 const Landing = () => {
 	return (
@@ -7,12 +6,7 @@ const Landing = () => {
 			<div className='dark-overlay'>
 				<div className='landing-inner'>
 					<h1 className='x-large'>HEXAMED</h1>
-					<p className='lead'>HEXAMED outils de gestion de cabinet !</p>
-					<div className='buttons'>
-						<Link to='login' className='btn btn-primary'>
-							Login
-						</Link>
-					</div>
+					<p className='lead'>Version Beta</p>
 				</div>
 			</div>
 		</section>

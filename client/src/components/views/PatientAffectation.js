@@ -218,7 +218,7 @@ const PatientAffectation = ({
 														name='name'
 														required
 														readOnly
-														value='name'
+														value={rdv.patient.name}
 														onChange={(e) => onChange(e)}
 													/>
 												</Form.Group>
@@ -306,8 +306,8 @@ const PatientAffectation = ({
 										</Form>
 									</Modal.Content>
 								</Modal>{' '}
-								<Header as='h3'>Patient History</Header>
-								<Comment.Group>
+								{/*<Header as='h3'>Patient History</Header>
+								 <Comment.Group>
 									<Comment>
 										<Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
 										<Comment.Content>
@@ -338,7 +338,7 @@ const PatientAffectation = ({
 											<Comment.Text>Treatment endo.</Comment.Text>
 										</Comment.Content>
 									</Comment>
-								</Comment.Group>
+								</Comment.Group> */}
 							</Segment>
 						</Grid.Column>
 					</Grid.Row>

@@ -1,9 +1,14 @@
-import React, { Fragment, useEffect } from 'react';
-import { Table, Button, Input, Segment, Loader } from 'semantic-ui-react';
+import React, { Fragment, useEffect, useState } from 'react';
+import { Table, Button, Input, Segment, Loader, Form } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addPatient, getPatients } from '../../actions/patient';
+import {
+	addPatient,
+	getPatients,
+	deletePatient,
+	getPatientByPhone,
+} from '../../actions/patient';
 import { addRdv, getRdvs } from '../../actions/rdv';
 import { getDoctors } from '../../actions/doctor';
 const Patients = ({
@@ -15,6 +20,8 @@ const Patients = ({
 	getRdvs,
 	rdv: { rdvs, loading },
 	addRdv,
+	deletePatient,
+	getPatientByPhone,
 }) => {
 	useEffect(() => {
 		getDoctors();
@@ -25,6 +32,16 @@ const Patients = ({
 	useEffect(() => {
 		getRdvs();
 	}, [getRdvs]);
+	const [formData, setFormData] = useState({
+		phone: '',
+	});
+	const { phone } = formData;
+	const onChange = (e) =>
+		setFormData({ ...formData, [e.target.name]: e.target.value });
+	const onSubmit = (e) => {
+		e.preventDefault();
+		getPatientByPhone(phone);
+	};
 	return loading || rdvs === null ? (
 		<Loader active />
 	) : (
@@ -32,12 +49,17 @@ const Patients = ({
 			<h1 className='large text-primary'>Patients</h1>
 
 			<Segment basic textAlign='right'>
-				<Input
-					action={{ color: 'blue', content: 'Search' }}
-					icon='search'
-					iconPosition='left'
-					placeholder='Patient Name'
-				/>
+				<Form onSubmit={(e) => onSubmit(e)}>
+					<Input
+						icon='search'
+						iconPosition='left'
+						name='phone'
+						placeholder='Patient Phone'
+						value={phone}
+						onChange={(e) => onChange(e)}
+					/>
+					<Button content='Search' />
+				</Form>
 			</Segment>
 			<Table striped>
 				<Table.Header>
@@ -82,6 +104,8 @@ Patients.propTypes = {
 	getRdvs: PropTypes.func.isRequired,
 	rdv: PropTypes.object.isRequired,
 	addRdv: PropTypes.func.isRequired,
+	deletePatient: PropTypes.func.isRequired,
+	getPatientByPhone: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -95,4 +119,6 @@ export default connect(mapStateToProps, {
 	getPatients,
 	getRdvs,
 	addRdv,
+	deletePatient,
+	getPatientByPhone,
 })(Patients);
