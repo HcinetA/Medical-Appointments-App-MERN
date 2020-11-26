@@ -9,6 +9,8 @@ import Register from './components/auth/Register';
 import Newrdv from './components/views/Newrdv.js';
 import NewPatientRdv from './components/views/NewPatientRdv';
 import ModifRdv from './components/views/ModifRdv';
+import AppointmetsDoctor from './components/views/AppointmetsDoctor';
+import AppointmentDoctors2 from './components/views/AppointmentDoctors2';
 
 import AppointmentTable from './components/views/AppointmentTable';
 import ConsultationTable from './components/views/ConsultationTable';
@@ -75,6 +77,8 @@ const App = () => {
 							<Route exact path='/patient/:id' component={PatientProfile} />
 							<Route exact path='/dcpatient/:id' component={DcpatientProfile} />
 							<Route exact path='/dpatient/:id' component={DpatientProfile} />
+							<Route exact path='/aptd/:id' component={AppointmetsDoctor} />
+							<Route exact path='/aptd2/:id' component={AppointmentDoctors2} />
 
 							<Route
 								exact

@@ -7,6 +7,7 @@ import {
 	UPT_RDV,
 	UPTRDV_ERROR,
 	GET_PATIENT_APT,
+	GET_DOCTOR_APT,
 } from '../actions/types';
 
 const initialState = {
@@ -27,6 +28,12 @@ export default function (state = initialState, action) {
 				rdv: null,
 			};
 		case GET_PATIENT_APT:
+			return {
+				...state,
+				rdvs: payload,
+				loading: false,
+			};
+		case GET_DOCTOR_APT:
 			return {
 				...state,
 				rdvs: payload,

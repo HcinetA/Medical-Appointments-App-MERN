@@ -16,6 +16,7 @@ const AppointmentTable = ({
 	getRdvs,
 	rdv: { rdvs, loading },
 	addRdv,
+	auth,
 }) => {
 	useEffect(() => {
 		getDoctors();
@@ -27,13 +28,15 @@ const AppointmentTable = ({
 		getRdvs();
 	}, [getRdvs]);
 
-	return loading || rdvs === null ? (
+	return loading || rdvs === null || auth.user === null ? (
 		<Loader active />
 	) : (
 		<Fragment>
 			<h1 className='large text-primary'> Liste des rendez-vous</h1>
 			<Segment basic textAlign='right'>
-				<Button positive icon='filter' content='My Appointments' />
+				<Link to={`/aptd2/${auth.user._id}`}>
+					<Button positive icon='filter' content='Mes Rendez-vous' />
+				</Link>
 
 				<Input
 					action={{ color: 'blue', content: 'Search' }}
@@ -93,12 +96,14 @@ AppointmentTable.propTypes = {
 	getRdvs: PropTypes.func.isRequired,
 	rdv: PropTypes.object.isRequired,
 	addRdv: PropTypes.func.isRequired,
+	auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
 	doctor: state.doctor,
 	rdv: state.rdv,
 	patient: state.patient,
+	auth: state.auth,
 });
 export default connect(mapStateToProps, {
 	addPatient,

@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addPatient, getPatients } from '../../actions/patient';
-import { addRdv, getRdvs } from '../../actions/rdv';
+import { addRdv, getRdvs, getRdvsd } from '../../actions/rdv';
 import { getDoctors } from '../../actions/doctor';
-const ConsultationTable = ({
+const AppointmentDoctors2 = ({
 	getDoctors,
 	doctor: { doctors },
 	getPatients,
@@ -16,7 +16,8 @@ const ConsultationTable = ({
 	getRdvs,
 	rdv: { rdvs, loading },
 	addRdv,
-	auth,
+	getRdvsd,
+	match,
 }) => {
 	useEffect(() => {
 		getDoctors();
@@ -24,26 +25,16 @@ const ConsultationTable = ({
 	useEffect(() => {
 		getPatients();
 	}, [getPatients]);
-	useEffect(() => {
-		getRdvs();
-	}, [getRdvs]);
 
-	return loading || rdvs === null || auth.user === null ? (
+	useEffect(() => {
+		getRdvsd(match.params.id);
+	}, [getRdvsd, match.params.id]);
+
+	return loading || rdvs === null ? (
 		<Loader active />
 	) : (
 		<Fragment>
-			<h1 className='large text-primary'> Liste des rendez-vous</h1>
-			<Segment basic textAlign='right'>
-				<Link to={`/aptd/${auth.user._id}`}>
-					<Button positive icon='filter' content='Mes Rendez-vous' />
-				</Link>
-				<Input
-					action={{ color: 'blue', content: 'Search' }}
-					icon='search'
-					iconPosition='left'
-					placeholder='Patient Name'
-				/>
-			</Segment>{' '}
+			<h1 className='large text-primary'> Mes Rendez-vous</h1>
 			<Table striped>
 				<Table.Header>
 					<Table.Row>
@@ -86,7 +77,7 @@ const ConsultationTable = ({
 	);
 };
 
-ConsultationTable.propTypes = {
+AppointmentDoctors2.propTypes = {
 	addPatient: PropTypes.func.isRequired,
 	getDoctors: PropTypes.func.isRequired,
 	doctor: PropTypes.object.isRequired,
@@ -95,14 +86,13 @@ ConsultationTable.propTypes = {
 	getRdvs: PropTypes.func.isRequired,
 	rdv: PropTypes.object.isRequired,
 	addRdv: PropTypes.func.isRequired,
-	auth: PropTypes.object.isRequired,
+	getRdvsd: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
 	doctor: state.doctor,
 	rdv: state.rdv,
 	patient: state.patient,
-	auth: state.auth,
 });
 export default connect(mapStateToProps, {
 	addPatient,
@@ -110,4 +100,5 @@ export default connect(mapStateToProps, {
 	getPatients,
 	getRdvs,
 	addRdv,
-})(ConsultationTable);
+	getRdvsd,
+})(AppointmentDoctors2);
