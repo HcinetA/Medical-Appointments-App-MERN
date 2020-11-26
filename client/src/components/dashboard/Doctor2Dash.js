@@ -21,7 +21,7 @@ const Doctor2Dash = ({ getRdvs, rdv: { rdvs, loading } }) => {
 			title: e.patient.name,
 			date: e.date,
 			color: e.doctor.color, // override!
-			url: `/app/${e._id}`,
+			url: `/appointment/${e._id}`,
 		}));
 	}
 	return loading || rdvs === null ? (

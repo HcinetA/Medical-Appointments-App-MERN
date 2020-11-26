@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getRdvs } from '../../actions/rdv';
-const AppTable = ({ getRdvs, rdv: { rdvs, loading } }) => {
+
+const AppTable = ({ getRdvs, rdv: { rdvs } }) => {
 	useEffect(() => {
 		getRdvs();
 	}, [getRdvs]);
