@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getRdvs } from '../../actions/rdv';
 
-const Dashboard = ({ getRdvs, rdv: { rdvs, loading } }) => {
+const DoctorDash = ({ getRdvs, rdv: { rdvs, loading } }) => {
 	useEffect(() => {
 		getRdvs();
 	}, [getRdvs]);
@@ -21,7 +21,7 @@ const Dashboard = ({ getRdvs, rdv: { rdvs, loading } }) => {
 			title: e.patient.name,
 			date: e.date,
 			color: e.doctor.color, // override!
-			url: `/app/${e._id}`,
+			url: `/consultation/${e._id}`,
 		}));
 	}
 	return loading || rdvs === null ? (
@@ -48,7 +48,7 @@ const Dashboard = ({ getRdvs, rdv: { rdvs, loading } }) => {
 	);
 };
 
-Dashboard.propTypes = {
+DoctorDash.propTypes = {
 	getRdvs: PropTypes.func.isRequired,
 	rdv: PropTypes.object.isRequired,
 };
@@ -58,4 +58,4 @@ const mapStateToProps = (state) => ({
 });
 export default connect(mapStateToProps, {
 	getRdvs,
-})(Dashboard);
+})(DoctorDash);

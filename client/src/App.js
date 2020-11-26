@@ -22,6 +22,10 @@ import Patients from './components/views/Patients';
 import PatientProfile from './components/views/PatientProfile';
 import Alert from './components/layout/Alert';
 import Dashboard from './components/dashboard/Dashboard';
+import Doctor2Dash from './components/dashboard/Doctor2Dash';
+
+import DoctorDash from './components/dashboard/DoctorDash';
+
 import PrivateRoute from './components/routing/PrivateRoute';
 
 //redux
@@ -78,6 +82,16 @@ const App = () => {
 								exact
 								path='/assistantedashboard'
 								component={Dashboard}
+							/>
+							<PrivateRoute
+								exact
+								path='/doctordashboard'
+								component={DoctorDash}
+							/>
+							<PrivateRoute
+								exact
+								path='/cdoctordashboard'
+								component={Doctor2Dash}
 							/>
 						</Switch>
 					</section>
