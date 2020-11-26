@@ -63,7 +63,6 @@ const ModifRdv = ({
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	const onSubmit = (e) => {
 		e.preventDefault();
-		console.log(formData);
 		modifRdv(rdv._id, { doctor, date, notes, status }, history);
 	};
 

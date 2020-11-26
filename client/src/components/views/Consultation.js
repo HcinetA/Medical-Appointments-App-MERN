@@ -69,7 +69,6 @@ const Consultation = ({
 			},
 			history
 		);
-		console.log(formData);
 	};
 
 	return loading || rdv === null ? (

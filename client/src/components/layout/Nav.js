@@ -47,6 +47,9 @@ export const Nav = ({ auth: { isAuthenticated, role_secure }, logout }) => {
 				</Menu.Item>{' '}
 			</Link>
 			<Menu.Item name='features' link={true}>
+				<Link to='/doctordashboard'>Le Calendrier</Link>
+			</Menu.Item>{' '}
+			<Menu.Item name='features' link={true}>
 				<Link to='/consultations'>Les Rdvs</Link>
 			</Menu.Item>{' '}
 			<Menu.Item name='features' link={true}>
@@ -71,6 +74,9 @@ export const Nav = ({ auth: { isAuthenticated, role_secure }, logout }) => {
 					<img alt='' src='https://i.imgur.com/ZUJQckW.png' />
 				</Menu.Item>{' '}
 			</Link>
+			<Menu.Item name='features' link={true}>
+				<Link to='/cdoctordashboard'>Le Calendrier</Link>
+			</Menu.Item>{' '}
 			<Menu.Item name='features' link={true}>
 				<Link to='/appointments'>Les Rdvs</Link>
 			</Menu.Item>{' '}

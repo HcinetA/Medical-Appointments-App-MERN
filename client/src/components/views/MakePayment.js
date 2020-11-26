@@ -71,8 +71,6 @@ const MakePayment = ({
 			},
 			history
 		);
-
-		console.log(formData);
 	};
 
 	return loading || payment === null ? (

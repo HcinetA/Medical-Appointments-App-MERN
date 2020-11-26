@@ -8,7 +8,6 @@ class AuthenticationController {
 	constructor() {}
 
 	async register(req, res) {
-		console.log(req.body);
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
 			return res.status(400).json({
@@ -88,7 +87,6 @@ class AuthenticationController {
 				}
 			);
 		} catch (error) {
-			console.log(error);
 			res.status(500).send('Server error');
 		}
 	}
@@ -134,7 +132,6 @@ class AuthenticationController {
 				}
 			);
 		} catch (error) {
-			console.log(err.message);
 			res.status(500).send('Server error');
 		}
 	}
@@ -144,7 +141,6 @@ class AuthenticationController {
 			const user = await User.findById(req.user.id).select('-password');
 			res.json(user);
 		} catch (error) {
-			console.log(err.message);
 			res.status(500).send('server error');
 		}
 	}

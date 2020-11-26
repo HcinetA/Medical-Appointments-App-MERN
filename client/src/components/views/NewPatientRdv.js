@@ -22,8 +22,6 @@ const NewPatientRdv = ({ getDoctors, doctor: { doctors, loading } }) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	const onSubmit = (e) => {
 		e.preventDefault();
-
-		console.log(formData);
 	};
 
 	return (

@@ -91,7 +91,6 @@ const Newrdv = ({
 	const onSubmit2 = (e2) => {
 		e2.preventDefault();
 		addPatient(formData2);
-		console.log(formData2);
 		setOpen(false);
 	};
 

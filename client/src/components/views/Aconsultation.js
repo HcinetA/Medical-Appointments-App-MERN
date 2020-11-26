@@ -66,8 +66,6 @@ const Aconsultation = ({
 			},
 			history
 		);
-
-		console.log(formData);
 	};
 
 	const [formData2, setFormData2] = useState({
