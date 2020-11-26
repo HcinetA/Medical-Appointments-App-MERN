@@ -6,10 +6,7 @@ import { Menu, Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
-export const Nav = ({
-	auth: { isAuthenticated, loading, user, role_secure },
-	logout,
-}) => {
+export const Nav = ({ auth: { isAuthenticated, role_secure }, logout }) => {
 	const authLinks = (
 		<Menu stackable inverted>
 			<Link to='/assistantedashboard'>
