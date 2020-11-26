@@ -52,12 +52,7 @@ const Consultation = ({
 		});
 	}, [getRdv, match.params.id, rdv === null]);
 
-	const {
-		notes_acte,
-
-		acte,
-		honoraire,
-	} = formData;
+	const { notes_acte, acte, honoraire } = formData;
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	const onSubmit = (e) => {

@@ -9,8 +9,8 @@ import PropTypes from 'prop-types';
 
 const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 	const [formData, setFormData] = useState({
-		first_name: '',
-		last_name: '',
+		firstName: '',
+		lastName: '',
 		email: '',
 		gender: '',
 		password: '',
@@ -19,8 +19,8 @@ const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 		color: '',
 	});
 	const {
-		first_name,
-		last_name,
+		firstName,
+		lastName,
 		gender,
 		email,
 		password,
@@ -35,7 +35,8 @@ const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 		if (password !== password2) {
 			setAlert('password do not match', 'danger');
 		} else {
-			register({ first_name, last_name, gender, email, password, role, color });
+			register(formData);
+			console.log(formData);
 		}
 	};
 	// REDIRECT
@@ -60,9 +61,9 @@ const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 							control={Input}
 							label='First name'
 							placeholder='First name'
-							name='first_name'
+							name='firstName'
 							required
-							value={first_name}
+							value={firstName}
 							onChange={(e) => onChange(e)}
 						/>
 						<Form.Field
@@ -71,8 +72,8 @@ const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 							required
 							label='Last name'
 							placeholder='Last name'
-							name='last_name'
-							value={last_name}
+							name='lastName'
+							value={lastName}
 							onChange={(e) => onChange(e)}
 						/>
 					</Form.Group>

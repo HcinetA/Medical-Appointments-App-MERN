@@ -117,7 +117,7 @@ export const Nav = ({
 				? authLinks
 				: isAuthenticated && role_secure === 'doctor'
 				? docLinks
-				: isAuthenticated && role_secure === 'assistante'
+				: isAuthenticated && role_secure === 'doctor2'
 				? doc2Links
 				: guestLinks}
 		</Fragment>

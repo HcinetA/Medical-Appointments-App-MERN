@@ -44,9 +44,15 @@ const ModifRdv = ({
 
 	useEffect(() => {
 		getRdv(match.params.id);
+		var moment = require('moment');
 
 		setFormData({
-			date: rdv === null || !rdv.date ? '' : rdv.date,
+			date:
+				rdv === null || !rdv.date
+					? ''
+					: moment(rdv.date).format('YYYY-MM-DDTHH:MM:SS'),
+			doctor: rdv === null || !rdv.doctor._id ? '' : rdv.doctor._id,
+
 			notes: rdv === null || !rdv.notes ? '' : rdv.notes,
 		});
 	}, [getRdv, rdv === null]);

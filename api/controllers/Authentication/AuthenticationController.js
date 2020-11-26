@@ -18,8 +18,8 @@ class AuthenticationController {
 		// get name and email and password from request
 		// const { email, password, firstName, lastName, gender } = req.body;
 
-		const firstName = req.body.first_name;
-		const lastName = req.body.last_name;
+		const firstName = req.body.firstName;
+		const lastName = req.body.lastName;
 		const email = req.body.email;
 		const role = req.body.role;
 		const password = req.body.password;
