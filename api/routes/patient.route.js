@@ -34,6 +34,19 @@ router.get('/:id', async (req, res) => {
     res.status(500).send(error);
   }
 });
+router.get('/by_phone_number/:phoneNumber', async (req, res) => {
+  try {
+    const phoneNumber = req.params.phoneNumber;
+    const patient = await Patient.find({ phone: phoneNumber })
+      .populate('appointments')
+      .populate('doctor')
+      .populate('invoices');
+    res.json(patient);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(error);
+  }
+})
 
 router.post('/', patientChecker.savePatientCheck, async (req, res) => {
   try {
