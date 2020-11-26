@@ -22,7 +22,7 @@ import { getPatient } from '../../actions/patient';
 import { getAptPatient } from '../../actions/rdv';
 import { getInvPatient } from '../../actions/payment';
 
-const PatientProfile = ({
+const DcpatientProfile = ({
 	getPatient,
 	patient: { patient, loading },
 	match,
@@ -98,7 +98,7 @@ const PatientProfile = ({
 
 									<Table.Cell>
 										{' '}
-										<Moment format='YYYY/MM/DD | hh:mm'>{rdv.date}</Moment>
+										<Moment format='YYYY/MM/DD | hh:mm'>{rdv.date}</Moment>{' '}
 									</Table.Cell>
 									<Table.Cell>
 										Dr. {rdv.doctor.firstName} {rdv.doctor.lastName}
@@ -112,14 +112,9 @@ const PatientProfile = ({
 										)}
 									</Table.Cell>
 									<Table.Cell>
-										<Link to={`/app/${rdv._id}`}>
-											<Button basic color='green'>
-												Payment
-											</Button>
-										</Link>
-										<Link to={`/modifrdv/${rdv._id}`}>
+										<Link to={`/appointment/${rdv._id}`}>
 											<Button basic color='blue'>
-												Modifier
+												Manage
 											</Button>
 										</Link>
 									</Table.Cell>
@@ -170,7 +165,6 @@ const PatientProfile = ({
 								<Table.HeaderCell>Date</Table.HeaderCell>
 
 								<Table.HeaderCell>Status</Table.HeaderCell>
-								<Table.HeaderCell>Options</Table.HeaderCell>
 							</Table.Row>
 						</Table.Header>
 
@@ -192,11 +186,6 @@ const PatientProfile = ({
 										) : (
 											<Button negative circular icon='x' disabled />
 										)}
-									</Table.Cell>
-									<Table.Cell>
-										<Link to={`/payment/${payment._id}`}>
-											<Button primary>manage</Button>
-										</Link>{' '}
 									</Table.Cell>
 								</Table.Row>
 							))}{' '}
@@ -253,7 +242,7 @@ const PatientProfile = ({
 	);
 };
 
-PatientProfile.propTypes = {
+DcpatientProfile.propTypes = {
 	getPatient: PropTypes.func.isRequired,
 	getAptPatient: PropTypes.func.isRequired,
 	getInvPatient: PropTypes.func.isRequired,
@@ -268,4 +257,4 @@ export default connect(mapStateToProps, {
 	getPatient,
 	getAptPatient,
 	getInvPatient,
-})(PatientProfile);
+})(DcpatientProfile);

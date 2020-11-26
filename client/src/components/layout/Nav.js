@@ -50,7 +50,7 @@ export const Nav = ({ auth: { isAuthenticated, role_secure }, logout }) => {
 				<Link to='/payments'>Payments</Link>
 			</Menu.Item>{' '}
 			<Menu.Item name='features'>
-				<Link to='/patients'>Patients</Link>
+				<Link to='/dpatients'>Patients</Link>
 			</Menu.Item>
 			<Menu.Menu position='right'>
 				<Menu.Item>
@@ -75,7 +75,7 @@ export const Nav = ({ auth: { isAuthenticated, role_secure }, logout }) => {
 				<Link to='/payments'>Payments</Link>
 			</Menu.Item>{' '}
 			<Menu.Item name='features'>
-				<Link to='/patients'>Patients</Link>
+				<Link to='/dcpatients'>Patients</Link>
 			</Menu.Item>
 			<Menu.Menu position='right'>
 				<Menu.Item>

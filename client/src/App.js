@@ -9,6 +9,8 @@ import Register from './components/auth/Register';
 import Newrdv from './components/views/Newrdv.js';
 import NewPatientRdv from './components/views/NewPatientRdv';
 import ModifRdv from './components/views/ModifRdv';
+import AppointmetsDoctor from './components/views/AppointmetsDoctor';
+import AppointmentDoctors2 from './components/views/AppointmentDoctors2';
 
 import AppointmentTable from './components/views/AppointmentTable';
 import ConsultationTable from './components/views/ConsultationTable';
@@ -19,6 +21,11 @@ import Consultation from './components/views/Consultation';
 import Aconsultation from './components/views/Aconsultation';
 import PaymentsTable from './components/views/PaymentsTable';
 import Patients from './components/views/Patients';
+import Dpatients from './components/views/Dpatients';
+import Dcpatients from './components/views/Dcpatients';
+import DcpatientProfile from './components/views/DcpatientProfile';
+import DpatientProfile from './components/views/DpatientProfile';
+
 import PatientProfile from './components/views/PatientProfile';
 import Alert from './components/layout/Alert';
 import Dashboard from './components/dashboard/Dashboard';
@@ -68,6 +75,10 @@ const App = () => {
 							<Route exact path='/consultation/:id' component={Consultation} />
 							<Route exact path='/app/:id' component={Aconsultation} />
 							<Route exact path='/patient/:id' component={PatientProfile} />
+							<Route exact path='/dcpatient/:id' component={DcpatientProfile} />
+							<Route exact path='/dpatient/:id' component={DpatientProfile} />
+							<Route exact path='/aptd/:id' component={AppointmetsDoctor} />
+							<Route exact path='/aptd2/:id' component={AppointmentDoctors2} />
 
 							<Route
 								exact
@@ -77,6 +88,9 @@ const App = () => {
 
 							<Route exact path='/payments' component={PaymentsTable} />
 							<Route exact path='/patients' component={Patients} />
+							<Route exact path='/dcpatients' component={Dcpatients} />
+
+							<Route exact path='/dpatients' component={Dpatients} />
 
 							<PrivateRoute
 								exact

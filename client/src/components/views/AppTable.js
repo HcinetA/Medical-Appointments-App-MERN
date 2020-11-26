@@ -1,24 +1,37 @@
-import React, { Fragment, useEffect } from 'react';
-import { Table, Button, Segment, Input, Loader } from 'semantic-ui-react';
+import React, { Fragment, useEffect, useState } from 'react';
+import { Table, Button, Segment, Loader, Input } from 'semantic-ui-react';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getRdvs } from '../../actions/rdv';
-const AppTable = ({ getRdvs, rdv: { rdvs, loading } }) => {
+
+const searchData = {
+	search: '',
+};
+
+const AppTable = ({ getRdvs, rdv: { rdvs } }) => {
 	useEffect(() => {
 		getRdvs();
 	}, [getRdvs]);
 
+	const [editing, setEditing] = useState(searchData);
+
+	function handleSearch(e) {
+		let search = e.target.value;
+		setEditing({ ...editing, search });
+	}
 	return (
 		<Fragment>
 			<h1 className='large text-primary'> Liste des rendez-vous</h1>
 			<Segment basic textAlign='right'>
 				<Input
-					action={{ color: 'blue', content: 'Search' }}
 					icon='search'
-					iconPosition='left'
-					placeholder='Patient Name'
+					id='search-input'
+					value={editing.search}
+					onChange={handleSearch}
+					name='query'
+					placeholder='Search avec tel'
 				/>
 			</Segment>
 			{rdvs === null ? (
@@ -64,6 +77,7 @@ const AppTable = ({ getRdvs, rdv: { rdvs, loading } }) => {
 													Modifier
 												</Button>
 											</Link>
+											<Button negative icon='x' />
 										</Table.Cell>
 									</Table.Row>
 								))}
