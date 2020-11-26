@@ -69,9 +69,9 @@ const Login = ({ login, isAuthenticated, role_secure }) => {
 						</Button>
 					</Segment>
 				</Form>
-				<Message>
+				{/* <Message>
 					New to us? <Link to='register'>Sign Up</Link>
-				</Message>
+				</Message> */}
 			</Grid.Column>
 		</Grid>
 	);

@@ -200,7 +200,7 @@ const DcpatientProfile = ({
 		<Loader active />
 	) : (
 		<Fragment>
-			<Link to={`/patients`}>
+			<Link to={`/dcpatients`}>
 				<Button icon labelPosition='left'>
 					<Icon name='left arrow' />
 					Back to patients list

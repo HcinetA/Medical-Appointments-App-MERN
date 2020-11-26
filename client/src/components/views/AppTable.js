@@ -24,7 +24,7 @@ const AppTable = ({ getRdvs, rdv: { rdvs }, deleteRdv }) => {
 	return (
 		<Fragment>
 			<h1 className='large text-primary'> Liste des rendez-vous</h1>
-			<Segment basic textAlign='right'>
+			{/* <Segment basic textAlign='right'>
 				<Input
 					icon='search'
 					id='search-input'
@@ -33,7 +33,7 @@ const AppTable = ({ getRdvs, rdv: { rdvs }, deleteRdv }) => {
 					name='query'
 					placeholder='Search avec tel'
 				/>
-			</Segment>
+			</Segment> */}
 			{rdvs === null ? (
 				<Loader />
 			) : (

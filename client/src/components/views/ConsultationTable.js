@@ -47,7 +47,6 @@ const ConsultationTable = ({
 			<Table striped>
 				<Table.Header>
 					<Table.Row>
-						<Table.HeaderCell> # </Table.HeaderCell>{' '}
 						<Table.HeaderCell> Name </Table.HeaderCell>{' '}
 						<Table.HeaderCell> Date </Table.HeaderCell>{' '}
 						<Table.HeaderCell> Doctor </Table.HeaderCell>{' '}
@@ -59,7 +58,6 @@ const ConsultationTable = ({
 					{' '}
 					{rdvs.map((rdv) => (
 						<Table.Row key={rdv.id} rdv={rdv}>
-							<Table.Cell> 1 </Table.Cell>{' '}
 							<Table.Cell> {rdv.patient.name} </Table.Cell>{' '}
 							<Table.Cell>
 								<Moment format='YYYY/MM/DD | hh:mm'>{rdv.date}</Moment>

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getPayments } from '../../actions/payment';
 
-const PaymentsTable = ({ getPayments, payment: { payments, loading } }) => {
+const PaymentsTd = ({ getPayments, payment: { payments, loading } }) => {
 	useEffect(() => {
 		getPayments();
 	}, [getPayments]);
@@ -36,7 +36,6 @@ const PaymentsTable = ({ getPayments, payment: { payments, loading } }) => {
 						<Table.HeaderCell>Date</Table.HeaderCell>
 
 						<Table.HeaderCell>Status</Table.HeaderCell>
-						<Table.HeaderCell>Options</Table.HeaderCell>
 					</Table.Row>
 				</Table.Header>
 
@@ -61,11 +60,6 @@ const PaymentsTable = ({ getPayments, payment: { payments, loading } }) => {
 									<Button negative circular icon='x' disabled />
 								)}
 							</Table.Cell>
-							<Table.Cell>
-								<Link to={`/payment/${payment._id}`}>
-									<Button primary>manage</Button>
-								</Link>{' '}
-							</Table.Cell>
 						</Table.Row>
 					))}{' '}
 				</Table.Body>
@@ -74,7 +68,7 @@ const PaymentsTable = ({ getPayments, payment: { payments, loading } }) => {
 	);
 };
 
-PaymentsTable.propTypes = {
+PaymentsTd.propTypes = {
 	getPayments: PropTypes.func.isRequired,
 	payment: PropTypes.object.isRequired,
 };
@@ -84,4 +78,4 @@ const mapStateToProps = (state) => ({
 });
 export default connect(mapStateToProps, {
 	getPayments,
-})(PaymentsTable);
+})(PaymentsTd);

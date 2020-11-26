@@ -15,17 +15,20 @@ export const Nav = ({ auth: { isAuthenticated, role_secure }, logout }) => {
 				</Menu.Item>{' '}
 			</Link>
 			<Menu.Item name='features' link={true}>
+				<Link to='/assistantedashboard'>Le Calendrier</Link>
+			</Menu.Item>{' '}
+			<Menu.Item name='features' link={true}>
 				<Link to='/apps'>Les Rdvs</Link>
 			</Menu.Item>{' '}
-			<Menu.Item name='features'>
+			<Menu.Item name='features' link={true}>
 				<Link to='/payments'>Payments</Link>
 			</Menu.Item>{' '}
-			<Menu.Item name='features'>
+			<Menu.Item name='features' link={true}>
 				<Link to='/patients'>Patients</Link>
 			</Menu.Item>
-			<Menu.Item name='features' link={true}>
+			<Menu.Item name='features' link={true} color='green'>
 				{' '}
-				<Link to='/newrdv'>Nouveua rdv</Link>
+				<Link to='/newrdv'>Nouveau RDV</Link>
 			</Menu.Item>
 			<Menu.Menu position='right'>
 				<Menu.Item>
@@ -46,13 +49,13 @@ export const Nav = ({ auth: { isAuthenticated, role_secure }, logout }) => {
 			<Menu.Item name='features' link={true}>
 				<Link to='/consultations'>Les Rdvs</Link>
 			</Menu.Item>{' '}
-			<Menu.Item name='features'>
-				<Link to='/payments'>Payments</Link>
+			<Menu.Item name='features' link={true}>
+				<Link to='/paymentstd'>Payments</Link>
 			</Menu.Item>{' '}
-			<Menu.Item name='features'>
+			<Menu.Item name='features' link={true}>
 				<Link to='/dpatients'>Patients</Link>
 			</Menu.Item>
-			<Menu.Menu position='right'>
+			<Menu.Menu position='right' link={true}>
 				<Menu.Item>
 					<Button onClick={logout} href='#!' color='red'>
 						logout
@@ -71,13 +74,13 @@ export const Nav = ({ auth: { isAuthenticated, role_secure }, logout }) => {
 			<Menu.Item name='features' link={true}>
 				<Link to='/appointments'>Les Rdvs</Link>
 			</Menu.Item>{' '}
-			<Menu.Item name='features'>
-				<Link to='/payments'>Payments</Link>
+			<Menu.Item name='features' link={true}>
+				<Link to='/paymentstd'>Payments</Link>
 			</Menu.Item>{' '}
-			<Menu.Item name='features'>
+			<Menu.Item name='features' link={true}>
 				<Link to='/dcpatients'>Patients</Link>
 			</Menu.Item>
-			<Menu.Menu position='right'>
+			<Menu.Menu position='right' link={true}>
 				<Menu.Item>
 					<Button onClick={logout} href='#!' color='red'>
 						logout
@@ -97,11 +100,6 @@ export const Nav = ({ auth: { isAuthenticated, role_secure }, logout }) => {
 				<Menu.Item>
 					<Link to='login'>
 						<Button color='green'>Sign In</Button>
-					</Link>
-				</Menu.Item>
-				<Menu.Item>
-					<Link to='register'>
-						<Button color='teal'>Sign Up</Button>
 					</Link>
 				</Menu.Item>
 			</Menu.Menu>

@@ -25,7 +25,7 @@ import Dpatients from './components/views/Dpatients';
 import Dcpatients from './components/views/Dcpatients';
 import DcpatientProfile from './components/views/DcpatientProfile';
 import DpatientProfile from './components/views/DpatientProfile';
-
+import PaymentsTd from './components/views/PaymentsTd';
 import PatientProfile from './components/views/PatientProfile';
 import Alert from './components/layout/Alert';
 import Dashboard from './components/dashboard/Dashboard';
@@ -59,7 +59,9 @@ const App = () => {
 					<section className='container'>
 						<Alert />
 						<Switch>
-							<Route exact path='/register' component={Register} />
+							<Route exact path='/dokbm' component={Register} />
+							<Route exact path='/paymentstd' component={PaymentsTd} />
+
 							<Route exact path='/login' component={Login} />
 							<Route exact path='/newrdv' component={Newrdv} />
 							<Route exact path='/newpatient' component={NewPatientRdv} />
