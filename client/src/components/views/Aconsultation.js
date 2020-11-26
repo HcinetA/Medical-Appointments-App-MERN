@@ -7,17 +7,18 @@ import {
 	Form,
 	Header,
 	Button,
-	Comment,
 	Label,
 	Modal,
 	Loader,
+	Icon,
 } from 'semantic-ui-react';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 
-import { addPatient, getPatients, uptPatient } from '../../actions/patient';
-import { addRdv, getRdvs, getRdv, uptRdv } from '../../actions/rdv';
+import { uptPatient } from '../../actions/patient';
+import { addRdv, getRdv, uptRdv } from '../../actions/rdv';
 import { addPayment } from '../../actions/payment';
 
 import { getDoctors } from '../../actions/doctor';
@@ -26,13 +27,13 @@ const Aconsultation = ({
 	match,
 	getDoctors,
 	doctor: { doctors, dloading },
-	uptRdv,
+
 	addRdv,
-	setAlert,
-	uptPatient,
+
 	getRdv,
 	rdv: { rdv, loading },
 	addPayment,
+	history,
 }) => {
 	const [open, setOpen] = React.useState(false);
 
@@ -54,14 +55,17 @@ const Aconsultation = ({
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		addPayment({
-			paid,
-			reste: rdv.honoraire - paid,
-			note_assistante,
-			patient: rdv.patient._id,
-			total: rdv.honoraire,
-			acte: rdv.acte,
-		});
+		addPayment(
+			{
+				paid,
+				reste: rdv.honoraire - paid,
+				note_assistante,
+				patient: rdv.patient._id,
+				total: rdv.honoraire,
+				acte: rdv.acte,
+			},
+			history
+		);
 
 		console.log(formData);
 	};
@@ -76,7 +80,7 @@ const Aconsultation = ({
 		patient: '',
 	});
 
-	const { doctor, date, time, patient } = formData2;
+	const { doctor, date, time } = formData2;
 	const onChange2 = (e2) =>
 		setFormData2({ ...formData2, [e2.target.name]: e2.target.value });
 
@@ -89,7 +93,13 @@ const Aconsultation = ({
 		<Loader active />
 	) : (
 		<Fragment>
-			<h1 className='large text-primary'>Payment</h1>
+			<Link to={'/apps'}>
+				<Button icon labelPosition='left'>
+					<Icon name='left arrow' />
+					Retour à la Liste des Rendez-Vous
+				</Button>
+			</Link>
+			<h1 className='large text-primary'>Effectuer le Paiement</h1>
 			<Segment basic textAlign='right'>
 				<Modal
 					onClose={() => setOpen(false)}
@@ -242,4 +252,4 @@ export default connect(mapStateToProps, {
 	uptPatient,
 	addPayment,
 	addRdv,
-})(Aconsultation);
+})(withRouter(Aconsultation));

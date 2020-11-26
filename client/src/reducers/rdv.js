@@ -24,6 +24,7 @@ export default function (state = initialState, action) {
 				...state,
 				rdvs: payload,
 				loading: false,
+				rdv: null,
 			};
 		case GET_PATIENT_APT:
 			return {

@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getRdvs } from '../../actions/rdv';
 
-const Dashboard = ({ getRdvs, rdv: { rdvs, loading } }) => {
+const Doctor2Dash = ({ getRdvs, rdv: { rdvs, loading } }) => {
 	useEffect(() => {
 		getRdvs();
 	}, [getRdvs]);
@@ -48,7 +48,7 @@ const Dashboard = ({ getRdvs, rdv: { rdvs, loading } }) => {
 	);
 };
 
-Dashboard.propTypes = {
+Doctor2Dash.propTypes = {
 	getRdvs: PropTypes.func.isRequired,
 	rdv: PropTypes.object.isRequired,
 };
@@ -58,4 +58,4 @@ const mapStateToProps = (state) => ({
 });
 export default connect(mapStateToProps, {
 	getRdvs,
-})(Dashboard);
+})(Doctor2Dash);

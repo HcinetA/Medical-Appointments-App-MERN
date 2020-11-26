@@ -1,11 +1,14 @@
 import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Navbar from './components/layout/Navbar';
+//import Navbar from './components/layout/Navbar';
+import Nav from './components/layout/Nav';
+
 import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Newrdv from './components/views/Newrdv.js';
 import NewPatientRdv from './components/views/NewPatientRdv';
+import ModifRdv from './components/views/ModifRdv';
 
 import AppointmentTable from './components/views/AppointmentTable';
 import ConsultationTable from './components/views/ConsultationTable';
@@ -19,6 +22,10 @@ import Patients from './components/views/Patients';
 import PatientProfile from './components/views/PatientProfile';
 import Alert from './components/layout/Alert';
 import Dashboard from './components/dashboard/Dashboard';
+import Doctor2Dash from './components/dashboard/Doctor2Dash';
+
+import DoctorDash from './components/dashboard/DoctorDash';
+
 import PrivateRoute from './components/routing/PrivateRoute';
 
 //redux
@@ -40,7 +47,7 @@ const App = () => {
 		<Provider store={store}>
 			<Router>
 				<Fragment>
-					<Navbar />
+					<Nav />
 					<Route exact path='/' component={Landing} />
 					<section className='container'>
 						<Alert />
@@ -56,6 +63,7 @@ const App = () => {
 								path='/appointment/:id'
 								component={PatientAffectation}
 							/>
+							<Route exact path='/modifrdv/:id' component={ModifRdv} />
 							<Route exact path='/payment/:id' component={MakePayment} />
 							<Route exact path='/consultation/:id' component={Consultation} />
 							<Route exact path='/app/:id' component={Aconsultation} />
@@ -74,6 +82,16 @@ const App = () => {
 								exact
 								path='/assistantedashboard'
 								component={Dashboard}
+							/>
+							<PrivateRoute
+								exact
+								path='/doctordashboard'
+								component={DoctorDash}
+							/>
+							<PrivateRoute
+								exact
+								path='/cdoctordashboard'
+								component={Doctor2Dash}
 							/>
 						</Switch>
 					</section>

@@ -1,16 +1,16 @@
 import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
-import { Form, Input, Button, Checkbox, Segment } from 'semantic-ui-react';
+import { Form, Input, Button, Segment } from 'semantic-ui-react';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 
 const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 	const [formData, setFormData] = useState({
-		first_name: '',
-		last_name: '',
+		firstName: '',
+		lastName: '',
 		email: '',
 		gender: '',
 		password: '',
@@ -19,8 +19,8 @@ const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 		color: '',
 	});
 	const {
-		first_name,
-		last_name,
+		firstName,
+		lastName,
 		gender,
 		email,
 		password,
@@ -35,7 +35,8 @@ const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 		if (password !== password2) {
 			setAlert('password do not match', 'danger');
 		} else {
-			register({ first_name, last_name, gender, email, password, role, color });
+			register(formData);
+			console.log(formData);
 		}
 	};
 	// REDIRECT
@@ -60,9 +61,9 @@ const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 							control={Input}
 							label='First name'
 							placeholder='First name'
-							name='first_name'
+							name='firstName'
 							required
-							value={first_name}
+							value={firstName}
 							onChange={(e) => onChange(e)}
 						/>
 						<Form.Field
@@ -71,8 +72,8 @@ const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 							required
 							label='Last name'
 							placeholder='Last name'
-							name='last_name'
-							value={last_name}
+							name='lastName'
+							value={lastName}
 							onChange={(e) => onChange(e)}
 						/>
 					</Form.Group>
@@ -85,6 +86,7 @@ const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 							required
 							onChange={(e) => onChange(e)}
 						>
+							<option></option>
 							<option value='male'>Male</option>
 							<option value='female'>Female</option>
 						</Form.Field>
@@ -97,6 +99,7 @@ const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 							required
 							onChange={(e) => onChange(e)}
 						>
+							<option></option>
 							<option value='doctor'>Doctor</option>
 							<option value='doctor2'>Doctor consultation</option>
 							<option value='assistante'>Assistante</option>
@@ -109,6 +112,7 @@ const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 							required
 							onChange={(e) => onChange(e)}
 						>
+							<option></option>
 							<option value='#18dcff'>Bleu</option>
 							<option value='#4b4b4b'>Gris</option>
 							<option value='#ff4d4d'>Rouge</option>
@@ -143,13 +147,8 @@ const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 							onChange={(e) => onChange(e)}
 						/>
 					</Form.Group>
-					<Form.Field>
-						<Checkbox label='I agree to the Terms and Conditions' />
-					</Form.Field>
+
 					<Button type='submit'>Submit</Button>
-					<p className='my-1'>
-						Don't have an account? <a href='register.html'>Sign in</a>
-					</p>
 				</Form>
 			</Segment>
 		</Fragment>

@@ -7,14 +7,13 @@ import {
 	RDV_ERROR,
 	GET_RDV,
 	UPT_RDV,
-	UPTRDV_ERROR,
 	GET_PATIENT_APT,
 } from './types';
 
 // get rddvs
 
 export const getRdvs = () => async (dispatch) => {
-	const res = await axios
+	await axios
 		.get('/api/appointment/')
 		.then((res) => {
 			dispatch({
@@ -33,15 +32,16 @@ export const addRdv = (formData, history) => async (dispatch) => {
 			'Content-Type': 'application/json',
 		},
 	};
-	const res = await axios
+	await axios
 		.post('/api/appointment/', formData, config)
 		.then((res) => {
 			dispatch(setAlert('RDV Created ', 'success'));
 
 			dispatch({
 				type: ADD_RDV,
-				payload: res.data.updated_element,
+				payload: res.data,
 			});
+			history.push('/apps');
 		})
 
 		.catch((error) => console.log('catched error: \n', error));
@@ -64,23 +64,70 @@ export const getRdv = (id) => async (dispatch) => {
 	}
 };
 
-// uptade  rdvs
+// uptade  rdvs by doc1
 
-export const uptRdv = (id, formData) => async (dispatch) => {
+export const modifRdv = (id, formData, history) => async (dispatch) => {
 	const config = {
 		headers: {
 			'Content-Type': 'application/json',
 		},
 	};
 	// try {
-	const res = await axios
+	await axios
+		.put(`/api/appointment/${id}`, formData, config)
+		.then((res) => {
+			dispatch(setAlert('RDV Created ', 'success'));
+
+			dispatch({
+				type: UPT_RDV,
+				payload: res.data,
+			});
+			history.push('/apps');
+		})
+		.catch((error) => console.log('catched error: \n', error));
+};
+
+// uptade  rdvs by doc1
+
+export const uptRdv = (id, formData, history) => async (dispatch) => {
+	const config = {
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	};
+	// try {
+	await axios
+		.put(`/api/appointment/${id}`, formData, config)
+		.then((res) => {
+			dispatch(setAlert('RDV Created ', 'success'));
+
+			dispatch({
+				type: UPT_RDV,
+				payload: res.data,
+			});
+			history.push('/consultations');
+		})
+		.catch((error) => console.log('catched error: \n', error));
+};
+
+// uptade  rdvs by doctor2
+
+export const uptRdv2 = (id, formData, history) => async (dispatch) => {
+	const config = {
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	};
+	// try {
+	await axios
 		.put(`/api/appointment/${id}`, formData, config)
 		.then((res) => {
 			dispatch(setAlert('RDV Created ', 'success'));
 			dispatch({
 				type: UPT_RDV,
-				payload: res.data.updated_element,
+				payload: res.data,
 			});
+			history.push('/appointments');
 		})
 		.catch((error) => console.log('catched error: \n', error));
 };

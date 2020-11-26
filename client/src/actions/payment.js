@@ -11,33 +11,31 @@ import {
 
 // add payment
 
-export const addPayment = (formData) => async (dispatch) => {
+export const addPayment = (formData, history) => async (dispatch) => {
 	const config = {
 		headers: {
 			'Content-Type': 'application/json',
 		},
 	};
-	try {
-		const res = await axios.post('/api/invoice/', formData, config);
+	await axios
+		.post('/api/invoice/', formData, config)
+		.then((res) => {
+			dispatch({
+				type: ADD_PAYMENT,
+				payload: res.data,
+			});
+			dispatch(setAlert('Payment Created ', 'success'));
 
-		dispatch({
-			type: ADD_PAYMENT,
-			payload: res.data,
-		});
+			history.push('/payments');
+		})
 
-		dispatch(setAlert('Payment Created ', 'success'));
-	} catch (err) {
-		dispatch({
-			type: PAYMENTS_ERROR,
-			payload: { msg: err.response.statusText, status: err.response.status },
-		});
-	}
+		.catch((error) => console.log('catched error: \n', error));
 };
 
 // get payments
 
 export const getPayments = () => async (dispatch) => {
-	const res = await axios
+	await axios
 		.get('/api/invoice/')
 		.then((res) => {
 			dispatch({
@@ -67,21 +65,22 @@ export const getPayment = (id) => async (dispatch) => {
 
 // uptade  payment
 
-export const uptPayment = (id, formData) => async (dispatch) => {
+export const uptPayment = (id, formData, history) => async (dispatch) => {
 	const config = {
 		headers: {
 			'Content-Type': 'application/json',
 		},
 	};
 	// try {
-	const res = await axios
+	await axios
 		.put(`/api/invoice/${id}`, formData, config)
 		.then((res) => {
 			dispatch(setAlert('Payment Updated ', 'success'));
 			dispatch({
 				type: UPT_PAYMENT,
-				payload: res.data.updated_element,
+				payload: res.data,
 			});
+			history.push('/payments');
 		})
 		.catch((error) => console.log('catched error: \n', error));
 };

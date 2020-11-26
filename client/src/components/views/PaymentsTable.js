@@ -1,14 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
-import {
-	Table,
-	Button,
-	Menu,
-	Icon,
-	Input,
-	Segment,
-	Loader,
-	Image,
-} from 'semantic-ui-react';
+import { Table, Button, Input, Segment, Loader } from 'semantic-ui-react';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';

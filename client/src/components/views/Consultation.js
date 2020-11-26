@@ -12,48 +12,26 @@ import {
 	Loader,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import { Link, withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 
-import { addPatient, getPatients, uptPatient } from '../../actions/patient';
-import { addRdv, getRdvs, getRdv, uptRdv } from '../../actions/rdv';
+import { uptPatient } from '../../actions/patient';
+import { getRdv, uptRdv } from '../../actions/rdv';
 import { getDoctors } from '../../actions/doctor';
-
-const initialState = {
-	notes_acte: '',
-	doctor: '',
-	honoraire: '',
-	acte: '',
-};
 
 const Consultation = ({
 	match,
 	getDoctors,
 	doctor: { doctors, dloading },
 	uptRdv,
-	setAlert,
-	uptPatient,
+
 	getRdv,
 	rdv: { rdv, loading },
 	auth,
+	history,
 }) => {
-	useEffect(() => {
-		getDoctors();
-	}, [getDoctors]);
-
-	useEffect(() => {
-		if (rdv === null) {
-			getRdv(match.params.id);
-		}
-		if (!loading && rdv === null) {
-			const rdvData = { ...initialState };
-			setFormData(rdvData);
-		} else {
-			const rdvData = { ...rdv };
-			setFormData(rdvData);
-		}
-	}, [getRdv, match.params.id, loading]);
 	const [formData, setFormData] = useState({
 		acte: '',
 
@@ -61,25 +39,36 @@ const Consultation = ({
 
 		honoraire: '',
 	});
-	const {
-		notes_acte,
+	useEffect(() => {
+		getDoctors();
+	}, [getDoctors]);
 
-		acte,
-		honoraire,
-		status,
-	} = formData;
+	useEffect(() => {
+		getRdv(match.params.id);
+		setFormData({
+			acte: rdv === null || !rdv.acte ? '' : rdv.acte,
+			notes_acte: rdv === null || !rdv.notes_acte ? '' : rdv.notes_acte,
+			honoraire: rdv === null || !rdv.honoraire ? '' : rdv.honoraire,
+		});
+		// eslint-disable-next-line
+	}, [getRdv, match.params.id, rdv === null]);
+
+	const { notes_acte, acte, honoraire } = formData;
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	const onSubmit = (e) => {
 		e.preventDefault();
-		uptRdv(rdv._id, {
-			notes_acte,
-			acte,
-
-			honoraire,
-			doctor: rdv.doctor._id,
-			status: true,
-		});
+		uptRdv(
+			rdv._id,
+			{
+				notes_acte,
+				acte,
+				honoraire,
+				doctor: auth.user._id,
+				status: true,
+			},
+			history
+		);
 		console.log(formData);
 	};
 
@@ -87,10 +76,12 @@ const Consultation = ({
 		<Loader active />
 	) : (
 		<Fragment>
-			<Button icon labelPosition='left'>
-				<Icon name='left arrow' />
-				Back to Appointment list
-			</Button>
+			<Link to={'/consultations'}>
+				<Button icon labelPosition='left'>
+					<Icon name='left arrow' />
+					Back to Appointment list
+				</Button>
+			</Link>
 			<h1 className='large text-primary'>Consultation</h1>
 
 			<Segment raised>
@@ -99,7 +90,7 @@ const Consultation = ({
 						<Grid.Column>
 							<Segment color='red'>
 								{' '}
-								<Header as='h3'>Consultation {auth.user._id}</Header>
+								<Header as='h3'>Consultation </Header>
 								<Form onSubmit={(e) => onSubmit(e)}>
 									<Form.Field
 										id='form-textarea-control-opinion'
@@ -317,12 +308,12 @@ const Consultation = ({
 Consultation.propTypes = {
 	setAlert: PropTypes.func.isRequired,
 
-	getRdv: PropTypes.func.isRequired,
 	getDoctors: PropTypes.func.isRequired,
 	rdv: PropTypes.object.isRequired,
 	doctor: PropTypes.object.isRequired,
 	uptRdv: PropTypes.func.isRequired,
 	uptPatient: PropTypes.func.isRequired,
+	getRdv: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -332,9 +323,9 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-	getRdv,
 	setAlert,
 	uptRdv,
 	getDoctors,
 	uptPatient,
-})(Consultation);
+	getRdv,
+})(withRouter(Consultation));
