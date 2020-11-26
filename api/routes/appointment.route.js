@@ -139,9 +139,10 @@ router.delete('/:id', async (req, res) => {
     if (!appointment) {
       return res.status(404).json({ msg: 'appointment inexistant' });
     }
-    await Appointment.findOneAndRemove(appointment);
-    return res.json('deleted');
+    const deleted = await appointment.remove();
+    return res.json(deleted);
   } catch (error) {
+    console.log(error);
     res.status(500).send(error);
   }
 });
