@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
+import frLocale from '@fullcalendar/core/locales/fr';
+
 import interactionPlugin from '@fullcalendar/interaction';
 import { Loader } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
@@ -17,7 +20,7 @@ const Dashboard = ({ getRdvs, rdv: { rdvs, loading } }) => {
 	if (rdvs) {
 		events = rdvs.map((e) => ({
 			title: e.patient.name,
-			start: e.date,
+			date: e.date,
 			color: e.doctor.color, // override!
 			url: `/appointment/${e._id}`,
 		}));
@@ -26,20 +29,22 @@ const Dashboard = ({ getRdvs, rdv: { rdvs, loading } }) => {
 		<Loader active />
 	) : (
 		<FullCalendar
-			plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+			plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
 			headerToolbar={{
 				left: 'prev,next today',
+				locale: 'fr',
+				themeSystem: 'Lux',
 				center: 'title',
-				right: 'dayGridMonth,timeGridWeek,timeGridDay',
+				right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
 			}}
 			initialView='dayGridMonth'
-			editable={true}
 			nowIndicator={true}
 			selectable={true}
-			selectMirror={true}
 			dayMaxEvents={true}
-			toolTip={true}
 			events={events}
+			height='720px'
+			themeSystem='lux'
+			locale={frLocale}
 		/>
 	);
 };

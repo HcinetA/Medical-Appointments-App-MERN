@@ -56,6 +56,7 @@ const PatientAffectation = ({
 			notes_consultation:
 				rdv === null || !rdv.notes_consultation ? '' : rdv.notes_consultation,
 		});
+		// eslint-disable-next-line
 	}, [getRdv, match.params.id, rdv === null]);
 
 	const { motif, diagnostic, analyses, notes_consultation, doctor } = formData2;

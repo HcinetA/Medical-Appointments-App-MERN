@@ -9,11 +9,17 @@ import {
 	Icon,
 } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
+import frLocale from '@fullcalendar/core/locales/fr';
 
+import interactionPlugin from '@fullcalendar/interaction';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addPatient, getPatients } from '../../actions/patient';
-import { addRdv } from '../../actions/rdv';
+import { addRdv, getRdvs } from '../../actions/rdv';
 import { getDoctors } from '../../actions/doctor';
 
 const Newrdv = ({
@@ -21,7 +27,8 @@ const Newrdv = ({
 	doctor: { doctors, loading },
 	getPatients,
 	patient: { patients },
-
+	getRdvs,
+	rdv: { rdvs },
 	addRdv,
 	history,
 }) => {
@@ -31,8 +38,12 @@ const Newrdv = ({
 	useEffect(() => {
 		getPatients();
 	}, [getPatients]);
+	useEffect(() => {
+		getRdvs();
+	}, [getRdvs]);
 
 	const [open, setOpen] = React.useState(false);
+	const [open2, setOpen2] = React.useState(false);
 
 	const [formData, setFormData] = useState({
 		patient: '',
@@ -75,6 +86,15 @@ const Newrdv = ({
 		addPatient({ name, date_of_birth, phone, age });
 		console.log({ name, date_of_birth, phone, age });
 	};
+	var events = [];
+
+	if (rdvs) {
+		events = rdvs.map((e) => ({
+			title: e.patient.name,
+			date: e.date,
+			color: e.doctor.color,
+		}));
+	}
 	return (
 		<Fragment>
 			<Link to={'/apps'}>
@@ -130,11 +150,56 @@ const Newrdv = ({
 								value={age}
 								onChange={(e2) => onChange2(e2)}
 							/>
+
 							<Button positive type='submit'>
 								Submit{' '}
 							</Button>
 						</Form>
 					</Modal.Content>
+				</Modal>
+				<Modal
+					open={open2}
+					onClose={() => setOpen2(false)}
+					onOpen={() => setOpen2(true)}
+					trigger={
+						<Button
+							color='teal'
+							icon='calendar alternate outline'
+							content='Check Calendar'
+						/>
+					}
+				>
+					<Modal.Header>Profile Picture</Modal.Header>
+					<Modal.Content scrolling size='large'>
+						<FullCalendar
+							plugins={[
+								dayGridPlugin,
+								timeGridPlugin,
+								interactionPlugin,
+								listPlugin,
+							]}
+							headerToolbar={{
+								left: 'prev,next today',
+								locale: 'fr',
+								themeSystem: 'Lux',
+								center: 'title',
+								right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
+							}}
+							initialView='dayGridMonth'
+							nowIndicator={true}
+							selectable={true}
+							dayMaxEvents={true}
+							events={events}
+							height='720px'
+							themeSystem='lux'
+							locale={frLocale}
+						/>
+					</Modal.Content>
+					<Modal.Actions>
+						<Button onClick={() => setOpen2(false)} primary>
+							Proceed <Icon name='chevron right' />
+						</Button>
+					</Modal.Actions>
 				</Modal>
 			</Segment>
 			<Segment raised>
@@ -202,10 +267,13 @@ Newrdv.propTypes = {
 	patient: PropTypes.object.isRequired,
 
 	addRdv: PropTypes.func.isRequired,
+	getRdvs: PropTypes.func.isRequired,
+	rdv: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
 	doctor: state.doctor,
+	rdv: state.rdv,
 
 	patient: state.patient,
 });
@@ -213,6 +281,6 @@ export default connect(mapStateToProps, {
 	addPatient,
 	getDoctors,
 	getPatients,
-
+	getRdvs,
 	addRdv,
 })(withRouter(Newrdv));

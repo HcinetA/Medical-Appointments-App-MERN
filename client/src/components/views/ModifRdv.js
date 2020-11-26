@@ -55,6 +55,7 @@ const ModifRdv = ({
 
 			notes: rdv === null || !rdv.notes ? '' : rdv.notes,
 		});
+		// eslint-disable-next-line
 	}, [getRdv, rdv === null]);
 
 	const { doctor, date, notes, status } = formData;

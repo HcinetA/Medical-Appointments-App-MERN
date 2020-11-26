@@ -50,6 +50,7 @@ const Consultation = ({
 			notes_acte: rdv === null || !rdv.notes_acte ? '' : rdv.notes_acte,
 			honoraire: rdv === null || !rdv.honoraire ? '' : rdv.honoraire,
 		});
+		// eslint-disable-next-line
 	}, [getRdv, match.params.id, rdv === null]);
 
 	const { notes_acte, acte, honoraire } = formData;
