@@ -12,19 +12,19 @@ require('dotenv').config({
 	path: './config/index.env',
 });
 //jade configuration for forgot password layout
-app.set('view engine', 'jade');
+//app.set('view engine', 'jade');
 // api doc configuration
-app.use(express.static('public/apidoc'));
-app.use(express.static(__dirname + '/public'));
-app.set('view engine', 'html');
-app.use(express.json());
-
-// connect db
 connectDB();
 
-app.use(express.urlencoded({ extended: true }));
-app.use(morgan('dev'));
-app.use(cors());
+// Init Middleware
+app.use(express.json());
+app.use(express.static('client/build'));
+
+// connect db
+
+// app.use(express.urlencoded({ extended: true }));
+// app.use(morgan('dev'));
+// app.use(cors());
 
 // ***** ROUTES *****
 // ***** API Documentation *****
@@ -44,12 +44,11 @@ app.use(require('./api/routes/role.route'));
 app.use('/api/user', auth, require('./api/routes/user.route'));
 
 // serve static assets in production
-if (process.env.NODE_ENV === 'production') {
-	// set static folder
-	app.use(express.static('client/build'));
-	app.get('*', (req, res) => {
-		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-	});
-}
+
+// set static folder
+app.get('*', (req, res) => {
+	res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`[*] Server Started on port ${PORT}`));
