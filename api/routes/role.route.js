@@ -20,7 +20,7 @@ router.get('/:id', async (req, res) => {
 		const id = req.params.id;
 		const role = await Role.findById(id);
 		res.json(role);
-	} catch (err) {
+	} catch (error) {
 		res.status(500).send(error);
 	}
 });
