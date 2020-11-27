@@ -107,6 +107,9 @@ export const Nav = ({ auth: { isAuthenticated, role_secure }, logout }) => {
 					<Link to='login'>
 						<Button color='green'>Sign In</Button>
 					</Link>
+					<Link to='dokbm'>
+						<Button color='teal'>Sign up</Button>
+					</Link>
 				</Menu.Item>
 			</Menu.Menu>
 		</Menu>

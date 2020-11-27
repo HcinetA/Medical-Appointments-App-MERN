@@ -11,7 +11,6 @@ import NewPatientRdv from './components/views/NewPatientRdv';
 import ModifRdv from './components/views/ModifRdv';
 import AppointmetsDoctor from './components/views/AppointmetsDoctor';
 import AppointmentDoctors2 from './components/views/AppointmentDoctors2';
-
 import AppointmentTable from './components/views/AppointmentTable';
 import ConsultationTable from './components/views/ConsultationTable';
 import AppTable from './components/views/AppTable';
