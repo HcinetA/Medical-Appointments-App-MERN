@@ -77,7 +77,7 @@ class AuthenticationController {
 
 			jwt.sign(
 				payload,
-				process.env.JWT_SECRET,
+				'mysecert',
 				{
 					expiresIn: 360000, // for development for production it will 3600
 				},
@@ -122,7 +122,7 @@ class AuthenticationController {
 			};
 			jwt.sign(
 				payload,
-				process.env.JWT_SECRET,
+				'mysecert',
 				{
 					expiresIn: 360000,
 				},
