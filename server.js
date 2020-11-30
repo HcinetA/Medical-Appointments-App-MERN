@@ -2,10 +2,6 @@ const express = require('express');
 const connectDB = require('./config/db');
 const path = require('path');
 
-var morgan = require('morgan');
-var cors = require('cors');
-var bodyParser = require('body-parser');
-
 const app = express();
 const auth = require('./api/middleware/auth');
 
