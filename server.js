@@ -8,12 +8,7 @@ var bodyParser = require('body-parser');
 
 const app = express();
 const auth = require('./api/middleware/auth');
-// require('dotenv').config({
-// 	path: './config/index.env',
-// });
-//jade configuration for forgot password layout
-//app.set('view engine', 'jade');
-// api doc configuration
+
 connectDB();
 
 // Init Middleware
@@ -21,17 +16,6 @@ app.use(express.json({ extended: false }));
 
 // connect db
 app.use(express.static('client/build'));
-
-// app.use(express.urlencoded({ extended: true }));
-// app.use(morgan('dev'));
-// app.use(cors());
-
-// ***** ROUTES *****
-// ***** API Documentation *****
-// app.get('/', function(req, res) {
-//     res.render('public/apidoc/index.html');
-// });
-// set static folder
 
 app.use('/api/patient', auth, require('./api/routes/patient.route'));
 app.use('/api/appointment', auth, require('./api/routes/appointment.route'));
