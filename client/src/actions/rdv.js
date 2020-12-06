@@ -26,6 +26,20 @@ export const getRdvs = () => async (dispatch) => {
 		.catch((error) => console.log('catched error: \n', error));
 };
 
+// get rddvs false
+
+export const getRdvsFalse = () => async (dispatch) => {
+	await axios
+		.get('/api/appointment/')
+		.then((res) => {
+			dispatch({
+				type: GET_RDVS,
+				payload: res.data,
+			});
+		})
+		.catch((error) => console.log('catched error: \n', error));
+};
+
 // add  rdv
 
 export const addRdv = (formData, history) => async (dispatch) => {

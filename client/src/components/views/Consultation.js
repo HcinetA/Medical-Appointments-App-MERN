@@ -128,7 +128,7 @@ const Consultation = ({
 
 						<Grid.Column>
 							<Segment color='yellow'>
-								<Header as='h3'>Données GENERALES</Header>
+								<Header as='h3'> Fiche Patient</Header>
 								<Form>
 									<Segment color='teal'>
 										<Form.Group widths='equal'>

@@ -79,8 +79,17 @@ const ConsultationTable = ({
 								)}
 							</Table.Cell>{' '}
 							<Table.Cell>
+								<Link to={`/appointment/${rdv._id}`}>
+									<Button basic color='teal'>
+										{' '}
+										Débuter Consultation{' '}
+									</Button>{' '}
+								</Link>{' '}
 								<Link to={`/consultation/${rdv._id}`}>
-									<Button primary> Manage </Button>{' '}
+									<Button basic color='green'>
+										{' '}
+										Débuter Traitement{' '}
+									</Button>{' '}
 								</Link>{' '}
 							</Table.Cell>{' '}
 						</Table.Row>
