@@ -1,6 +1,14 @@
 import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
-import { Form, Input, Button, Segment } from 'semantic-ui-react';
+import {
+	Form,
+	Input,
+	Button,
+	Segment,
+	Tab,
+	Label,
+	Menu,
+} from 'semantic-ui-react';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 import { Redirect } from 'react-router-dom';
@@ -17,6 +25,7 @@ const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 		password2: '',
 		role: '',
 		color: '',
+		specialite: '',
 	});
 	const {
 		firstName,
@@ -27,6 +36,7 @@ const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 		password2,
 		role,
 		color,
+		specialite,
 	} = formData;
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -43,113 +53,202 @@ const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 		return <Redirect to='/cdoctordashboard' />;
 	} else if (isAuthenticated && role_secure === 'doctor') {
 		return <Redirect to='/doctordashboard' />;
-	} else if (isAuthenticated && role_secure === 'assistante') {
+	} else if (isAuthenticated && role_secure === '') {
 		return <Redirect to='/assistantedashboard' />;
 	}
+	const panes = [
+		{
+			menuItem: {
+				key: 'doctors',
+				icon: 'user doctor',
+				content: 'Créer un Compte Médecin',
+			},
+			render: () => (
+				<Tab.Pane>
+					<h1 className='large text-primary'>S'inscrire</h1>
+
+					<Segment stacked>
+						<Form onSubmit={(e) => onSubmit(e)}>
+							<Form.Group widths='equal'>
+								<Form.Field
+									id='form-input-control-first-name'
+									control={Input}
+									label='Nom'
+									placeholder='Nom'
+									name='firstName'
+									required
+									value={firstName}
+									onChange={(e) => onChange(e)}
+								/>
+								<Form.Field
+									id='form-input-control-last-name'
+									control={Input}
+									required
+									label='Prenom'
+									placeholder='Prenom'
+									name='lastName'
+									value={lastName}
+									onChange={(e) => onChange(e)}
+								/>
+							</Form.Group>
+							<Form.Group widths='equal'>
+								<Form.Field
+									label='Genre'
+									control='select'
+									name='gender'
+									value={gender}
+									required
+									onChange={(e) => onChange(e)}
+								>
+									<option></option>
+									<option value='male'>Male</option>
+									<option value='female'>Female</option>
+								</Form.Field>
+
+								<Form.Field
+									label='Fonction'
+									control='select'
+									name='role'
+									value={role}
+									required
+									onChange={(e) => onChange(e)}
+								>
+									<option></option>
+									<option value='doctor'> Médecin Dentiste</option>
+									<option value='doctor'>Médecin</option>
+								</Form.Field>
+								<Form.Field
+									label='Code Couleur'
+									control='select'
+									name='color'
+									value={color}
+									required
+									onChange={(e) => onChange(e)}
+								>
+									<option></option>
+									<option value='#18dcff'>Bleu</option>
+									<option value='#4b4b4b'>Gris</option>
+									<option value='#ff4d4d'>Rouge</option>
+									<option value='#fff200'>Jaune</option>
+									<option value='#cd84f1'>Violet</option>
+								</Form.Field>
+							</Form.Group>
+							<Form.Field
+								control={Input}
+								label='Spécialité'
+								placeholder='Spécialité'
+								name='specialite'
+								required
+								value={specialite}
+								onChange={(e) => onChange(e)}
+							/>
+							<Form.Input
+								label='Email'
+								type='email'
+								placeholder='joe@schmoe.com'
+								name='email'
+								value={email}
+								required
+								onChange={(e) => onChange(e)}
+							/>
+							<Form.Group widths='equal'>
+								<Form.Input
+									label='Mot de Passe'
+									type='password'
+									name='password'
+									value={password}
+									required
+									onChange={(e) => onChange(e)}
+								/>
+								<Form.Input
+									label='Vérifier Mot de Passe'
+									type='password'
+									name='password2'
+									value={password2}
+									required
+									onChange={(e) => onChange(e)}
+								/>
+							</Form.Group>
+
+							<Button type='submit'>Valider</Button>
+						</Form>
+					</Segment>
+				</Tab.Pane>
+			),
+		},
+		{
+			menuItem: {
+				key: 'assistante',
+				icon: 'user ',
+				content: 'Créer un Compte Assistant(e)',
+			},
+			render: () => (
+				<Tab.Pane>
+					<h1 className='large text-primary'>S'inscrire</h1>
+
+					<Segment stacked>
+						<Form onSubmit={(e) => onSubmit(e)}>
+							<Form.Group widths='equal'>
+								<Form.Field
+									id='form-input-control-first-name'
+									control={Input}
+									label='Nom'
+									placeholder='Nom'
+									name='firstName'
+									required
+									value={firstName}
+									onChange={(e) => onChange(e)}
+								/>
+								<Form.Field
+									id='form-input-control-last-name'
+									control={Input}
+									required
+									label='Prénom'
+									placeholder='Prénom'
+									name='lastName'
+									value={lastName}
+									onChange={(e) => onChange(e)}
+								/>
+							</Form.Group>
+
+							<Form.Input
+								label='Email'
+								type='email'
+								placeholder='joe@schmoe.com'
+								name='email'
+								value={email}
+								required
+								onChange={(e) => onChange(e)}
+							/>
+							<Form.Group widths='equal'>
+								<Form.Input
+									label='Mot de Passe'
+									type='password'
+									name='password'
+									value={password}
+									required
+									onChange={(e) => onChange(e)}
+								/>
+								<Form.Input
+									label='Vérifier Mot de Passe'
+									type='password'
+									name='password2'
+									value={password2}
+									required
+									onChange={(e) => onChange(e)}
+								/>
+							</Form.Group>
+
+							<Button type='submit'>Valider</Button>
+						</Form>
+					</Segment>
+				</Tab.Pane>
+			),
+		},
+	];
 	return (
 		<Fragment>
-			<h1 className='large text-primary'>Sign Up</h1>
-			<p className='lead'>
-				<i className='fas fa-user'></i> Create Your Account
-			</p>
-			<Segment stacked>
-				<Form onSubmit={(e) => onSubmit(e)}>
-					<Form.Group widths='equal'>
-						<Form.Field
-							id='form-input-control-first-name'
-							control={Input}
-							label='First name'
-							placeholder='First name'
-							name='firstName'
-							required
-							value={firstName}
-							onChange={(e) => onChange(e)}
-						/>
-						<Form.Field
-							id='form-input-control-last-name'
-							control={Input}
-							required
-							label='Last name'
-							placeholder='Last name'
-							name='lastName'
-							value={lastName}
-							onChange={(e) => onChange(e)}
-						/>
-					</Form.Group>
-					<Form.Group widths='equal'>
-						<Form.Field
-							label='Gender'
-							control='select'
-							name='gender'
-							value={gender}
-							required
-							onChange={(e) => onChange(e)}
-						>
-							<option></option>
-							<option value='male'>Male</option>
-							<option value='female'>Female</option>
-						</Form.Field>
-
-						<Form.Field
-							label='Role'
-							control='select'
-							name='role'
-							value={role}
-							required
-							onChange={(e) => onChange(e)}
-						>
-							<option></option>
-							<option value='doctor'>Doctor</option>
-							<option value='doctor2'>Doctor consultation</option>
-							<option value='assistante'>Assistante</option>
-						</Form.Field>
-						<Form.Field
-							label='Code Couleur'
-							control='select'
-							name='color'
-							value={color}
-							required
-							onChange={(e) => onChange(e)}
-						>
-							<option></option>
-							<option value='#18dcff'>Bleu</option>
-							<option value='#4b4b4b'>Gris</option>
-							<option value='#ff4d4d'>Rouge</option>
-							<option value='#fff200'>Jaune</option>
-							<option value='#cd84f1'>Violet</option>
-						</Form.Field>
-					</Form.Group>
-					<Form.Input
-						label='Email'
-						type='email'
-						placeholder='joe@schmoe.com'
-						name='email'
-						value={email}
-						required
-						onChange={(e) => onChange(e)}
-					/>
-					<Form.Group widths='equal'>
-						<Form.Input
-							label='Enter Password'
-							type='password'
-							name='password'
-							value={password}
-							required
-							onChange={(e) => onChange(e)}
-						/>
-						<Form.Input
-							label='Enter Password'
-							type='password'
-							name='password2'
-							value={password2}
-							required
-							onChange={(e) => onChange(e)}
-						/>
-					</Form.Group>
-
-					<Button type='submit'>Submit</Button>
-				</Form>
-			</Segment>
+			<Tab panes={panes} />
 		</Fragment>
 	);
 };

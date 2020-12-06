@@ -50,7 +50,10 @@ export const Nav = ({ auth: { isAuthenticated, role_secure }, logout }) => {
 				<Link to='/doctordashboard'>Le Calendrier</Link>
 			</Menu.Item>{' '}
 			<Menu.Item name='features' link={true}>
-				<Link to='/consultations'>Les Rdvs</Link>
+				<Link to='/appointments'>Affectation</Link>
+			</Menu.Item>{' '}
+			<Menu.Item name='features' link={true}>
+				<Link to='/consultations'>Consultation</Link>
 			</Menu.Item>{' '}
 			<Menu.Item name='features' link={true}>
 				<Link to='/paymentstd'>Payments</Link>
@@ -117,7 +120,7 @@ export const Nav = ({ auth: { isAuthenticated, role_secure }, logout }) => {
 	return (
 		<Fragment>
 			{' '}
-			{isAuthenticated && role_secure === 'assistante'
+			{isAuthenticated && role_secure === ''
 				? authLinks
 				: isAuthenticated && role_secure === 'doctor'
 				? docLinks

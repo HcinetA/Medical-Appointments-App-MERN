@@ -61,7 +61,12 @@ const AppointmentTable = ({
 					{rdvs.map((rdv) => (
 						<Table.Row>
 							<Table.Cell> </Table.Cell>{' '}
-							<Table.Cell> {rdv.patient.name} </Table.Cell>{' '}
+							<Table.Cell>
+								{' '}
+								<Link to={`/patient/${rdv.patient._id}`}>
+									{rdv.patient.name}
+								</Link>{' '}
+							</Table.Cell>
 							<Table.Cell>
 								<Moment format='YYYY/MM/DD | hh:mm'>{rdv.date}</Moment>
 							</Table.Cell>{' '}

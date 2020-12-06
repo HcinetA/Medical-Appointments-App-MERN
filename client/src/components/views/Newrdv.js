@@ -8,6 +8,7 @@ import {
 	Input,
 	Icon,
 	Loader,
+	Dropdown,
 } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 import FullCalendar from '@fullcalendar/react';
@@ -53,6 +54,16 @@ const Newrdv = ({
 			color: sc.doctor.color,
 		}));
 	}
+
+	var pap = [];
+
+	if (rdvs && patients !== null) {
+		pap = patients.map((paps) => ({
+			value: paps._id,
+			text: paps.name,
+		}));
+	}
+
 	const [open, setOpen] = React.useState(false);
 	const [open2, setOpen2] = React.useState(false);
 
@@ -70,6 +81,7 @@ const Newrdv = ({
 	const onSubmit = (e) => {
 		e.preventDefault();
 		addRdv({ patient, doctor, date, notes, status }, history);
+		console.log(formData);
 	};
 
 	const [formData2, setFormData2] = useState({
@@ -94,7 +106,7 @@ const Newrdv = ({
 		setOpen(false);
 	};
 
-	return loading || rdvs === null ? (
+	return loading || rdvs === null || patients === null ? (
 		<Loader active />
 	) : (
 		<Fragment>
@@ -204,7 +216,7 @@ const Newrdv = ({
 			<Segment raised>
 				<Form onSubmit={(e) => onSubmit(e)}>
 					<Form.Group widths='equal'>
-						<Form.Field
+						{/* <Form.Field
 							label='Select Patient'
 							control='select'
 							name='patient'
@@ -215,6 +227,25 @@ const Newrdv = ({
 							{patients.map((patient) => (
 								<option value={patient._id}>{patient.name}</option>
 							))}
+						</Form.Field> */}
+
+						<Form.Field>
+							<Dropdown
+								id='patient'
+								label='Select Doctor'
+								control='select'
+								name='patient'
+								search
+								selection
+								placeholder='Choose a Patient'
+								options={
+									(pap = patients.map((paps) => ({
+										value: paps._id,
+										text: paps.name,
+									})))
+								}
+								onChange={(e) => onChange(e)}
+							/>
 						</Form.Field>
 
 						<Form.Field
@@ -222,6 +253,8 @@ const Newrdv = ({
 							control='select'
 							name='doctor'
 							required
+							search
+							selection
 							onChange={(e) => onChange(e)}
 						>
 							<option></option>
@@ -264,7 +297,6 @@ Newrdv.propTypes = {
 	doctor: PropTypes.object.isRequired,
 	getPatients: PropTypes.func.isRequired,
 	patient: PropTypes.object.isRequired,
-
 	addRdv: PropTypes.func.isRequired,
 	getRdvs: PropTypes.func.isRequired,
 	rdv: PropTypes.object.isRequired,
@@ -273,7 +305,6 @@ Newrdv.propTypes = {
 const mapStateToProps = (state) => ({
 	doctor: state.doctor,
 	rdv: state.rdv,
-
 	patient: state.patient,
 });
 export default connect(mapStateToProps, {

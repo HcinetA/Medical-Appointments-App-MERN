@@ -39,6 +39,15 @@ const PatientAffectation = ({
 		notes_consultation: '',
 		doctor: '',
 	});
+	const [formData, setFormData] = useState({
+		maladie: '',
+		allergie: '',
+		job: '',
+		city: '',
+		medication: '',
+		antecedent: '',
+		habitude: '',
+	});
 	const [open, setOpen] = React.useState(false);
 
 	useEffect(() => {
@@ -55,6 +64,19 @@ const PatientAffectation = ({
 			notes_consultation:
 				rdv === null || !rdv.notes_consultation ? '' : rdv.notes_consultation,
 		});
+		setFormData({
+			maladie: rdv === null || !rdv.patient.maladie ? '' : rdv.patient.maladie,
+			allergie:
+				rdv === null || !rdv.patient.allergie ? '' : rdv.patient.allergie,
+			job: rdv === null || !rdv.patient.job ? '' : rdv.patient.job,
+			city: rdv === null || !rdv.patient.city ? '' : rdv.patient.city,
+			medication:
+				rdv === null || !rdv.patient.medication ? '' : rdv.patient.medication,
+			antecedent:
+				rdv === null || !rdv.patient.antecedent ? '' : rdv.patient.antecedent,
+			habitude:
+				rdv === null || !rdv.patient.habitude ? '' : rdv.patient.habitude,
+		});
 		// eslint-disable-next-line
 	}, [getRdv, match.params.id, rdv === null]);
 
@@ -62,15 +84,7 @@ const PatientAffectation = ({
 
 	const onChange2 = (e2) =>
 		setFormData2({ ...formData2, [e2.target.name]: e2.target.value });
-	const [formData, setFormData] = useState({
-		maladie: '',
-		allergie: '',
-		job: '',
-		city: '',
-		medication: '',
-		antecedent: '',
-		habitude: '',
-	});
+
 	const {
 		maladie,
 		allergie,
@@ -224,8 +238,8 @@ const PatientAffectation = ({
 												<Form.Group widths='equal'>
 													<Form.Field
 														control={Input}
-														label='Travaille'
-														placeholder='Travaille'
+														label='Travail'
+														placeholder='Travail'
 														name='job'
 														required
 														value={job}
@@ -361,6 +375,7 @@ PatientAffectation.propTypes = {
 const mapStateToProps = (state) => ({
 	doctor: state.doctor,
 	rdv: state.rdv,
+	patient: state.patient,
 });
 
 export default connect(mapStateToProps, {

@@ -40,6 +40,8 @@ const AppTable = ({ getRdvs, rdv: { rdvs }, deleteRdv }) => {
 				<Table striped>
 					<Table.Header>
 						<Table.Row>
+							<Table.HeaderCell></Table.HeaderCell>
+
 							<Table.HeaderCell> Name </Table.HeaderCell>
 							<Table.HeaderCell> Date </Table.HeaderCell>
 							<Table.HeaderCell> Doctor </Table.HeaderCell>
@@ -54,7 +56,13 @@ const AppTable = ({ getRdvs, rdv: { rdvs }, deleteRdv }) => {
 							<Fragment>
 								{rdvs.map((rdv) => (
 									<Table.Row key={rdv._id}>
-										<Table.Cell> {rdv.patient.name} </Table.Cell>
+										<Table.Cell> </Table.Cell>{' '}
+										<Table.Cell>
+											{' '}
+											<Link to={`/patient/${rdv.patient._id}`}>
+												{rdv.patient.name}
+											</Link>{' '}
+										</Table.Cell>
 										<Table.Cell>
 											<Moment format='YYYY/MM/DD | hh:mm'>{rdv.date}</Moment>
 										</Table.Cell>
