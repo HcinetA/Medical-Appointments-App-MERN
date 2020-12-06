@@ -91,8 +91,8 @@ const Newrdv = ({
 
 		phone: '',
 	});
-
 	const { name, date_of_birth, phone } = formData2;
+
 	const onChange2 = (e2) =>
 		setFormData2({ ...formData2, [e2.target.name]: e2.target.value });
 	require('age-calculator');
@@ -102,7 +102,7 @@ const Newrdv = ({
 
 	const onSubmit2 = (e2) => {
 		e2.preventDefault();
-		addPatient(formData2, age);
+		addPatient({ name, date_of_birth, phone, age });
 		setOpen(false);
 	};
 

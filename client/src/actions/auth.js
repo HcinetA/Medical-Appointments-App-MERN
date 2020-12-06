@@ -39,6 +39,7 @@ export const register = ({
 	password,
 	role,
 	color,
+	specialite,
 }) => async (dispatch) => {
 	const config = {
 		headers: {
@@ -54,6 +55,7 @@ export const register = ({
 		password,
 		role,
 		color,
+		specialite,
 	});
 	try {
 		const res = await axios.post('/api/user/register', body, config);

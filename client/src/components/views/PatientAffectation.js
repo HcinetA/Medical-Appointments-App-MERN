@@ -191,14 +191,14 @@ const PatientAffectation = ({
 											value={analyses}
 											onChange={(e2) => onChange2(e2)}
 										/>
-										<Header as='h5'>Radio</Header>
+										{/* <Header as='h5'>Radio</Header>
 										<input
 											type='file'
 											id='file'
 											name='radio'
 											value={radio}
 											onChange={(e2) => onChange2(e2)}
-										/>
+										/> */}
 										<Header as='h5'>Select Doctor</Header>
 										<Form.Field
 											control='select'
