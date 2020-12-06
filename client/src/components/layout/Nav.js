@@ -50,9 +50,6 @@ export const Nav = ({ auth: { isAuthenticated, role_secure }, logout }) => {
 				<Link to='/doctordashboard'>Le Calendrier</Link>
 			</Menu.Item>{' '}
 			<Menu.Item name='features' link={true}>
-				<Link to='/appointments'>Affectation</Link>
-			</Menu.Item>{' '}
-			<Menu.Item name='features' link={true}>
 				<Link to='/consultations'>Consultation</Link>
 			</Menu.Item>{' '}
 			<Menu.Item name='features' link={true}>
