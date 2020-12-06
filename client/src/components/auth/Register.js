@@ -1,14 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
-import {
-	Form,
-	Input,
-	Button,
-	Segment,
-	Tab,
-	Label,
-	Menu,
-} from 'semantic-ui-react';
+import { Form, Input, Button, Segment, Tab } from 'semantic-ui-react';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 import { Redirect } from 'react-router-dom';

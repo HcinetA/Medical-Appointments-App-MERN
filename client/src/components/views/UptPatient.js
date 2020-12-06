@@ -1,5 +1,4 @@
 import React, { useEffect, Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Segment, Form, Input, Loader, Button } from 'semantic-ui-react';
@@ -30,6 +29,7 @@ const UptPatient = ({
 
 			phone: patient === null || !patient.phone ? '' : patient.phone,
 		});
+		// eslint-disable-next-line
 	}, [getPatient, match.params.id, patient === null]);
 
 	const { name, date_of_birth, phone } = formData2;
@@ -42,7 +42,7 @@ const UptPatient = ({
 
 	const onSubmit2 = (e2) => {
 		e2.preventDefault();
-		uptPatient(patient._id, formData2);
+		uptPatient(patient._id, formData2, age);
 	};
 
 	return loading || patient === null ? (

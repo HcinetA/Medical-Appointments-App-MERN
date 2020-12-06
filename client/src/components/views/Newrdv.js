@@ -54,7 +54,7 @@ const Newrdv = ({
 			color: sc.doctor.color,
 		}));
 	}
-
+	// eslint-disable-next-line
 	var pap = [];
 
 	if (rdvs && patients !== null) {
@@ -216,7 +216,7 @@ const Newrdv = ({
 			<Segment raised>
 				<Form onSubmit={(e) => onSubmit(e)}>
 					<Form.Group widths='equal'>
-						{/* <Form.Field
+						<Form.Field
 							label='Select Patient'
 							control='select'
 							name='patient'
@@ -225,11 +225,13 @@ const Newrdv = ({
 						>
 							<option></option>
 							{patients.map((patient) => (
-								<option key = {patient._id} value={patient._id}>{patient.name}</option>
+								<option key={patient._id} value={patient._id}>
+									{patient.name}
+								</option>
 							))}
-						</Form.Field> */}
+						</Form.Field>
 
-						<Form.Field>
+						{/* <Form.Field>
 							<Dropdown
 								id='patient'
 								label='Select Patient'
@@ -246,7 +248,7 @@ const Newrdv = ({
 								}
 								onChange={(e) => onChange(e)}
 							/>
-						</Form.Field>
+						</Form.Field> */}
 
 						<Form.Field
 							label='Select Doctor'
