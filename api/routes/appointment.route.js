@@ -8,19 +8,54 @@ const Appointment = require('../models/appointment.model');
 
 router.get('/', async (req, res) => {
   try {
-    const appointments = await Appointment.find()
-      .populate('patient', [
-        'name',
-        'phone',
-        'allergie',
-        'maladie',
-        'antecedent',
-        'city',
-        'habitude',
-        'job',
-        'medication',
-      ])
-      .populate('doctor');
+    const status = req.query.status;
+    let appointments = [];
+    if (status !== undefined) {
+      if (status === 'false') {
+        appointments = await Appointment.find({ status: false })
+          .populate('patient', [
+            'name',
+            'phone',
+            'allergie',
+            'maladie',
+            'antecedent',
+            'city',
+            'habitude',
+            'job',
+            'medication',
+          ])
+          .populate('doctor');
+      } else if (status === 'true') {
+        appointments = await Appointment.find({ status: true })
+          .populate('patient', [
+            'name',
+            'phone',
+            'allergie',
+            'maladie',
+            'antecedent',
+            'city',
+            'habitude',
+            'job',
+            'medication',
+          ])
+          .populate('doctor');
+      }
+    } else {
+      appointments = await Appointment.find()
+        .populate('patient', [
+          'name',
+          'phone',
+          'allergie',
+          'maladie',
+          'antecedent',
+          'city',
+          'habitude',
+          'job',
+          'medication',
+        ])
+        .populate('doctor');
+    }
+
     res.json(appointments);
   } catch (error) {
     res.status(500).send(error);
@@ -44,7 +79,7 @@ router.get('/:id', async (req, res) => {
       ])
       .populate('doctor');
     res.json(appointment);
-  } catch (err) {
+  } catch (error) {
     res.status(500).send(error);
   }
 });
@@ -56,7 +91,7 @@ router.get('/by_patient_id/:patient_id', async (req, res) => {
       patient: patient_id,
     }).populate('doctor');
     res.json(appointments);
-  } catch (err) {
+  } catch (error) {
     res.status(500).send(error);
   }
 });
@@ -68,7 +103,7 @@ router.get('/doctor/:user_id', async (req, res) => {
       .populate('patient')
       .populate('doctor', ['-password']);
     res.json(appointments);
-  } catch (err) {
+  } catch (error) {
     res.status(500).send(error);
   }
 });
@@ -145,48 +180,6 @@ router.delete('/', async (req, res) => {
   try {
     await Appointment.remove({});
     return res.json('All deleted');
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
-
-router.get('/non_traite', async (req, res) => {
-  try {
-    const appointments = await Appointment.find({ status: false })
-      .populate('patient', [
-        'name',
-        'phone',
-        'allergie',
-        'maladie',
-        'antecedent',
-        'city',
-        'habitude',
-        'job',
-        'medication',
-      ])
-      .populate('doctor');
-    res.json(appointments);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
-
-router.get('/traite', async (req, res) => {
-  try {
-    const appointments = await Appointment.find({ status: true })
-      .populate('patient', [
-        'name',
-        'phone',
-        'allergie',
-        'maladie',
-        'antecedent',
-        'city',
-        'habitude',
-        'job',
-        'medication',
-      ])
-      .populate('doctor');
-    res.json(appointments);
   } catch (error) {
     res.status(500).send(error);
   }
