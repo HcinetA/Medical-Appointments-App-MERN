@@ -128,13 +128,13 @@ const Consultation = ({
 
 						<Grid.Column>
 							<Segment color='yellow'>
-								<Header as='h3'>General data</Header>
+								<Header as='h3'>Données GENERALES</Header>
 								<Form>
 									<Segment color='teal'>
 										<Form.Group widths='equal'>
 											<Form.Field
 												control={Input}
-												label='Patient Name'
+												label='Nom du patient												'
 												placeholder='Name'
 												name='name'
 												readOnly
@@ -145,8 +145,8 @@ const Consultation = ({
 										<Form.Group widths='equal'>
 											<Form.Field
 												control={Input}
-												label='Travaille'
-												placeholder='Travaille'
+												label='Travail'
+												placeholder='Travail'
 												name='travaille'
 												readOnly
 												value={rdv.patient.job}
@@ -260,41 +260,6 @@ const Consultation = ({
 										/>
 									</Segment>
 								</Form>
-							</Segment>
-							<Segment>
-								<Header as='h3'>Patient History</Header>
-								<Comment.Group>
-									<Comment>
-										<Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
-										<Comment.Content>
-											<Comment.Author as='a'>Amin</Comment.Author>
-											<Comment.Metadata>
-												<div>15/10/2020</div>
-											</Comment.Metadata>
-											<Comment.Text>Coiffage</Comment.Text>
-										</Comment.Content>
-									</Comment>
-									<Comment>
-										<Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
-										<Comment.Content>
-											<Comment.Author as='a'>Matt</Comment.Author>
-											<Comment.Metadata>
-												<div>15/10/2020</div>
-											</Comment.Metadata>
-											<Comment.Text>implant</Comment.Text>
-										</Comment.Content>
-									</Comment>
-									<Comment>
-										<Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
-										<Comment.Content>
-											<Comment.Author as='a'>Matt</Comment.Author>
-											<Comment.Metadata>
-												<div>15/10/2020</div>
-											</Comment.Metadata>
-											<Comment.Text>Treatment endo.</Comment.Text>
-										</Comment.Content>
-									</Comment>
-								</Comment.Group>
 							</Segment>
 						</Grid.Column>
 					</Grid.Row>
