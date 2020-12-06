@@ -102,7 +102,7 @@ const Newrdv = ({
 
 	const onSubmit2 = (e2) => {
 		e2.preventDefault();
-		addPatient(formData2);
+		addPatient(formData2, age);
 		setOpen(false);
 	};
 
@@ -225,14 +225,14 @@ const Newrdv = ({
 						>
 							<option></option>
 							{patients.map((patient) => (
-								<option value={patient._id}>{patient.name}</option>
+								<option key = {patient._id} value={patient._id}>{patient.name}</option>
 							))}
 						</Form.Field> */}
 
 						<Form.Field>
 							<Dropdown
 								id='patient'
-								label='Select Doctor'
+								label='Select Patient'
 								control='select'
 								name='patient'
 								search
@@ -259,7 +259,9 @@ const Newrdv = ({
 						>
 							<option></option>
 							{doctors.map((doctor) => (
-								<option value={doctor._id}>DR.{doctor.firstName}</option>
+								<option key={doctor._id} value={doctor._id}>
+									DR.{doctor.firstName}
+								</option>
 							))}
 						</Form.Field>
 					</Form.Group>

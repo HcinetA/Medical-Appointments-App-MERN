@@ -28,6 +28,8 @@ import PaymentsTd from './components/views/PaymentsTd';
 import PatientProfile from './components/views/PatientProfile';
 import Alert from './components/layout/Alert';
 import Dashboard from './components/dashboard/Dashboard';
+import UptPatient from './components/views/UptPatient';
+
 import Doctor2Dash from './components/dashboard/Doctor2Dash';
 
 import DoctorDash from './components/dashboard/DoctorDash';
@@ -72,6 +74,8 @@ const App = () => {
 								component={PatientAffectation}
 							/>
 							<Route exact path='/modifrdv/:id' component={ModifRdv} />
+							<Route exact path='/modifpatient/:id' component={UptPatient} />
+
 							<Route exact path='/payment/:id' component={MakePayment} />
 							<Route exact path='/consultation/:id' component={Consultation} />
 							<Route exact path='/app/:id' component={Aconsultation} />

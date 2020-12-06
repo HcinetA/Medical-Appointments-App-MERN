@@ -86,7 +86,7 @@ export const uptPatient = (id, formData) => async (dispatch) => {
 			payload: res.data,
 		});
 
-		dispatch(setAlert('RDV Created ', 'success'));
+		dispatch(setAlert('Patient Updated', 'success'));
 	} catch (err) {
 		dispatch({
 			type: PATIENT_ERROR,

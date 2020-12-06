@@ -84,7 +84,16 @@ const Patients = ({
 
 							<Table.Cell>
 								<Link to={`/patient/${patient._id}`}>
-									<Button primary> Manage </Button>{' '}
+									<Button basic color='green'>
+										{' '}
+										Manage{' '}
+									</Button>{' '}
+								</Link>{' '}
+								<Link to={`/modifpatient/${patient._id}`}>
+									<Button basic color='blue'>
+										{' '}
+										Modifier{' '}
+									</Button>{' '}
 								</Link>{' '}
 							</Table.Cell>
 						</Table.Row>

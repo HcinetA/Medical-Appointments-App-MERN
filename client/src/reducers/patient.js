@@ -25,6 +25,7 @@ export default function (state = initialState, action) {
 				...state,
 				patients: payload,
 				loading: false,
+				patient: null,
 			};
 		case PATIENTS_ERROR:
 		case PATIENT_ERROR:
