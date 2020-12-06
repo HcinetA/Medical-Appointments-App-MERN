@@ -37,7 +37,7 @@ const Register = ({ setAlert, register, isAuthenticated, role_secure }) => {
 		if (password !== password2) {
 			setAlert('password do not match', 'danger');
 		} else {
-			//	register(formData);
+			register(formData);
 			console.log(formData);
 		}
 	};
