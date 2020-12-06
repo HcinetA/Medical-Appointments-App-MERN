@@ -38,6 +38,7 @@ const PatientAffectation = ({
 		analyses: '',
 		notes_consultation: '',
 		doctor: '',
+		radio: '',
 	});
 	const [formData, setFormData] = useState({
 		maladie: '',
@@ -80,7 +81,14 @@ const PatientAffectation = ({
 		// eslint-disable-next-line
 	}, [getRdv, match.params.id, rdv === null]);
 
-	const { motif, diagnostic, analyses, notes_consultation, doctor } = formData2;
+	const {
+		motif,
+		diagnostic,
+		analyses,
+		notes_consultation,
+		doctor,
+		radio,
+	} = formData2;
 
 	const onChange2 = (e2) =>
 		setFormData2({ ...formData2, [e2.target.name]: e2.target.value });
@@ -123,9 +131,12 @@ const PatientAffectation = ({
 				analyses,
 				notes_consultation,
 				doctor,
+				radio,
 			},
 			history
 		);
+
+		console.log(motif, diagnostic, analyses, notes_consultation, doctor, radio);
 	};
 
 	return loading || rdv === null ? (
@@ -135,7 +146,7 @@ const PatientAffectation = ({
 			<Link to={'/appointments'}>
 				<Button icon labelPosition='left'>
 					<Icon name='left arrow' />
-					Back to Appointment list
+					Retour à la liste de rendez-vous
 				</Button>
 			</Link>
 			<h1 className='large text-primary'>Consultation Externe</h1>
@@ -180,8 +191,16 @@ const PatientAffectation = ({
 											value={analyses}
 											onChange={(e2) => onChange2(e2)}
 										/>
+										<Header as='h5'>Radio</Header>
+										<input
+											type='file'
+											id='file'
+											name='radio'
+											value={radio}
+											onChange={(e2) => onChange2(e2)}
+										/>
+										<Header as='h5'>Select Doctor</Header>
 										<Form.Field
-											label='Select Doctor'
 											control='select'
 											name='doctor'
 											required
@@ -226,7 +245,7 @@ const PatientAffectation = ({
 												<Form.Group widths='equal'>
 													<Form.Field
 														control={Input}
-														label='Patient Name'
+														label='Nom du Patient'
 														placeholder='Name'
 														name='name'
 														required
@@ -246,15 +265,37 @@ const PatientAffectation = ({
 														onChange={(e) => onChange(e)}
 													/>
 													<Form.Field
-														label='Select City'
+														label='Ville'
 														control='select'
 														name='city'
 														required
 														value={city}
 														onChange={(e) => onChange(e)}
 													>
+														<option value='Ariana'>Ariana</option>
+														<option value='Béja'>Béja</option>
+														<option value='Ben Arous'>Ben Arous</option>
+														<option value='Bizerte'>Bizerte</option>
+														<option value='Gabès'>Gabès</option>
+														<option value='Gafsa'>Gafsa</option>
+														<option value='Jendouba'>Jendouba</option>
+														<option value='Kairouan'>Kairouan</option>
+														<option value='Kasserine'>Kasserine</option>
+														<option value='Kebili'>Kebili</option>
+														<option value='Kef'>Kef</option>
+														<option value='Mahdia'>Mahdia</option>
+														<option value='Manouba'>Manouba</option>
+														<option value='Medenine'>Medenine</option>
 														<option value='Monastir'>Monastir</option>
+														<option value='Nabeul'>Nabeul</option>
+														<option value='Sfax'>Sfax</option>
+														<option value='Sidi Bouzid'>Sidi Bouzid</option>
+														<option value='Siliana'>Siliana</option>
 														<option value='Sousse'>Sousse</option>
+														<option value='Tataouine'>Tataouine</option>
+														<option value='Tozeur'>Tozeur</option>
+														<option value='Tunis'>Tunis</option>
+														<option value='Zaghouan'>Zaghouan</option>
 													</Form.Field>
 												</Form.Group>
 											</Segment>
