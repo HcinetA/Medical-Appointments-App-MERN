@@ -143,7 +143,7 @@ const PatientAffectation = ({
 		<Loader active />
 	) : (
 		<Fragment>
-			<Link to={'/appointments'}>
+			<Link to={'/consultations'}>
 				<Button icon labelPosition='left'>
 					<Icon name='left arrow' />
 					Retour à la liste de rendez-vous

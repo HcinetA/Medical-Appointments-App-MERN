@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addPatient, getPatients } from '../../actions/patient';
-import { addRdv, getRdvs } from '../../actions/rdv';
+import { addRdv, getRdvs, getRdvsFalse } from '../../actions/rdv';
 import { getDoctors } from '../../actions/doctor';
 const ConsultationTable = ({
 	getDoctors,
@@ -17,6 +17,7 @@ const ConsultationTable = ({
 	rdv: { rdvs, loading },
 	addRdv,
 	auth,
+	getRdvsFalse,
 }) => {
 	useEffect(() => {
 		getDoctors();
@@ -25,8 +26,8 @@ const ConsultationTable = ({
 		getPatients();
 	}, [getPatients]);
 	useEffect(() => {
-		getRdvs();
-	}, [getRdvs]);
+		getRdvsFalse();
+	}, [getRdvsFalse]);
 
 	return loading || rdvs === null || auth.user === null ? (
 		<Loader active />
@@ -110,6 +111,7 @@ ConsultationTable.propTypes = {
 	rdv: PropTypes.object.isRequired,
 	addRdv: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
+	getRdvsFalse: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -124,4 +126,5 @@ export default connect(mapStateToProps, {
 	getPatients,
 	getRdvs,
 	addRdv,
+	getRdvsFalse,
 })(ConsultationTable);

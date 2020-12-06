@@ -30,7 +30,7 @@ export const getRdvs = () => async (dispatch) => {
 
 export const getRdvsFalse = () => async (dispatch) => {
 	await axios
-		.get('/api/appointment/')
+		.get('/api/appointment/non_traite')
 		.then((res) => {
 			dispatch({
 				type: GET_RDVS,
