@@ -149,7 +149,7 @@ const PatientAffectation = ({
 					Retour à la liste de rendez-vous
 				</Button>
 			</Link>
-			<h1 className='large text-primary'>Consultation Externe</h1>
+			<h1 className='large text-primary'>Consultation </h1>
 
 			<Segment raised>
 				<Grid columns='equal' stackable>
@@ -235,10 +235,10 @@ const PatientAffectation = ({
 									onOpen={() => setOpen(true)}
 									open={open}
 									trigger={
-										<Button positive icon='plus' content='Info genral' />
+										<Button positive icon='plus' content='Fiche Patient' />
 									}
 								>
-									<Modal.Header>Information Génerale</Modal.Header>
+									<Modal.Header>Fiche Patient</Modal.Header>
 									<Modal.Content>
 										<Form onSubmit={(e) => onSubmit(e)}>
 											<Segment color='teal'>

@@ -78,7 +78,7 @@ const Consultation = ({
 			<Link to={'/consultations'}>
 				<Button icon labelPosition='left'>
 					<Icon name='left arrow' />
-					Back to Appointment list
+					Retour à la liste de rendez-vous
 				</Button>
 			</Link>
 			<h1 className='large text-primary'>Consultation</h1>
