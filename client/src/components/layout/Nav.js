@@ -33,7 +33,7 @@ export const Nav = ({ auth: { isAuthenticated, role_secure }, logout }) => {
 			<Menu.Menu position='right'>
 				<Menu.Item>
 					<Button onClick={logout} href='#!' color='red'>
-						logout
+						Se déconnecter
 					</Button>
 				</Menu.Item>
 			</Menu.Menu>
@@ -61,7 +61,7 @@ export const Nav = ({ auth: { isAuthenticated, role_secure }, logout }) => {
 			<Menu.Menu position='right' link={true}>
 				<Menu.Item>
 					<Button onClick={logout} href='#!' color='red'>
-						logout
+						Se déconnecter
 					</Button>
 				</Menu.Item>
 			</Menu.Menu>
@@ -89,7 +89,7 @@ export const Nav = ({ auth: { isAuthenticated, role_secure }, logout }) => {
 			<Menu.Menu position='right' link={true}>
 				<Menu.Item>
 					<Button onClick={logout} href='#!' color='red'>
-						logout
+						Se déconnecter
 					</Button>
 				</Menu.Item>
 			</Menu.Menu>
@@ -105,10 +105,10 @@ export const Nav = ({ auth: { isAuthenticated, role_secure }, logout }) => {
 			<Menu.Menu position='right'>
 				<Menu.Item>
 					<Link to='login'>
-						<Button color='green'>Sign In</Button>
+						<Button color='green'>Se connecter</Button>
 					</Link>
 					<Link to='dokbm'>
-						<Button color='teal'>Sign up</Button>
+						<Button color='teal'>S'inscrire</Button>
 					</Link>
 				</Menu.Item>
 			</Menu.Menu>
