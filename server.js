@@ -22,10 +22,10 @@ app.use('/api/invoice', auth, require('./api/routes/invoice.route'));
 app.use('/forgot', require('./api/routes/forgot.route'));
 app.use('/api/user', require('./api/routes/auth.route'));
 app.use('/api/user', auth, require('./api/routes/user.route'));
-
+app.use('/api/fileUpload', require('./api/routes/fileUpload.route'));
 // serve static assets in production
 app.get('*', (req, res) => {
-	res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 });
 // set static folder
 
