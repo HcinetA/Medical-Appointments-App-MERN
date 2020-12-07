@@ -14,7 +14,7 @@ conn.once('open', () => {
 
 const fileUtils = require('../../utils/fileUpload');
 //Upload images to MongoDB
-router.post('/upload', fileUtils.upload.single('upload'), (req, res) => {
+router.post('/upload', fileUtils.upload.single('radio'), (req, res) => {
   res.json({ file: req.file });
 });
 
