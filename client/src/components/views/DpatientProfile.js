@@ -94,7 +94,6 @@ const DpatientProfile = ({
 							{rdvs.map((rdv) => (
 								<Table.Row>
 									<Table.Cell>1</Table.Cell>
-
 									<Table.Cell>
 										{' '}
 										<Moment format='YYYY/MM/DD | hh:mm'>{rdv.date}</Moment>{' '}
@@ -111,12 +110,19 @@ const DpatientProfile = ({
 										)}
 									</Table.Cell>
 									<Table.Cell>
+										<Link to={`/appointment/${rdv._id}`}>
+											<Button basic color='teal'>
+												{' '}
+												Débuter Consultation{' '}
+											</Button>{' '}
+										</Link>{' '}
 										<Link to={`/consultation/${rdv._id}`}>
-											<Button basic color='blue'>
-												Manage
-											</Button>
-										</Link>
-									</Table.Cell>
+											<Button basic color='green'>
+												{' '}
+												Débuter Traitement{' '}
+											</Button>{' '}
+										</Link>{' '}
+									</Table.Cell>{' '}
 								</Table.Row>
 							))}{' '}
 						</Table.Body>

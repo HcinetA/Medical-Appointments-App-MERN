@@ -200,3 +200,15 @@ export const deleteRdv = (id) => async (dispatch) => {
 		});
 	}
 };
+
+// upload image
+
+export const uploadImage = (upload, relatedObjectId) => async (dispatch) => {
+	await axios
+		.post(' /api/fileUpload/upload', upload, relatedObjectId)
+		.then((res) => {
+			dispatch(setAlert('image uploded  ', 'success'));
+		})
+
+		.catch((error) => console.log('catched error: \n', error));
+};

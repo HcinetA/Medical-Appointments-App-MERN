@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import {
 	TextArea,
 	Grid,
@@ -11,7 +11,10 @@ import {
 	Loader,
 	Icon,
 } from 'semantic-ui-react';
+import request from 'superagent';
+
 import { Link, withRouter } from 'react-router-dom';
+import { useDropzone } from 'react-dropzone';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -38,8 +41,8 @@ const PatientAffectation = ({
 		analyses: '',
 		notes_consultation: '',
 		doctor: '',
-		radio: '',
 	});
+
 	const [formData, setFormData] = useState({
 		maladie: '',
 		allergie: '',
@@ -50,6 +53,7 @@ const PatientAffectation = ({
 		habitude: '',
 	});
 	const [open, setOpen] = React.useState(false);
+	const [open2, setOpen2] = React.useState(false);
 
 	useEffect(() => {
 		getDoctors();
@@ -81,14 +85,7 @@ const PatientAffectation = ({
 		// eslint-disable-next-line
 	}, [getRdv, match.params.id, rdv === null]);
 
-	const {
-		motif,
-		diagnostic,
-		analyses,
-		notes_consultation,
-		doctor,
-		radio,
-	} = formData2;
+	const { motif, diagnostic, analyses, notes_consultation, doctor } = formData2;
 
 	const onChange2 = (e2) =>
 		setFormData2({ ...formData2, [e2.target.name]: e2.target.value });
@@ -120,6 +117,20 @@ const PatientAffectation = ({
 		});
 	};
 
+	const [formData3, setFormData3] = useState({
+		radio: '',
+	});
+	const { radio } = formData3;
+
+	const onChange3 = (e3) =>
+		setFormData3({ ...formData3, [e3.target.name]: e3.target.value });
+	const onSubmit3 = (e3) => {
+		e3.preventDefault();
+		setOpen2(false);
+
+		console.log(rdv._id, radio);
+	};
+
 	const onSubmit2 = (e2) => {
 		e2.preventDefault();
 
@@ -138,6 +149,17 @@ const PatientAffectation = ({
 
 		console.log(motif, diagnostic, analyses, notes_consultation, doctor, radio);
 	};
+	const onDrop = useCallback((radio) => {
+		// Do something with the files
+		console.log(radio);
+		var file = new FormData();
+		file.append('name', radio[0]);
+		var req = request.post('/api/fileUpload/upload').send(file);
+		req.end(function (err, response) {
+			console.log('upload done!!!!!');
+		});
+	}, []);
+	const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
 	return loading || rdv === null ? (
 		<Loader active />
@@ -230,6 +252,27 @@ const PatientAffectation = ({
 						</Grid.Column>
 						<Grid.Column>
 							<Segment color='brown'>
+								<Modal
+									onClose={() => setOpen2(false)}
+									onOpen={() => setOpen2(true)}
+									open={open2}
+									trigger={<Button positive icon='plus' content='Radio' />}
+								>
+									<Modal.Header>radio</Modal.Header>
+									<Modal.Content>
+										<div {...getRootProps()}>
+											<input {...getInputProps()} />
+											{isDragActive ? (
+												<p>Drop the files here ...</p>
+											) : (
+												<p>
+													Drag 'n' drop some files here, or click to select
+													files
+												</p>
+											)}
+										</div>
+									</Modal.Content>
+								</Modal>{' '}
 								<Modal
 									onClose={() => setOpen(false)}
 									onOpen={() => setOpen(true)}
