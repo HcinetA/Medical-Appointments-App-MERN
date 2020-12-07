@@ -208,7 +208,7 @@ const PatientAffectation = ({
 										>
 											{doctors.map((doctor) => (
 												<option value={doctor._id}>
-													DR.{doctor.firstName}
+													DR.{doctor.firstName} | {doctor.specialite}
 												</option>
 											))}
 										</Form.Field>

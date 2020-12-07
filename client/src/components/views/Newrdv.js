@@ -262,7 +262,7 @@ const Newrdv = ({
 							<option></option>
 							{doctors.map((doctor) => (
 								<option key={doctor._id} value={doctor._id}>
-									DR.{doctor.firstName}
+									DR.{doctor.firstName} | {doctor.specialite}
 								</option>
 							))}
 						</Form.Field>
