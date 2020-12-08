@@ -62,7 +62,6 @@ const AppTable = ({ getRdvs, rdv: { rdvs }, deleteRdv }) => {
 											<Link to={`/patient/${rdv.patient._id}`}>
 												{rdv.patient.name}
 											</Link>{' '}
-											{rdv.date}
 										</Table.Cell>
 										<Table.Cell>
 											<Moment
