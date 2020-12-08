@@ -17,6 +17,7 @@ const Dashboard = ({ getRdvs, rdv: { rdvs, loading } }) => {
 	var events = [];
 
 	if (rdvs) {
+		console.log(rdvs);
 		events = rdvs.map((e) => ({
 			title: e.patient.name,
 			date: e.date,
@@ -44,6 +45,7 @@ const Dashboard = ({ getRdvs, rdv: { rdvs, loading } }) => {
 			height='720px'
 			themeSystem='lux'
 			locale={frLocale}
+			timeZone='UTC'
 		/>
 	);
 };

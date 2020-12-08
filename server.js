@@ -4,7 +4,6 @@ const path = require('path');
 
 const app = express();
 const auth = require('./api/middleware/auth');
-
 connectDB();
 
 // Init Middleware
@@ -23,9 +22,16 @@ app.use('/forgot', require('./api/routes/forgot.route'));
 app.use('/api/user', require('./api/routes/auth.route'));
 app.use('/api/user', auth, require('./api/routes/user.route'));
 app.use('/api/fileUpload', require('./api/routes/fileUpload.route'));
+//upload
+app.use(
+	'/uploads',
+	require('./api/routes/uploadRoutes'),
+	express.static(path.join(__dirname, '/uploads'))
+);
+
 // serve static assets in production
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+	res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 });
 // set static folder
 

@@ -44,6 +44,7 @@ const Doctor2Dash = ({ getRdvs, rdv: { rdvs, loading } }) => {
 			height='720px'
 			themeSystem='lux'
 			locale={frLocale}
+			timeZone='UTC'
 		/>
 	);
 };

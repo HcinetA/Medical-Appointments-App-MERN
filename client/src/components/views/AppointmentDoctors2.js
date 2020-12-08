@@ -53,7 +53,10 @@ const AppointmentDoctors2 = ({
 							<Table.Cell> 1 </Table.Cell>{' '}
 							<Table.Cell> {rdv.patient.name} </Table.Cell>{' '}
 							<Table.Cell>
-								<Moment format='YYYY/MM/DD'>{rdv.date}</Moment> | {rdv.time}{' '}
+								<Moment subtract={{ hours: 1 }} format='YYYY/MM/DD'>
+									{rdv.date}
+								</Moment>{' '}
+								| {rdv.time}{' '}
 							</Table.Cell>{' '}
 							<Table.Cell> DR. {rdv.doctor.firstName} </Table.Cell>{' '}
 							<Table.Cell>

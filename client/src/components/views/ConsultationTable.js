@@ -68,7 +68,9 @@ const ConsultationTable = ({
 								</Link>{' '}
 							</Table.Cell>
 							<Table.Cell>
-								<Moment format='YYYY/MM/DD | hh:mm'>{rdv.date}</Moment>
+								<Moment subtract={{ hours: 1 }} format='YYYY/MM/DD | hh:mm'>
+									{rdv.date}
+								</Moment>
 							</Table.Cell>{' '}
 							<Table.Cell> DR. {rdv.doctor.firstName} </Table.Cell>{' '}
 							<Table.Cell>

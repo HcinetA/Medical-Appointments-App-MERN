@@ -62,9 +62,15 @@ const AppTable = ({ getRdvs, rdv: { rdvs }, deleteRdv }) => {
 											<Link to={`/patient/${rdv.patient._id}`}>
 												{rdv.patient.name}
 											</Link>{' '}
+											{rdv.date}
 										</Table.Cell>
 										<Table.Cell>
-											<Moment format='YYYY/MM/DD | hh:mm'>{rdv.date}</Moment>
+											<Moment
+												subtract={{ hours: 1 }}
+												format='YYYY/MM/DD | HH:mm '
+											>
+												{rdv.date}
+											</Moment>
 										</Table.Cell>
 										<Table.Cell> DR. {rdv.doctor.firstName} </Table.Cell>
 										<Table.Cell>
