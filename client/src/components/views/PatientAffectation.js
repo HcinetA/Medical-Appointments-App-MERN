@@ -150,11 +150,11 @@ const PatientAffectation = ({
 		console.log(motif, diagnostic, analyses, notes_consultation, doctor, radio);
 	};
 	const onDrop = useCallback((radio) => {
-		// Do something with the files
 		console.log(radio);
 		var file = new FormData();
 		file.append('name', radio[0]);
-		var req = request.post('/api/fileUpload/upload').send(file);
+		let x = { radio: radio[0], relatedObjectId: 123 };
+		var req = request.post('/api/fileUpload/upload').send(x);
 		req.end(function (err, response) {
 			console.log('upload done!!!!!');
 		});
@@ -252,7 +252,7 @@ const PatientAffectation = ({
 						</Grid.Column>
 						<Grid.Column>
 							<Segment color='brown'>
-								<Modal
+								{/* <Modal
 									onClose={() => setOpen2(false)}
 									onOpen={() => setOpen2(true)}
 									open={open2}
@@ -272,7 +272,7 @@ const PatientAffectation = ({
 											)}
 										</div>
 									</Modal.Content>
-								</Modal>{' '}
+								</Modal>{' '} */}
 								<Modal
 									onClose={() => setOpen(false)}
 									onOpen={() => setOpen(true)}

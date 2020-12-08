@@ -115,7 +115,7 @@ export const uptRdv = (id, formData, history) => async (dispatch) => {
 	await axios
 		.put(`/api/appointment/${id}`, formData, config)
 		.then((res) => {
-			dispatch(setAlert('RDV Created ', 'success'));
+			dispatch(setAlert('RDV updated ', 'success'));
 
 			dispatch({
 				type: UPT_RDV,
@@ -138,12 +138,12 @@ export const uptRdv2 = (id, formData, history) => async (dispatch) => {
 	await axios
 		.put(`/api/appointment/${id}`, formData, config)
 		.then((res) => {
-			dispatch(setAlert('RDV Created ', 'success'));
+			dispatch(setAlert('RDV updated ', 'success'));
 			dispatch({
 				type: UPT_RDV,
 				payload: res.data,
 			});
-			history.push('/appointments');
+			history.push('/consultations');
 		})
 		.catch((error) => console.log('catched error: \n', error));
 };
