@@ -71,7 +71,7 @@ const AppTable = ({ getRdvs, rdv: { rdvs }, deleteRdv }) => {
 												{rdv.date}
 											</Moment>
 										</Table.Cell>
-										<Table.Cell> DR. {rdv.doctor.firstName} </Table.Cell>
+										<Table.Cell> DR {rdv.doctor.firstName} </Table.Cell>
 										<Table.Cell>
 											{rdv.status ? (
 												<Button positive circular icon='check' disabled />
