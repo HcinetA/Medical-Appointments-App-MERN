@@ -1,3 +1,3 @@
 {
-	"mongoURI": "mongodb+srv://admin:admin@kbm.8ynox.mongodb.net/<dbname>?retryWrites=true&w=majority"
+	"mongoURI": "mongodb+srv://admin:admin@cluster0.ywbwv.mongodb.net/<dbname>?retryWrites=true&w=majority"
 }
