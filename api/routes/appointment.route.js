@@ -127,6 +127,7 @@ router.post('/', async (req, res) => {
 			motif: req.body.motif,
 			notes_acte: req.body.notes_acte,
 			notes: req.body.notes,
+			image: req.body.image,
 		};
 		const newAppointment = new Appointment(req.body);
 

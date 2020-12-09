@@ -8,7 +8,6 @@ import {
 	Input,
 	Icon,
 	Loader,
-	Dropdown,
 } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 import FullCalendar from '@fullcalendar/react';
@@ -204,6 +203,7 @@ const Newrdv = ({
 							height='720px'
 							themeSystem='lux'
 							locale={frLocale}
+							timeZone='UTC'
 						/>
 					</Modal.Content>
 					<Modal.Actions>

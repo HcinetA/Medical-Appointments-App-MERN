@@ -58,8 +58,8 @@ export const Nav = ({ auth: { isAuthenticated, role_secure }, logout }) => {
 			<Menu.Item name='features' link={true}>
 				<Link to='/dpatients'>Patients</Link>
 			</Menu.Item>
-			<Menu.Menu position='right' link={true}>
-				<Menu.Item>
+			<Menu.Menu position='right'>
+				<Menu.Item link={true}>
 					<Button onClick={logout} href='#!' color='red'>
 						Se déconnecter
 					</Button>

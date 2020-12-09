@@ -5,7 +5,6 @@ const path = require('path');
 const app = express();
 const auth = require('./api/middleware/auth');
 connectDB();
-
 // Init Middleware
 app.use(express.json({ extended: false }));
 
@@ -22,12 +21,11 @@ app.use('/forgot', require('./api/routes/forgot.route'));
 app.use('/api/user', require('./api/routes/auth.route'));
 app.use('/api/user', auth, require('./api/routes/user.route'));
 app.use('/api/fileUpload', require('./api/routes/fileUpload.route'));
+app.use('/api/upload', require('./api/routes/uploadRoutes'));
 //upload
-app.use(
-	'/uploads',
-	require('./api/routes/uploadRoutes'),
-	express.static(path.join(__dirname, '/uploads'))
-);
+
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+console.log(__dirname);
 
 // serve static assets in production
 app.get('*', (req, res) => {

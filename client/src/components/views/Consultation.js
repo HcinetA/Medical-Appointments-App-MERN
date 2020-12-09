@@ -7,9 +7,10 @@ import {
 	Form,
 	Header,
 	Button,
-	Comment,
 	Icon,
 	Loader,
+	Modal,
+	Image,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
@@ -32,6 +33,8 @@ const Consultation = ({
 	auth,
 	history,
 }) => {
+	const [open2, setOpen2] = React.useState(false);
+
 	const [formData, setFormData] = useState({
 		acte: '',
 
@@ -127,6 +130,19 @@ const Consultation = ({
 						</Grid.Column>
 
 						<Grid.Column>
+							<Modal
+								onClose={() => setOpen2(false)}
+								onOpen={() => setOpen2(true)}
+								open={open2}
+								size='small'
+								trigger={<Button positive icon='plus' content='Radio' />}
+							>
+								<Modal.Header>Radio</Modal.Header>
+								<Modal.Content>
+									<Image size='big ' centered src={rdv.image} />
+								</Modal.Content>
+							</Modal>
+
 							<Segment color='yellow'>
 								<Header as='h3'> Fiche Patient</Header>
 								<Form>
@@ -134,7 +150,7 @@ const Consultation = ({
 										<Form.Group widths='equal'>
 											<Form.Field
 												control={Input}
-												label='Nom du patient												'
+												label='Nom du patient'
 												placeholder='Name'
 												name='name'
 												readOnly

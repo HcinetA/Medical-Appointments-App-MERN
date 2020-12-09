@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useCallback } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import {
 	TextArea,
 	Grid,
@@ -10,11 +10,10 @@ import {
 	Modal,
 	Loader,
 	Icon,
+	Image,
 } from 'semantic-ui-react';
-import request from 'superagent';
 
 import { Link, withRouter } from 'react-router-dom';
-import { useDropzone } from 'react-dropzone';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -23,6 +22,7 @@ import { setAlert } from '../../actions/alert';
 import { uptPatient } from '../../actions/patient';
 import { getRdv, uptRdv2 } from '../../actions/rdv';
 import { getDoctors } from '../../actions/doctor';
+import axios from 'axios';
 
 const PatientAffectation = ({
 	match,
@@ -117,20 +117,6 @@ const PatientAffectation = ({
 		});
 	};
 
-	const [formData3, setFormData3] = useState({
-		radio: '',
-	});
-	const { radio } = formData3;
-
-	const onChange3 = (e3) =>
-		setFormData3({ ...formData3, [e3.target.name]: e3.target.value });
-	const onSubmit3 = (e3) => {
-		e3.preventDefault();
-		setOpen2(false);
-
-		console.log(rdv._id, radio);
-	};
-
 	const onSubmit2 = (e2) => {
 		e2.preventDefault();
 
@@ -142,25 +128,46 @@ const PatientAffectation = ({
 				analyses,
 				notes_consultation,
 				doctor,
-				radio,
 			},
 			history
 		);
 
-		console.log(motif, diagnostic, analyses, notes_consultation, doctor, radio);
+		console.log(motif, diagnostic, analyses, notes_consultation, doctor);
 	};
-	const onDrop = useCallback((radio) => {
-		console.log(radio);
-		var file = new FormData();
-		file.append('name', radio[0]);
-		let x = { radio: radio[0], relatedObjectId: 123 };
-		var req = request.post('/api/fileUpload/upload').send(x);
-		req.end(function (err, response) {
-			console.log('upload done!!!!!');
-		});
-	}, []);
-	const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
+	const [image, setImage] = useState('');
+	const [uploading, setUploading] = useState(false);
+	const uploadFileHandler = async (e3) => {
+		const file = e3.target.files[0];
+		const formData = new FormData();
+		formData.append('image', file);
+		setUploading(true);
+
+		try {
+			const config = {
+				headers: {
+					'Content-Type': 'multipart/form-data',
+				},
+			};
+
+			const { data } = await axios.post('/api/upload', formData, config);
+
+			setImage(data);
+			setUploading(false);
+		} catch (error) {
+			console.error(error);
+			setUploading(false);
+		}
+	};
+
+	const submitHandler = (e3) => {
+		e3.preventDefault();
+		setOpen2(false);
+
+		uptRdv2(rdv._id, {
+			image,
+		});
+	};
 	return loading || rdv === null ? (
 		<Loader active />
 	) : (
@@ -229,7 +236,7 @@ const PatientAffectation = ({
 											onChange={(e2) => onChange2(e2)}
 										>
 											{doctors.map((doctor) => (
-												<option value={doctor._id}>
+												<option key={doctor._id} value={doctor._id}>
 													DR.{doctor.firstName} | {doctor.specialite}
 												</option>
 											))}
@@ -252,27 +259,41 @@ const PatientAffectation = ({
 						</Grid.Column>
 						<Grid.Column>
 							<Segment color='brown'>
-								{/* <Modal
+								<Modal
 									onClose={() => setOpen2(false)}
 									onOpen={() => setOpen2(true)}
 									open={open2}
+									size='small'
 									trigger={<Button positive icon='plus' content='Radio' />}
 								>
-									<Modal.Header>radio</Modal.Header>
+									<Modal.Header>Radio</Modal.Header>
 									<Modal.Content>
-										<div {...getRootProps()}>
-											<input {...getInputProps()} />
-											{isDragActive ? (
-												<p>Drop the files here ...</p>
-											) : (
-												<p>
-													Drag 'n' drop some files here, or click to select
-													files
-												</p>
-											)}
-										</div>
+										<Form onSubmit={submitHandler}>
+											<Form.Field
+												control={Input}
+												name='image'
+												required
+												hidden
+												readOnly
+												style={{ display: 'none' }}
+												value={image}
+												onChange={(e3) => setImage(e3.target.value)}
+											/>
+
+											<input
+												type='file'
+												id='file'
+												name='image'
+												onChange={uploadFileHandler}
+											/>
+											{uploading && <Loader />}
+											<Image size='large' centered src={rdv.image} />
+											<Button positive type='submit'>
+												Submit{' '}
+											</Button>
+										</Form>
 									</Modal.Content>
-								</Modal>{' '} */}
+								</Modal>
 								<Modal
 									onClose={() => setOpen(false)}
 									onOpen={() => setOpen(true)}
@@ -403,39 +424,8 @@ const PatientAffectation = ({
 										</Form>
 									</Modal.Content>
 								</Modal>{' '}
-								{/*<Header as='h3'>Patient History</Header>
-								 <Comment.Group>
-									<Comment>
-										<Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
-										<Comment.Content>
-											<Comment.Author as='a'>Amin</Comment.Author>
-											<Comment.Metadata>
-												<div>15/10/2020</div>
-											</Comment.Metadata>
-											<Comment.Text>Coiffage</Comment.Text>
-										</Comment.Content>
-									</Comment>
-									<Comment>
-										<Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
-										<Comment.Content>
-											<Comment.Author as='a'>Matt</Comment.Author>
-											<Comment.Metadata>
-												<div>15/10/2020</div>
-											</Comment.Metadata>
-											<Comment.Text>implant</Comment.Text>
-										</Comment.Content>
-									</Comment>
-									<Comment>
-										<Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
-										<Comment.Content>
-											<Comment.Author as='a'>Matt</Comment.Author>
-											<Comment.Metadata>
-												<div>15/10/2020</div>
-											</Comment.Metadata>
-											<Comment.Text>Treatment endo.</Comment.Text>
-										</Comment.Content>
-									</Comment>
-								</Comment.Group> */}
+								<Header as='h3'>Note Assistante</Header>
+								<p>{rdv.notes}</p>
 							</Segment>
 						</Grid.Column>
 					</Grid.Row>
