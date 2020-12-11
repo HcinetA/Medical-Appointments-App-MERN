@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
-import { Table, Button, Loader } from 'semantic-ui-react';
+import { Table, Button, Loader, Icon } from 'semantic-ui-react';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -90,6 +90,17 @@ const AppTable = ({ getRdvs, rdv: { rdvs }, deleteRdv }) => {
 													Modifier
 												</Button>
 											</Link>
+											<Button
+												basic
+												animated='vertical'
+												onClick={(e) => deleteRdv(rdv._id)}
+												color='red'
+											>
+												<Button.Content visible>Supprimer</Button.Content>
+												<Button.Content hidden>
+													<Icon name='delete' />
+												</Button.Content>
+											</Button>
 										</Table.Cell>
 									</Table.Row>
 								))}

@@ -51,7 +51,7 @@ export const addRdv = (formData, history) => async (dispatch) => {
 	await axios
 		.post('/api/appointment/', formData, config)
 		.then((res) => {
-			dispatch(setAlert('RDV Created ', 'success'));
+			dispatch(setAlert('RDV créé			', 'success'));
 
 			dispatch({
 				type: ADD_RDV,
@@ -92,7 +92,7 @@ export const modifRdv = (id, formData, history) => async (dispatch) => {
 	await axios
 		.put(`/api/appointment/${id}`, formData, config)
 		.then((res) => {
-			dispatch(setAlert('RDV Created ', 'success'));
+			dispatch(setAlert('RDV créé			', 'success'));
 
 			dispatch({
 				type: UPT_RDV,
@@ -115,7 +115,7 @@ export const uptRdv = (id, formData, history) => async (dispatch) => {
 	await axios
 		.put(`/api/appointment/${id}`, formData, config)
 		.then((res) => {
-			dispatch(setAlert('RDV updated ', 'success'));
+			dispatch(setAlert('RDV mis à jour ', 'success'));
 
 			dispatch({
 				type: UPT_RDV,
@@ -138,7 +138,7 @@ export const uptRdv2 = (id, formData, history) => async (dispatch) => {
 	await axios
 		.put(`/api/appointment/${id}`, formData, config)
 		.then((res) => {
-			dispatch(setAlert('RDV updated ', 'success'));
+			dispatch(setAlert('RDV mis à jour', 'success'));
 			dispatch({
 				type: UPT_RDV,
 				payload: res.data,
@@ -192,7 +192,7 @@ export const deleteRdv = (id) => async (dispatch) => {
 			type: DELETE_RDV,
 			payload: id,
 		});
-		dispatch(setAlert('RDV Delted', 'success'));
+		dispatch(setAlert('RDV supprimé		', 'success'));
 	} catch (err) {
 		dispatch({
 			type: RDVS_ERROR,

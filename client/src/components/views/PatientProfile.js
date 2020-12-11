@@ -237,7 +237,7 @@ const PatientProfile = ({
 									<Header as='h5'>Phone </Header>
 									{patient.phone}
 									<Header as='h5'>Age </Header>
-									<p>27 Ans</p>
+									<p>{patient.age}</p>
 									<Header as='h5'>Travaille </Header>
 									<p>{patient.job}</p>
 									<Header as='h5'>Ville </Header>

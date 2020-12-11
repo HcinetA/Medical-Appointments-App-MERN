@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addPatient, getPatients } from '../../actions/patient';
-import { addRdv, getRdvs } from '../../actions/rdv';
+import { addRdv, getRdvs, deleteRdv } from '../../actions/rdv';
 import { getDoctors } from '../../actions/doctor';
 const AppointmentTable = ({
 	getDoctors,
@@ -17,6 +17,7 @@ const AppointmentTable = ({
 	rdv: { rdvs, loading },
 	addRdv,
 	auth,
+	deleteRdv,
 }) => {
 	useEffect(() => {
 		getDoctors();
@@ -104,6 +105,7 @@ AppointmentTable.propTypes = {
 	rdv: PropTypes.object.isRequired,
 	addRdv: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
+	deleteRdv: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -118,4 +120,5 @@ export default connect(mapStateToProps, {
 	getPatients,
 	getRdvs,
 	addRdv,
+	deleteRdv,
 })(AppointmentTable);
