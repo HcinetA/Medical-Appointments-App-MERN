@@ -44,80 +44,80 @@ import './App.css';
 import setAuthToken from './utils/setAuthToken';
 
 if (localStorage.token) {
-	setAuthToken(localStorage.token);
+  setAuthToken(localStorage.token);
 }
 
 const App = () => {
-	useEffect(() => {
-		store.dispatch(loadUser());
-	}, []);
-	return (
-		<Provider store={store}>
-			<Router>
-				<Fragment>
-					<Nav />
-					<Route exact path='/' component={Landing} />
-					<section className='container'>
-						<Alert />
-						<Switch>
-							<Route exact path='/dokbm' component={Register} />
-							<Route exact path='/paymentstd' component={PaymentsTd} />
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
+  return (
+    <Provider store={store}>
+      <Router>
+        <Fragment>
+          <Nav />
+          <Route exact path='/' component={Landing} />
+          <section className='container'>
+            <Alert />
+            <Switch>
+              <Route exact path='/dokbm' component={Register} />
+              <Route exact path='/paymentstd' component={PaymentsTd} />
 
-							<Route exact path='/login' component={Login} />
-							<Route exact path='/newrdv' component={Newrdv} />
-							<Route exact path='/newpatient' component={NewPatientRdv} />
-							<Route exact path='/appointments' component={AppointmentTable} />
-							<Route exact path='/apps' component={AppTable} />
-							<Route
-								exact
-								path='/appointment/:id'
-								component={PatientAffectation}
-							/>
-							<Route exact path='/modifrdv/:id' component={ModifRdv} />
-							<Route exact path='/modifpatient/:id' component={UptPatient} />
+              <Route exact path='/login' component={Login} />
+              <Route exact path='/newrdv' component={Newrdv} />
+              <Route exact path='/newpatient' component={NewPatientRdv} />
+              <Route exact path='/appointments' component={AppointmentTable} />
+              <Route exact path='/apps' component={AppTable} />
+              <Route
+                exact
+                path='/appointment/:id'
+                component={PatientAffectation}
+              />
+              <Route exact path='/modifrdv/:id' component={ModifRdv} />
+              <Route exact path='/modifpatient/:id' component={UptPatient} />
 
-							<Route exact path='/payment/:id' component={MakePayment} />
-							<Route exact path='/consultation/:id' component={Consultation} />
-							<Route exact path='/app/:id' component={Aconsultation} />
-							<Route exact path='/patient/:id' component={PatientProfile} />
-							<Route exact path='/dcpatient/:id' component={DcpatientProfile} />
-							<Route exact path='/dpatient/:id' component={DpatientProfile} />
-							<Route exact path='/aptd/:id' component={AppointmetsDoctor} />
-							<Route exact path='/aptd2/:id' component={AppointmentDoctors2} />
+              <Route exact path='/payment/:id' component={MakePayment} />
+              <Route exact path='/consultation/:id' component={Consultation} />
+              <Route exact path='/app/:id' component={Aconsultation} />
+              <Route exact path='/patient/:id' component={PatientProfile} />
+              <Route exact path='/dcpatient/:id' component={DcpatientProfile} />
+              <Route exact path='/dpatient/:id' component={DpatientProfile} />
+              <Route exact path='/aptd/:id' component={AppointmetsDoctor} />
+              <Route exact path='/aptd2/:id' component={AppointmentDoctors2} />
 
-							<Route
-								exact
-								path='/consultations'
-								component={ConsultationTable}
-							/>
+              <Route
+                exact
+                path='/consultations'
+                component={ConsultationTable}
+              />
 
-							<Route exact path='/payments' component={PaymentsTable} />
-							<Route exact path='/patients' component={Patients} />
-							<Route exact path='/dcpatients' component={Dcpatients} />
+              <Route exact path='/payments' component={PaymentsTable} />
+              <Route exact path='/patients' component={Patients} />
+              <Route exact path='/dcpatients' component={Dcpatients} />
 
-							<Route exact path='/dpatients' component={Dpatients} />
+              <Route exact path='/dpatients' component={Dpatients} />
 
-							<PrivateRoute
-								exact
-								path='/assistantedashboard'
-								component={Dashboard}
-							/>
-							<PrivateRoute
-								exact
-								path='/doctordashboard'
-								component={DoctorDash}
-							/>
-							<PrivateRoute
-								exact
-								path='/cdoctordashboard'
-								component={Doctor2Dash}
-							/>
-						</Switch>
-					</section>
-				</Fragment>
-			</Router>
-		</Provider>
-	);
+              <PrivateRoute
+                exact
+                path='/assistantedashboard'
+                component={Dashboard}
+              />
+              <PrivateRoute
+                exact
+                path='/doctordashboard'
+                component={DoctorDash}
+              />
+              <PrivateRoute
+                exact
+                path='/cdoctordashboard'
+                component={Doctor2Dash}
+              />
+            </Switch>
+          </section>
+        </Fragment>
+      </Router>
+    </Provider>
+  );
 };
 
 export default App;
