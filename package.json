@@ -14,14 +14,14 @@
 		"type": "git",
 		"url": "git+https://github.com/HcinetA/medgest.git"
 	},
-	"author": "Trillium Agencys",
+	"author": "Amin hcinet",
 	"license": "ISC",
 	"bugs": {
 		"url": "https://github.com/HcinetA/medgest/issues"
 	},
 	"homepage": "https://github.com/HcinetA/medgest#readme",
 	"dependencies": {
-		"apidoc": "^0.25.0",
+		"apidoc": "^0.53.1",
 		"async": "^3.2.0",
 		"bcryptjs": "^2.4.3",
 		"body-parser": "^1.19.0",
@@ -34,13 +34,13 @@
 		"gravatar": "^1.8.1",
 		"gridfs-stream": "^1.1.1",
 		"grunt-apidoc": "^0.11.0",
-		"jade": "^1.11.0",
-		"jsonwebtoken": "^8.5.1",
+		"jade": "^1.9.2",
+		"jsonwebtoken": "^9.0.0",
 		"mongoose": "^5.12.4",
 		"mongoose-autopopulate": "^0.12.2",
 		"morgan": "^1.10.0",
-		"multer": "^1.4.2",
-		"multer-gridfs-storage": "^4.2.0",
+		"multer": "^1.3.0",
+		"multer-gridfs-storage": "^1.3.0",
 		"nodemailer": "^6.4.13",
 		"request": "^2.88.2"
 	},
